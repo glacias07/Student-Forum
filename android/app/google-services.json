@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "393671606142",
+    "project_id": "student-forum-57d6b",
+    "storage_bucket": "student-forum-57d6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393671606142:android:f2a56756d8f261f9ce7d2f",
+        "android_client_info": {
+          "package_name": "com.gg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393671606142-e26ko4ccusck6j4c8lfnfjmt32ai9ks3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7OSuQsJMiWJJl8NpX2V3FA4WPauab0no"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393671606142-e26ko4ccusck6j4c8lfnfjmt32ai9ks3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
