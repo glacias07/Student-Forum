@@ -81,7 +81,7 @@ const PostScreen = ({navigation}) => {
           style: 'cancel',
         },
         {
-          text: 'Confirm',
+          text: 'Confirma',
           onPress: () => deletePost(postId),
         },
       ],
