@@ -39,7 +39,6 @@ const PostDetails = ({route}) => {
         alignItems: 'center',
       }}>
       {route.params.download_url ? (
-        <TouchableOpacity onPress={() => console.log(imageHeight, imageWidth)}>
           <Image
             style={{
               resizeMode: 'contain',
@@ -50,7 +49,6 @@ const PostDetails = ({route}) => {
             }}
             source={{uri: route.params.download_url}}
           />
-        </TouchableOpacity>
       ) : null}
       <Text>{route.params.post_title}</Text>
       <Text>{route.params.post_content}</Text>
