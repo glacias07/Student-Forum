@@ -6,7 +6,7 @@ const Tab1 = () => {
   return (
     <View>
       <Text style={{fontSize: 30, fontWeight: 'bold'}}>Chat</Text>
-      <Text>Work in progress</Text>
+      <Text>Tested</Text>
     </View>
   );
 };
