@@ -80,10 +80,9 @@ const PostDetails = ({route}) => {
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             const {comments} = doc.data();
-            console.log('This is fetch ',comments)
+            console.log('This is fetch ', comments);
             // list=comments.map(item=>list.push(item))
-            list=[...comments]
-  
+            list = [...comments];
           });
         });
       setPostComment(list);
@@ -92,13 +91,13 @@ const PostDetails = ({route}) => {
     }
   };
 
-  const submitPostComment = (Comment) => {
+  const submitPostComment = Comment => {
     // updatePostComments(
     //   [...comment, {comment: postComment, username: 'Amodh Pandey'}],
     //   route.params.post_id,
     // );
 
-    console.log(postComment)
+    console.log(postComment);
   };
 
   useEffect(() => {
@@ -107,7 +106,7 @@ const PostDetails = ({route}) => {
         ? getImageSize(route.params.download_url)
         : null;
     }
-    fetctCommentArray()
+    fetctCommentArray();
   }, []);
 
   return (
@@ -126,7 +125,7 @@ const PostDetails = ({route}) => {
             }}>
             <CustomText
               text={route.params.username}
-              textWeight={400}
+              textWeight={200}
               textSize={16}
             />
             <CustomText
@@ -135,45 +134,55 @@ const PostDetails = ({route}) => {
                 ' ' +
                 route.params.post_time.toDate().toLocaleTimeString()
               }
-              textWeight={400}
-              textSize={13}
+              textWeight={100}
+              textSize={12}
             />
           </View>
-          <CustomText
-            text={route.params.post_title}
-            textWeight={500}
-            textSize={20}
-          />
-          {route.params.download_url ? (
-            <Image
-              style={{
-                resizeMode: 'contain',
-                height: undefined,
-                width: '100%',
-                aspectRatio: aspect(imageHeight, imageWidth),
-                backgroundColor: 'black',
-              }}
-              source={{uri: route.params.download_url}}
+          <View style={{margin:10,marginTop:-3}}>
+            <CustomText
+              text={route.params.post_title}
+              textWeight={700}
+              textSize={25}
             />
+          </View>
+          {route.params.download_url ? (
+            <View style={{marginLeft: 10}}>
+              <Image
+                style={{
+                  resizeMode: 'contain',
+                  height: 300,
+                  width: 300,
+                  aspectRatio: aspect(imageHeight, imageWidth),
+                  borderRadius: 10,
+                }}
+                source={{uri: route.params.download_url}}
+              />
+            </View>
           ) : null}
-
-          <CustomText
-            text={route.params.post_content}
-            textSize={20}
-            textWeight={500}
-          />
+          <View style={{marginLeft: 10,marginBottom:10}}>
+            <CustomText
+              text={route.params.post_content}
+              textSize={20}
+              textWeight={500}
+            />
+          </View>
         </View>
         {/*Comment FlatList */}
-        <FlatList
-          data={dataComments}
-          renderItem={item => (
-            <Comment
-              username={item.username}
-              comment={item.comment}
-              createdAt={item.createdAt}
-            />
-          )}
-        />
+        <View style={{backgroundColor: '#fff3d9'}}>
+          <View style={{marginLeft: 20}}>
+            <CustomText text="Comments" textSize={20} textWeight={900} />
+          </View>
+          <FlatList
+            data={dataComments}
+            renderItem={item => (
+              <Comment
+                username={item.username}
+                comment={item.comment}
+                createdAt={item.createdAt}
+              />
+            )}
+          />
+        </View>
       </ScrollView>
 
       <View
