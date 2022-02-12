@@ -43,7 +43,7 @@ const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
-  const [postComment, setPostComment] = useState();
+  const [postComment, setPostComment] = useState([]);
   const {updatePostComments} = useContext(AuthContext);
 
   const getImageSize = url => {
@@ -71,7 +71,7 @@ const PostDetails = ({route}) => {
 
   const fetctCommentArray = async () => {
     try {
-      const list = [];
+      var list = [];
 
       await firestore()
         .collection('posts')
@@ -80,7 +80,10 @@ const PostDetails = ({route}) => {
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             const {comments} = doc.data();
+            console.log('This is fetch ',comments)
+            // list=comments.map(item=>list.push(item))
             list=[...comments]
+  
           });
         });
       setPostComment(list);
