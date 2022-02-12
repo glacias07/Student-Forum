@@ -6,9 +6,37 @@ import {
   Image,
   View,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {AuthContext} from '../routes/AuthProvider';
-import {CustomText, FormInput, PostComponent} from './common';
+import {CustomText, Comment} from './common';
+
+const dataComments = [
+  {
+    id: '1',
+    username: 'ajdnj23748',
+    comment: 'Hi this is cool',
+    createdAt: '4-7-22',
+  },
+  {
+    id: '2',
+    username: 'ajdnj23748',
+    comment: 'Hi this is not cool, ok bye',
+    createdAt: '4-7-22',
+  },
+  {
+    id: '3',
+    username: 'ajdnj23748',
+    comment: 'Hi this is cool',
+    createdAt: '4-7-22',
+  },
+  {
+    id: '4',
+    username: 'ajdnj23748',
+    comment: 'Hi this is you  Hi this is you Hi this is you ',
+    createdAt: '4-7-22',
+  },
+];
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -46,44 +74,58 @@ const PostDetails = ({route}) => {
 
   return (
     <>
-      <ScrollView
-        contentContainerStyle={{
-          justifyContent: 'center',
-          backgroundColor: 'white',
-        }}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between',padding: 10}}>
+      <ScrollView>
+        <View
+          contentContainerStyle={{
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: 10,
+            }}>
+            <CustomText
+              text={route.params.username}
+              textWeight={400}
+              textSize={16}
+            />
+            <CustomText
+              text={
+                route.params.post_time.toDate().toLocaleDateString() +
+                ' ' +
+                route.params.post_time.toDate().toLocaleTimeString()
+              }
+              textWeight={400}
+              textSize={13}
+            />
+          </View>
           <CustomText
-            text={route.params.username}
-            textWeight={400}
-            textSize={16}
-          />
-          <CustomText
-            text={route.params.post_time.toDate().toLocaleDateString() + ' ' + route.params.post_time.toDate().toLocaleTimeString()}
-            textWeight={400}
-            textSize={13}
-          />
-        </View>
-        <CustomText
             text={route.params.post_title}
             textWeight={500}
             textSize={20}
           />
-        {route.params.download_url ? (
-          <Image
-            style={{
-              resizeMode: 'contain',
-              height: undefined,
-              width: '100%',
-              aspectRatio: aspect(imageHeight, imageWidth),
-              backgroundColor: 'black',
-            }}
-            source={{uri: route.params.download_url}}
-          />
-        ) : null}
+          {route.params.download_url ? (
+            <Image
+              style={{
+                resizeMode: 'contain',
+                height: undefined,
+                width: '100%',
+                aspectRatio: aspect(imageHeight, imageWidth),
+                backgroundColor: 'black',
+              }}
+              source={{uri: route.params.download_url}}
+            />
+          ) : null}
 
-        <CustomText text={route.params.post_content} textSize={20} textWeight={500} />
-        {/* <Text>{route.params.post_content}</Text> */}
-        {/* <Text>Post made by {route.params.username}</Text>
+          <CustomText
+            text={route.params.post_content}
+            textSize={20}
+            textWeight={500}
+          />
+          {/* <Text>{route.params.post_content}</Text> */}
+          {/* <Text>Post made by {route.params.username}</Text>
         <Text>
           Post made on {route.params.post_time.toDate().toDateString()}
         </Text>
@@ -96,7 +138,20 @@ const PostDetails = ({route}) => {
         <Text>
           Post made at {route.params.post_time.toDate().toLocaleTimeString()}
         </Text> */}
+        </View>
+        {/*Comment FlatList */}
+        <FlatList
+          data={dataComments}
+          renderItem={item => (
+            <Comment
+              username={item.username}
+              comment={item.comment}
+              createdAt={item.createdAt}
+            />
+          )}
+        />
       </ScrollView>
+
       <View
         style={{
           flexDirection: 'row',
