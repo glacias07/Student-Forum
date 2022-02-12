@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
+import firestore from '@react-native-firebase/firestore';
 
 const dataComments = [
   {
@@ -68,8 +69,33 @@ const PostDetails = ({route}) => {
     }
   };
 
-  const submitPostComment = (postComment) => {
-    updatePostComments({'comment': postComment, 'username': 'Amodh Pandey'}, route.params.post_id)
+  const fetctCommentArray = async () => {
+    try {
+      const list = [];
+
+      await firestore()
+        .collection('posts')
+        .where('postTitle', '==', route.params.post_title)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const {comments} = doc.data();
+            list=[...comments]
+          });
+        });
+      setPostComment(list);
+    } catch (error) {
+      console.log('Error while fetching comments', error);
+    }
+  };
+
+  const submitPostComment = (Comment) => {
+    // updatePostComments(
+    //   [...comment, {comment: postComment, username: 'Amodh Pandey'}],
+    //   route.params.post_id,
+    // );
+
+    console.log(postComment)
   };
 
   useEffect(() => {
@@ -78,6 +104,7 @@ const PostDetails = ({route}) => {
         ? getImageSize(route.params.download_url)
         : null;
     }
+    fetctCommentArray()
   }, []);
 
   return (
@@ -156,7 +183,7 @@ const PostDetails = ({route}) => {
           onChangeText={comment => setPostComment(comment)}
           style={{borderColor: 'black', borderWidth: 1, flex: 4}}
         />
-        <TouchableOpacity onPress={()=>submitPostComment(postComment)}>
+        <TouchableOpacity onPress={() => submitPostComment(postComment)}>
           <CustomText
             text="post"
             textWeight={500}
