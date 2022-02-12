@@ -54,6 +54,21 @@ export const AuthProvider = ({children}) => {
               );
             });
         },
+        updatePostComments: async (comments,post_id) => {
+          firestore()
+            .collection('posts')
+            .doc(post_id)
+            .update({
+              comments
+            })
+            .then(() => {
+              console.log('Post Comments Updated!');
+              Alert.alert(
+                'Comment Updated!',
+                'Your profile has been updated successfully.',
+              );
+            });
+        },
         updateUserPostsDetails: async (doc_id,username) => {
           console.log('executing updateUserPostsDetails');
           firestore()
@@ -83,11 +98,31 @@ export const AuthProvider = ({children}) => {
               postTitle: postTitle,
               postContent: postContent,
               postTime: firestore.Timestamp.fromDate(new Date()),
-              likes: null,
-              comments: null,
+              comments: [],
             })
             .then(() => {
               console.log('Post Added');
+            })
+            .catch(e => {
+              console.log('Error in the firestore: ', e);
+            });
+        },
+        submitComment: async (
+          commentid,
+          userid,
+          username,
+          comment,
+        ) => {
+          firestore()
+            .collection('comments')
+            .add({
+              userId: userid,
+              username: username,
+              comment: comment,
+              commentTime: firestore.Timestamp.fromDate(new Date()),
+            })
+            .then(() => {
+              console.log('Comment Added');
             })
             .catch(e => {
               console.log('Error in the firestore: ', e);

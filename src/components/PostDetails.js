@@ -42,6 +42,9 @@ const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
+  const [postComment, setPostComment] = useState();
+  const {updatePostComments} = useContext(AuthContext);
+
   const getImageSize = url => {
     Image.getSize(
       url,
@@ -64,6 +67,11 @@ const PostDetails = ({route}) => {
       return 3 / 2;
     }
   };
+
+  const submitPostComment = (postComment) => {
+    updatePostComments({'comment': postComment, 'username': 'Amodh Pandey'}, route.params.post_id)
+  };
+
   useEffect(() => {
     {
       route.params.download_url
@@ -124,20 +132,6 @@ const PostDetails = ({route}) => {
             textSize={20}
             textWeight={500}
           />
-          {/* <Text>{route.params.post_content}</Text> */}
-          {/* <Text>Post made by {route.params.username}</Text>
-        <Text>
-          Post made on {route.params.post_time.toDate().toDateString()}
-        </Text>
-        <Text>
-          Post made on {route.params.post_time.toDate().toLocaleDateString()}
-        </Text>
-        <Text>
-          Post made at {route.params.post_time.toDate().toTimeString()}
-        </Text>
-        <Text>
-          Post made at {route.params.post_time.toDate().toLocaleTimeString()}
-        </Text> */}
         </View>
         {/*Comment FlatList */}
         <FlatList
@@ -158,8 +152,11 @@ const PostDetails = ({route}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <TextInput style={{borderColor: 'black', borderWidth: 1, flex: 4}} />
-        <TouchableOpacity onPress={console.log('h')}>
+        <TextInput
+          onChangeText={comment => setPostComment(comment)}
+          style={{borderColor: 'black', borderWidth: 1, flex: 4}}
+        />
+        <TouchableOpacity onPress={()=>submitPostComment(postComment)}>
           <CustomText
             text="post"
             textWeight={500}
