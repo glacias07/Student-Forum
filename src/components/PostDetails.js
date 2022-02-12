@@ -1,6 +1,14 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {Text, View,ScrollView, Image, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  TextInput,
+  ScrollView,
+  Image,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import {AuthContext} from '../routes/AuthProvider';
+import {CustomText, FormInput} from './common';
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -29,39 +37,55 @@ const PostDetails = ({route}) => {
     }
   };
   useEffect(() => {
-    {route.params.download_url?getImageSize(route.params.download_url):null}
+    {
+      route.params.download_url
+        ? getImageSize(route.params.download_url)
+        : null;
+    }
   }, []);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      {route.params.download_url ? (
+    <>
+      <ScrollView
+        contentContainerStyle={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {route.params.download_url ? (
           <Image
             style={{
               resizeMode: 'contain',
               height: undefined,
               width: '100%',
-              aspectRatio: aspect(imageHeight,imageWidth),
+              aspectRatio: aspect(imageHeight, imageWidth),
               backgroundColor: 'black',
             }}
             source={{uri: route.params.download_url}}
           />
-      ) : null}
-      <Text>{route.params.post_title}</Text>
-      <Text>{route.params.post_content}</Text>
-      <Text>Post made by {route.params.username}</Text>
-      <Text>Post made on {route.params.post_time.toDate().toDateString()}</Text>
-      <Text>
-        Post made on {route.params.post_time.toDate().toLocaleDateString()}
-      </Text>
-      <Text>Post made at {route.params.post_time.toDate().toTimeString()}</Text>
-      <Text>
-        Post made at {route.params.post_time.toDate().toLocaleTimeString()}
-      </Text>
-    </ScrollView>
+        ) : null}
+        <Text>{route.params.post_title}</Text>
+        <Text>{route.params.post_content}</Text>
+        <Text>Post made by {route.params.username}</Text>
+        <Text>
+          Post made on {route.params.post_time.toDate().toDateString()}
+        </Text>
+        <Text>
+          Post made on {route.params.post_time.toDate().toLocaleDateString()}
+        </Text>
+        <Text>
+          Post made at {route.params.post_time.toDate().toTimeString()}
+        </Text>
+        <Text>
+          Post made at {route.params.post_time.toDate().toLocaleTimeString()}
+        </Text>
+      </ScrollView>
+      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
+        <TextInput style={{borderColor: 'black', borderWidth: 1, flex: 4}} />
+        <TouchableOpacity onPress={console.log('h')}>
+          <CustomText text="post" textWeight= {500} textSize={20} style={{flex: 1, marginLeft: 20}} />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
