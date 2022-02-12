@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {AuthContext} from '../routes/AuthProvider';
-import {CustomText, FormInput} from './common';
+import {CustomText, FormInput, PostComponent} from './common';
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -49,8 +49,25 @@ const PostDetails = ({route}) => {
       <ScrollView
         contentContainerStyle={{
           justifyContent: 'center',
-          alignItems: 'center',
+          backgroundColor: 'white',
         }}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around',}}>
+          <CustomText
+            text={route.params.username}
+            textWeight={400}
+            textSize={16}
+          />
+          <CustomText
+            text={route.params.post_time.toDate().toLocaleDateString() + ' ' + route.params.post_time.toDate().toLocaleTimeString()}
+            textWeight={400}
+            textSize={13}
+          />
+        </View>
+        <CustomText
+            text={route.params.post_title}
+            textWeight={500}
+            textSize={20}
+          />
         {route.params.download_url ? (
           <Image
             style={{
@@ -63,9 +80,10 @@ const PostDetails = ({route}) => {
             source={{uri: route.params.download_url}}
           />
         ) : null}
-        <Text>{route.params.post_title}</Text>
-        <Text>{route.params.post_content}</Text>
-        <Text>Post made by {route.params.username}</Text>
+
+        <CustomText text={route.params.post_content} textSize={20} textWeight={500} />
+        {/* <Text>{route.params.post_content}</Text> */}
+        {/* <Text>Post made by {route.params.username}</Text>
         <Text>
           Post made on {route.params.post_time.toDate().toDateString()}
         </Text>
@@ -77,12 +95,22 @@ const PostDetails = ({route}) => {
         </Text>
         <Text>
           Post made at {route.params.post_time.toDate().toLocaleTimeString()}
-        </Text>
+        </Text> */}
       </ScrollView>
-      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems: 'center'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <TextInput style={{borderColor: 'black', borderWidth: 1, flex: 4}} />
         <TouchableOpacity onPress={console.log('h')}>
-          <CustomText text="post" textWeight= {500} textSize={20} style={{flex: 1, marginLeft: 20}} />
+          <CustomText
+            text="post"
+            textWeight={500}
+            textSize={20}
+            style={{flex: 1, marginLeft: 20}}
+          />
         </TouchableOpacity>
       </View>
     </>
