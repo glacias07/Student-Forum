@@ -51,7 +51,7 @@ const PostDetails = ({route}) => {
           justifyContent: 'center',
           backgroundColor: 'white',
         }}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around',}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between',padding: 10}}>
           <CustomText
             text={route.params.username}
             textWeight={400}
