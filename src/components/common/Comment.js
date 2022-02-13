@@ -1,11 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const Comment = ({
-  user = '847288AGV',
-  comment = 'This is me Hello This is me Hello This is me Hello This is me Hello This is me Hello ',
-  comment_time = '4-7-21',
-}) => {
+const Comment = ({user, comment, comment_time}) => {
   const {container, username, text, time} = styles;
   return (
     <View style={container}>
