@@ -59,13 +59,13 @@ export const AuthProvider = ({children}) => {
             .collection('posts')
             .doc(post_id)
             .update({
-              comments
+              comments: comments
             })
             .then(() => {
               console.log('Post Comments Updated!');
               Alert.alert(
                 'Comment Updated!',
-                'Your profile has been updated successfully.',
+                'Your comment has been posted successfully.',
               );
             });
         },
