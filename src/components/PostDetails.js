@@ -12,32 +12,32 @@ import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 
-const dataComments = [
-  {
-    id: '1',
-    username: 'ajdnj23748',
-    comment: 'Hi this is cool',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '2',
-    username: 'ajdnj23748',
-    comment: 'Hi this is not cool, ok bye',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '3',
-    username: 'ajdnj23748',
-    comment: 'Hi this is cool',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '4',
-    username: 'ajdnj23748',
-    comment: 'Hi this is you  Hi this is you Hi this is you ',
-    createdAt: '4-7-22',
-  },
-];
+// const dataComments = [
+//   {
+//     id: '1',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is cool',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '2',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is not cool, ok bye',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '3',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is cool',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '4',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is you  Hi this is you Hi this is you ',
+//     createdAt: '4-7-22',
+//   },
+// ];
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -177,12 +177,12 @@ const PostDetails = ({route}) => {
             <CustomText text="Comments" textSize={20} textWeight={900} />
           </View>
           <FlatList
-            data={dataComments}
+            data={postCommentList}
             renderItem={item => (
               <Comment
                 username={item.username}
                 comment={item.comment}
-                createdAt={item.createdAt}
+                createdAt={item.time}
               />
             )}
           />
