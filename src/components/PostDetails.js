@@ -188,7 +188,9 @@ const PostDetails = ({route}) => {
               <Comment
                 user={item.item.username}
                 comment={item.item.comment}
-                comment_time={item.item.comment_time}
+                comment_time={moment
+                  .unix(item.item.comment_time)
+                  .format('MM/DD/YYYY')}
               />
             )}
           />
