@@ -2,14 +2,14 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 const Comment = ({
-  username = '847288AGV',
+  user = '847288AGV',
   comment = 'This is me Hello This is me Hello This is me Hello This is me Hello This is me Hello ',
   comment_time = '4-7-21',
 }) => {
   const {container, username, text, time} = styles;
   return (
     <View style={container}>
-      <Text style={username}>{username}</Text>
+      <Text style={username}>{user}</Text>
       <Text style={text}>{comment}</Text>
       <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
         <Text style={time}>{comment_time}</Text>
