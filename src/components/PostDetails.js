@@ -46,6 +46,7 @@ const PostDetails = ({route}) => {
   const [imageWidth, setImageWidth] = useState();
   const [postComment, setPostComment] = useState();
   const [postCommentList, setPostCommentList] = useState([]);
+
   const {updatePostComments} = useContext(AuthContext);
 
   const getImageSize = url => {
@@ -100,13 +101,14 @@ const PostDetails = ({route}) => {
         ...postCommentList,
         {
           comment: Comment,
-          username: 'Amodh Pandey',
+          username: user.uid,
           comment_time: moment().format(),
         },
       ],
       route.params.post_id,
     );
     setPostComment('');
+    
     // console.log(postComment);
   };
 
@@ -206,6 +208,7 @@ const PostDetails = ({route}) => {
         <TextInput
           onChangeText={comment => setPostComment(comment)}
           style={{borderColor: 'black', borderWidth: 1, flex: 4}}
+          value={postComment}
         />
         <TouchableOpacity onPress={() => submitPostComment(postComment)}>
           <CustomText
