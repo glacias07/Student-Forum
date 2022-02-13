@@ -69,10 +69,10 @@ const PostDetails = ({route}) => {
     }
   };
 
+  var list = [];
+
   const fetctCommentArray = async () => {
     try {
-      var list = [];
-
       await firestore()
         .collection('posts')
         .where('postTitle', '==', route.params.post_title)
@@ -92,10 +92,10 @@ const PostDetails = ({route}) => {
   };
 
   const submitPostComment = Comment => {
-    // updatePostComments(
-    //   [...comment, {comment: postComment, username: 'Amodh Pandey'}],
-    //   route.params.post_id,
-    // );
+    updatePostComments(
+      [...postComment, {comment: Comment, username: 'Amodh Pandey'}],
+      route.params.post_id,
+    );
 
     console.log(postComment);
   };
@@ -138,7 +138,7 @@ const PostDetails = ({route}) => {
               textSize={12}
             />
           </View>
-          <View style={{margin:10,marginTop:-3}}>
+          <View style={{margin: 10, marginTop: -3}}>
             <CustomText
               text={route.params.post_title}
               textWeight={700}
@@ -159,7 +159,7 @@ const PostDetails = ({route}) => {
               />
             </View>
           ) : null}
-          <View style={{marginLeft: 10,marginBottom:10}}>
+          <View style={{marginLeft: 10, marginBottom: 10}}>
             <CustomText
               text={route.params.post_content}
               textSize={20}
