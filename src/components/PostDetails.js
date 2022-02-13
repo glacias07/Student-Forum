@@ -184,16 +184,13 @@ const PostDetails = ({route}) => {
           </View>
           <FlatList
             data={postCommentList}
-            renderItem={item => {
-              {
-                console.log('This is log comment',item.item);
-              }
+            renderItem={item => (
               <Comment
-                username={item.item.username}
+                user={item.item.username}
                 comment={item.item.comment}
-                createdAt={item.item.time}
-              />;
-            }}
+                comment_time={item.item.comment_time}
+              />
+            )}
           />
         </View>
       </ScrollView>
