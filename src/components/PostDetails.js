@@ -11,33 +11,34 @@ import {
 import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
 
-const dataComments = [
-  {
-    id: '1',
-    username: 'ajdnj23748',
-    comment: 'Hi this is cool',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '2',
-    username: 'ajdnj23748',
-    comment: 'Hi this is not cool, ok bye',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '3',
-    username: 'ajdnj23748',
-    comment: 'Hi this is cool',
-    createdAt: '4-7-22',
-  },
-  {
-    id: '4',
-    username: 'ajdnj23748',
-    comment: 'Hi this is you  Hi this is you Hi this is you ',
-    createdAt: '4-7-22',
-  },
-];
+// const dataComments = [
+//   {
+//     id: '1',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is cool',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '2',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is not cool, ok bye',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '3',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is cool',
+//     createdAt: '4-7-22',
+//   },
+//   {
+//     id: '4',
+//     username: 'ajdnj23748',
+//     comment: 'Hi this is you  Hi this is you Hi this is you ',
+//     createdAt: '4-7-22',
+//   },
+// ];
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -93,15 +94,20 @@ const PostDetails = ({route}) => {
   };
 
   const submitPostComment = Comment => {
-    // var c = [...postComment, {comment: Comment, username: 'Amodh Pandey'}];
-    // updatePostComments({comment: Comment, username: 'Amodh Pandey'}, route.params.post_id);
-    console.log('Fetch List', postCommentList);
+    //  console.log('Fetch List', postCommentList);
     updatePostComments(
-      [...postCommentList, {comment: Comment, username: 'Amodh Pandey'}],
+      [
+        ...postCommentList,
+        {
+          comment: Comment,
+          username: 'Amodh Pandey',
+          comment_time: moment().format(),
+        },
+      ],
       route.params.post_id,
     );
     setPostComment('');
-    console.log(postComment);
+    // console.log(postComment);
   };
 
   useEffect(() => {
@@ -177,14 +183,17 @@ const PostDetails = ({route}) => {
             <CustomText text="Comments" textSize={20} textWeight={900} />
           </View>
           <FlatList
-            data={dataComments}
-            renderItem={item => (
+            data={postCommentList}
+            renderItem={item => {
+              {
+                console.log('This is log comment',item.item);
+              }
               <Comment
-                username={item.username}
-                comment={item.comment}
-                createdAt={item.createdAt}
-              />
-            )}
+                username={item.item.username}
+                comment={item.item.comment}
+                createdAt={item.item.time}
+              />;
+            }}
           />
         </View>
       </ScrollView>
