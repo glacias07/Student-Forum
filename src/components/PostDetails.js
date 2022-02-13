@@ -11,6 +11,7 @@ import {
 import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
 
 // const dataComments = [
 //   {
@@ -93,15 +94,20 @@ const PostDetails = ({route}) => {
   };
 
   const submitPostComment = Comment => {
-    // var c = [...postComment, {comment: Comment, username: 'Amodh Pandey'}];
-    // updatePostComments({comment: Comment, username: 'Amodh Pandey'}, route.params.post_id);
-    console.log('Fetch List', postCommentList);
+    //  console.log('Fetch List', postCommentList);
     updatePostComments(
-      [...postCommentList, {comment: Comment, username: 'Amodh Pandey'}],
+      [
+        ...postCommentList,
+        {
+          comment: Comment,
+          username: 'Amodh Pandey',
+          comment_time: moment().format(),
+        },
+      ],
       route.params.post_id,
     );
     setPostComment('');
-    console.log(postComment);
+    // console.log(postComment);
   };
 
   useEffect(() => {
@@ -178,13 +184,16 @@ const PostDetails = ({route}) => {
           </View>
           <FlatList
             data={postCommentList}
-            renderItem={item => (
+            renderItem={item => {
+              {
+                console.log('This is log comment',item.item);
+              }
               <Comment
-                username={item.username}
-                comment={item.comment}
-                createdAt={item.time}
-              />
-            )}
+                username={item.item.username}
+                comment={item.item.comment}
+                createdAt={item.item.time}
+              />;
+            }}
           />
         </View>
       </ScrollView>
