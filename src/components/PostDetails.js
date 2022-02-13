@@ -43,7 +43,8 @@ const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
-  const [postComment, setPostComment] = useState([]);
+  const [postComment, setPostComment] = useState();
+  const [postCommentList, setPostCommentList] = useState([]);
   const {updatePostComments} = useContext(AuthContext);
 
   const getImageSize = url => {
@@ -85,18 +86,21 @@ const PostDetails = ({route}) => {
             list = [...comments];
           });
         });
-      setPostComment(list);
+      setPostCommentList(list);
     } catch (error) {
       console.log('Error while fetching comments', error);
     }
   };
 
   const submitPostComment = Comment => {
+    // var c = [...postComment, {comment: Comment, username: 'Amodh Pandey'}];
+    // updatePostComments({comment: Comment, username: 'Amodh Pandey'}, route.params.post_id);
+    console.log('Fetch List', postCommentList);
     updatePostComments(
-      [...postComment, {comment: Comment, username: 'Amodh Pandey'}],
+      [...postCommentList, {comment: Comment, username: 'Amodh Pandey'}],
       route.params.post_id,
     );
-
+    setPostComment('');
     console.log(postComment);
   };
 
@@ -107,7 +111,7 @@ const PostDetails = ({route}) => {
         : null;
     }
     fetctCommentArray();
-  }, []);
+  }, [postComment]);
 
   return (
     <>
