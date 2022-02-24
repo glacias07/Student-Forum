@@ -119,7 +119,7 @@ const PostDetails = (props) => {
           {
             comment_id: user.uid + moment().format(),
             comment: Comment,
-            username: user.uid,
+            username: username,
             comment_time: moment().format(),
           },
         ],
@@ -213,7 +213,7 @@ const PostDetails = (props) => {
                 <Comment
                   deleteOnPress={handleDelete}
                   comment_id={item.item.comment_id}
-                  nameOfUser={username}
+                  nameOfUser={item.item.username}
                   comment={item.item.comment}
                   comment_time={moment(item.item.comment_time).format(
                     'MM/DD/YYYY',
