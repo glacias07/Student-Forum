@@ -36,9 +36,8 @@ const PostCard = ({
       underlayColor={'transparent'}
       onPress={cardOnPress}>
       <View style={styles.flatListStyle}>
-      <View style={{paddingHorizontal: 10, width: '100%'}}>
-
-      <View
+        <View style={{paddingHorizontal: 10, width: '100%'}}>
+          <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -51,7 +50,7 @@ const PostCard = ({
                 height: 40,
                 borderRadius: 780,
                 flex: 2,
-                resizeMode: 'contain'
+                resizeMode: 'contain',
               }}
               source={require('../../assets/images/profile.png')}
             />
@@ -79,7 +78,7 @@ const PostCard = ({
                   alignSelf: 'center',
                   alignItems: 'center',
                   padding: 10,
-                  marginBottom:30,
+                  marginBottom: 30,
                 }}>
                 <CustomText
                   textColor="#00000080"
@@ -165,16 +164,12 @@ const PostCard = ({
                 ) : null}
               </MenuOptions>
             </Menu>
-          </View> 
-
-
-
-
-      </View>
+          </View>
+        </View>
         {imageUrl ? (
           <Image
             style={{
-              marginTop:10,
+              marginTop: 10,
               borderRadius: 10,
               marginBottom: 20,
               resizeMode: 'cover',
@@ -192,134 +187,6 @@ const PostCard = ({
             text={postTitle}
             style={{marginBottom: 30}}
           />
-
-          {/* <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 10,
-              flex: 1,
-            }}>
-            <Image
-              style={{
-                width: 55,
-                height: 55,
-                borderRadius: 150 / 2,
-                flex: 2,
-                resizeMode: 'contain'
-              }}
-              source={require('../../assets/images/profile.png')}
-            />
-            <View style={{marginLeft: 15, flex: 7}}>
-              <CustomText
-                textColor="#00000080"
-                textSize={16}
-                textWeight={500}
-                numberOfLines={2}
-                text={username}
-              />
-              <CustomText
-                textColor="#000000"
-                textSize={14}
-                textWeight={400}
-                numberOfLines={2}
-                text={moment(postDate.toDate()).fromNow()}
-                style={{marginTop: 5}}
-              />
-            </View>
-            <Menu style={{flex: 1}}>
-              <MenuTrigger
-                style={{
-                  width: '200%',
-                  alignSelf: 'center',
-                  alignItems: 'center',
-                  padding: 10,
-                }}>
-                <CustomText
-                  textColor="#00000080"
-                  textSize={22}
-                  textWeight={700}
-                  text=".."
-                />
-              </MenuTrigger>
-              <MenuOptions
-                optionsContainerStyle={{
-                  borderRadius: 10,
-                  // flex: 1,
-                }}
-                style={{
-                  padding: 15,
-                }}>
-                <MenuOption
-                  onSelect={() =>
-                    console.log('Share function yet to be developed')
-                  }>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      padding: 5,
-                    }}>
-                    <Image
-                      source={require('../../assets/icons/share.png')}
-                      style={{
-                        width: 20,
-                        height: 20,
-                        marginRight: 12,
-                        tintColor: '#868686',
-                      }}
-                    />
-                    <CustomText text="Share" textColor="#000000" />
-                  </View>
-                </MenuOption>
-                {user.uid === userId ? (
-                  <MenuOption
-                    onSelect={() =>
-                      console.log('Edit function yet to be developed')
-                    }>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        padding: 5,
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/edit.png')}
-                        style={{
-                          width: 20,
-                          height: 20,
-                          marginRight: 12,
-                          tintColor: '#868686',
-                        }}
-                      />
-                      <CustomText text="Edit" textColor="#000000" />
-                    </View>
-                  </MenuOption>
-                ) : null}
-                {user.uid === userId ? (
-                  <MenuOption onSelect={() => deleteOnPress(postId)}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        padding: 5,
-                      }}>
-                      <Image
-                        source={require('../../assets/icons/bin.png')}
-                        style={{
-                          width: 20,
-                          height: 20,
-                          marginRight: 12,
-                          tintColor: '#d91c45',
-                        }}
-                      />
-                      <CustomText text="Delete" textColor="#d91c45" />
-                    </View>
-                  </MenuOption>
-                ) : null}
-              </MenuOptions>
-            </Menu>
-          </View> */}
         </View>
       </View>
     </TouchableHighlight>

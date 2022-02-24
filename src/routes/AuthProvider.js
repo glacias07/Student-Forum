@@ -54,12 +54,12 @@ export const AuthProvider = ({children}) => {
               );
             });
         },
-        updatePostComments: async (comments,post_id) => {
+        updatePostComments: async (updatedComments,post_id) => {
           firestore()
             .collection('posts')
             .doc(post_id)
             .update({
-              comments: comments
+              comments: updatedComments
             })
             .then(() => {
               console.log('Post Comments Updated!');

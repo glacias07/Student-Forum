@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {
-  Text,
+  Alert,
   TextInput,
   ScrollView,
   Image,
@@ -12,33 +12,6 @@ import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
-
-// const dataComments = [
-//   {
-//     id: '1',
-//     username: 'ajdnj23748',
-//     comment: 'Hi this is cool',
-//     createdAt: '4-7-22',
-//   },
-//   {
-//     id: '2',
-//     username: 'ajdnj23748',
-//     comment: 'Hi this is not cool, ok bye',
-//     createdAt: '4-7-22',
-//   },
-//   {
-//     id: '3',
-//     username: 'ajdnj23748',
-//     comment: 'Hi this is cool',
-//     createdAt: '4-7-22',
-//   },
-//   {
-//     id: '4',
-//     username: 'ajdnj23748',
-//     comment: 'Hi this is you  Hi this is you Hi this is you ',
-//     createdAt: '4-7-22',
-//   },
-// ];
 
 const PostDetails = ({route}) => {
   const {user} = useContext(AuthContext);
@@ -93,22 +66,66 @@ const PostDetails = ({route}) => {
       console.log('Error while fetching comments', error);
     }
   };
-
-  const submitPostComment = Comment => {
-    //  console.log('Fetch List', postCommentList);
-    updatePostComments(
+  const handleDelete = commentId => {
+    Alert.alert(
+      'Delete Comment',
+      'Are you sure?',
       [
-        ...postCommentList,
         {
-          comment: Comment,
-          username: user.uid,
-          comment_time: moment().format(),
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deleteComment(commentId),
         },
       ],
-      route.params.post_id,
+      {cancelable: false},
     );
+  };
+  const removeByAttr = (arr, attr, value) => {
+    var i = arr.length;
+    while (i--) {
+      if (
+        arr[i] &&
+        arr[i].hasOwnProperty(attr) &&
+        arguments.length > 2 &&
+        arr[i][attr] === value
+      ) {
+        arr.splice(i, 1);
+      }
+    }
+    console.log('after removing', arr);
+    setPostCommentList(arr);
+    return arr;
+  };
+  const deleteComment = (commentId) => {
+    updateComments('no comments', commentId);
+  };
+  const updateComments = (Comment, commentId) => {
+    if (Comment == 'no comments') {
+      removeByAttr(postCommentList, 'comment_id', commentId);
+      // updateComments(
+      //   postCommentList,
+      //   route.params.post_id,
+      // );
+    } else {
+      updatePostComments(
+        [
+          ...postCommentList,
+          {
+            comment_id: user.uid + moment().format(),
+            comment: Comment,
+            username: user.uid,
+            comment_time: moment().format(),
+          },
+        ],
+        route.params.post_id,
+      );
+    }
     setPostComment('');
-    
+
     // console.log(postComment);
   };
 
@@ -119,7 +136,7 @@ const PostDetails = ({route}) => {
         : null;
     }
     fetctCommentArray();
-  }, [postComment]);
+  }, []);
 
   return (
     <>
@@ -179,7 +196,7 @@ const PostDetails = ({route}) => {
             />
           </View>
         </View>
-        {/*Comment FlatList */}
+        {/* Comment FlatList  */}
         <View style={{backgroundColor: '#fff3d9'}}>
           <View style={{marginLeft: 20}}>
             <CustomText text="Comments" textSize={20} textWeight={900} />
@@ -187,13 +204,20 @@ const PostDetails = ({route}) => {
           <FlatList
             data={postCommentList}
             renderItem={item => (
-              <Comment
-                user={item.item.username}
-                comment={item.item.comment}
-                comment_time={moment(item.item.comment_time).format(
-                  'MM/DD/YYYY',
-                )}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(postCommentList);
+                }}>
+                <Comment
+                  deleteOnPress={handleDelete}
+                  comment_id={item.item.comment_id}
+                  user={item.item.username}
+                  comment={item.item.comment}
+                  comment_time={moment(item.item.comment_time).format(
+                    'MM/DD/YYYY',
+                  )}
+                />
+              </TouchableOpacity>
             )}
           />
         </View>
@@ -210,7 +234,7 @@ const PostDetails = ({route}) => {
           style={{borderColor: 'black', borderWidth: 1, flex: 4}}
           value={postComment}
         />
-        <TouchableOpacity onPress={() => submitPostComment(postComment)}>
+        <TouchableOpacity onPress={() => updateComments(postComment)}>
           <CustomText
             text="post"
             textWeight={500}
