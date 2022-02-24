@@ -1,5 +1,6 @@
 import React from 'react';
 import {useEffect, useState, useContext} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   StyleSheet,
   Image,
@@ -11,12 +12,21 @@ import {
 import {CustomText, PostCard} from './common';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {AuthContext} from '../routes/AuthProvider';
+import {connect} from 'react-redux';
+import {usernameSet} from '../actions/PostScreenActions';
 
 const PostScreen = ({navigation}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
+  const [userDetails, setUserDetails] = useState([]);
+  const [tempUsername,setTempUsername]=useState()
+  const {user} = useContext(AuthContext);
 
+  const dispatch = useDispatch();
+
+  const {username} = useSelector(state => state);
   const fetchPosts = async () => {
     try {
       const list = [];
@@ -65,6 +75,10 @@ const PostScreen = ({navigation}) => {
   };
 
   useEffect(() => {
+    fetchUserDetails();
+    // console.log(userDetails[0]["username"])
+    // usernameSet(userDetails[0].username)
+    // dispatch(usernameSet(userDetails[0]["username"]));
     fetchPosts();
     navigation.addListener('focus', () => setLoading(!loading));
     setDeleted(false);
@@ -133,6 +147,38 @@ const PostScreen = ({navigation}) => {
       });
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const list = [];
+
+      await firestore()
+        .collection('userDetails')
+        .where('userId', '==', user.uid)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const {userId, username, bio, workplace, designation} = doc.data();
+            list.push({
+              userId,
+              username,
+              bio,
+              workplace,
+              designation,
+            });
+          });
+        });
+      setUserDetails(list);
+      console.log(userDetails)
+      // setTempUsername(userDetails[0]["username"])
+
+      if (loading) {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log('Error while fetching User Details', error);
+    }
+  };
+
   return (
     <View
       style={{
@@ -172,7 +218,8 @@ const PostScreen = ({navigation}) => {
       <TouchableOpacity
         activeOpacity={0.65}
         onPress={() => {
-          navigation.navigate('Create Screen');
+          // navigation.navigate('Create Screen');
+          console.log('redux usernamme', username);
         }}
         style={styles.postbtn}>
         <Image
@@ -211,4 +258,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostScreen;
+// const mapStateToProps = state => {
+//   console.log('Global State=', state);
+//   return {
+//     test: state.postListing.username,
+//   };
+// };
+
+export default connect(null, {usernameSet})(PostScreen);
