@@ -20,6 +20,7 @@ export const postTitleChange = text => {
 };
 
 export const postContentChange = text => {
+  console.log("Action -",text)
   return {
     type: POST_CONTENT,
     payload: text,
@@ -27,8 +28,16 @@ export const postContentChange = text => {
 };
 
 export const usernameSet = text => dispatch => {
+  console.log("Action  ",text)
   dispatch({
     type: USERNAME_SET,
     payload: text,
   });
 };
+
+// export const usernameSet = text => {
+//   return {
+//     type: USERNAME_SET,
+//     payload: text,
+//   };
+// };

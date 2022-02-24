@@ -12,8 +12,10 @@ import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
+import {connect} from 'react-redux'
 
-const PostDetails = ({route}) => {
+const PostDetails = (props) => {
+  const {route,username}=props
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
@@ -211,7 +213,7 @@ const PostDetails = ({route}) => {
                 <Comment
                   deleteOnPress={handleDelete}
                   comment_id={item.item.comment_id}
-                  user={item.item.username}
+                  nameOfUser={username}
                   comment={item.item.comment}
                   comment_time={moment(item.item.comment_time).format(
                     'MM/DD/YYYY',
@@ -246,5 +248,10 @@ const PostDetails = ({route}) => {
     </>
   );
 };
-
-export default PostDetails;
+const mapStateToProps=state=>{
+  console.log("Inside post -",state)
+  return{
+    username:state.postListing.username
+  }
+}
+export default connect(mapStateToProps,{})( PostDetails);

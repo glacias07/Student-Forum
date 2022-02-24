@@ -16,17 +16,17 @@ import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {usernameSet} from '../actions/PostScreenActions';
 
-const PostScreen = ({navigation}) => {
+const PostScreen = (props) => {
+  const{navigation,usernameSet,username}=props
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
-  const [tempUsername,setTempUsername]=useState()
+  const [tempUsername, setTempUsername] = useState();
   const {user} = useContext(AuthContext);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const {username} = useSelector(state => state);
   const fetchPosts = async () => {
     try {
       const list = [];
@@ -76,9 +76,7 @@ const PostScreen = ({navigation}) => {
 
   useEffect(() => {
     fetchUserDetails();
-    // console.log(userDetails[0]["username"])
-    // usernameSet(userDetails[0].username)
-    // dispatch(usernameSet(userDetails[0]["username"]));
+ 
     fetchPosts();
     navigation.addListener('focus', () => setLoading(!loading));
     setDeleted(false);
@@ -168,8 +166,10 @@ const PostScreen = ({navigation}) => {
           });
         });
       setUserDetails(list);
-      console.log(userDetails)
-      // setTempUsername(userDetails[0]["username"])
+      console.log('User Details', userDetails);
+      usernameSet(userDetails[0].username)
+
+     
 
       if (loading) {
         setLoading(false);
@@ -178,7 +178,7 @@ const PostScreen = ({navigation}) => {
       console.log('Error while fetching User Details', error);
     }
   };
-
+ 
   return (
     <View
       style={{
@@ -218,8 +218,9 @@ const PostScreen = ({navigation}) => {
       <TouchableOpacity
         activeOpacity={0.65}
         onPress={() => {
-          // navigation.navigate('Create Screen');
-          console.log('redux usernamme', username);
+          navigation.navigate('Create Screen');
+        // usernameSet(userDetails[0].username)
+        // console.log('redux usernamme', username);
         }}
         style={styles.postbtn}>
         <Image
@@ -258,11 +259,14 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = state => {
-//   console.log('Global State=', state);
-//   return {
-//     test: state.postListing.username,
-//   };
-// };
+const mapStateToProps = state => {
+  console.log('Global State=', state);
+  return {
+    username: state.postListing.username,
+  };
+};
 
-export default connect(null, {usernameSet})(PostScreen);
+
+
+
+export default connect(mapStateToProps,{usernameSet})(PostScreen);
