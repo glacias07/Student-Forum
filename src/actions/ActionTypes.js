@@ -6,3 +6,4 @@
 // export const WORKPLACE_CHANGE = 'workplace_change';
 // export const DESIGNATION_CHANGE = 'designation_change';
 export const USERNAME_SET='username_set'
+export const USERID_SET='userid_set'

@@ -12,10 +12,10 @@ import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
-const PostDetails = (props) => {
-  const {route,username}=props
+const PostDetails = props => {
+  const {route, username, userId} = props;
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
@@ -86,36 +86,28 @@ const PostDetails = (props) => {
       {cancelable: false},
     );
   };
-  const removeByCommentId = (arr, attr, value) => {
-    const newArr=arr.filter(obj=>obj.comment_id!=value)
-    console.log('after removing', newArr);
-    setPostCommentList(newArr)
-    updatePostComments(newArr,route.params.post_id)
+  const removeByCommentId = value => {
+    const newArr = postCommentList.filter(obj => obj.comment_id != value);
+    setPostCommentList(newArr);
+    updatePostComments(newArr, route.params.post_id);
   };
-  const deleteComment = (commentId) => {
-    updateComments('no comments', commentId);
+  const deleteComment = commentId => {
+    removeByCommentId(commentId);
   };
-  const updateComments = (Comment, commentId) => {
-    if (Comment == 'no comments') {
-      removeByCommentId(postCommentList, 'comment_id', commentId);
-      // updateComments(
-      //   postCommentList,
-      //   route.params.post_id,
-      // );
-    } else {
-      updatePostComments(
-        [
-          ...postCommentList,
-          {
-            comment_id: user.uid + moment().format(),
-            comment: Comment,
-            username: username,
-            comment_time: moment().format(),
-          },
-        ],
-        route.params.post_id,
-      );
-    }
+  const submitComment = Comment => {
+    updatePostComments(
+      [
+        ...postCommentList,
+        {
+          comment_id: user.uid + moment().format(),
+          comment: Comment,
+          username: username,
+          comment_time: moment().format(),
+        },
+      ],
+      route.params.post_id,
+    );
+
     setPostComment('');
 
     // console.log(postComment);
@@ -201,6 +193,7 @@ const PostDetails = (props) => {
                   console.log(postCommentList);
                 }}>
                 <Comment
+                  comment_user_id={userId}
                   deleteOnPress={handleDelete}
                   comment_id={item.item.comment_id}
                   nameOfUser={item.item.username}
@@ -226,7 +219,7 @@ const PostDetails = (props) => {
           style={{borderColor: 'black', borderWidth: 1, flex: 4}}
           value={postComment}
         />
-        <TouchableOpacity onPress={() => updateComments(postComment)}>
+        <TouchableOpacity onPress={() => submitComment(postComment)}>
           <CustomText
             text="post"
             textWeight={500}
@@ -238,10 +231,12 @@ const PostDetails = (props) => {
     </>
   );
 };
-const mapStateToProps=state=>{
-  console.log("Inside post -",state)
-  return{
-    username:state.postListing.username
-  }
-}
-export default connect(mapStateToProps,{})( PostDetails);
+const mapStateToProps = state => {
+  // console.log('Inside post -', state);
+  console.log('Inside post user id -', state.postListing.userid);
+  return {
+    username: state.postListing.username,
+    userId: state.postListing.userid,
+  };
+};
+export default connect(mapStateToProps, {})(PostDetails);

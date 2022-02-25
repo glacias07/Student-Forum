@@ -14,7 +14,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
-import {usernameSet} from '../actions/PostScreenActions';
+import {usernameSet, useridSet} from '../actions/PostScreenActions';
 
 const PostScreen = ({navigation,usernameSet}) => {
   const [posts, setPosts] = useState(null);
@@ -162,7 +162,7 @@ const PostScreen = ({navigation,usernameSet}) => {
           });
         });
       usernameSet(list[0].username)
-
+      useridSet(list[0].userId)
      
 
       if (loading) {
@@ -263,4 +263,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps,{usernameSet})(PostScreen);
+export default connect(mapStateToProps,{usernameSet, useridSet})(PostScreen);
