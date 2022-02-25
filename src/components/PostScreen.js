@@ -16,13 +16,10 @@ import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {usernameSet} from '../actions/PostScreenActions';
 
-const PostScreen = (props) => {
-  const{navigation,usernameSet,username}=props
+const PostScreen = ({navigation,usernameSet}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const [userDetails, setUserDetails] = useState([]);
-  const [tempUsername, setTempUsername] = useState();
   const {user} = useContext(AuthContext);
 
   // const dispatch = useDispatch();
@@ -76,7 +73,6 @@ const PostScreen = (props) => {
 
   useEffect(() => {
     fetchUserDetails();
- 
     fetchPosts();
     navigation.addListener('focus', () => setLoading(!loading));
     setDeleted(false);
@@ -165,9 +161,7 @@ const PostScreen = (props) => {
             });
           });
         });
-      setUserDetails(list);
-      console.log('User Details', userDetails);
-      usernameSet(userDetails[0].username)
+      usernameSet(list[0].username)
 
      
 

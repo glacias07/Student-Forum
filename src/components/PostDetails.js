@@ -138,7 +138,7 @@ const PostDetails = (props) => {
         : null;
     }
     fetctCommentArray();
-  }, []);
+  }, [postComment]);
 
   return (
     <>
