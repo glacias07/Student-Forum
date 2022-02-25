@@ -195,6 +195,7 @@ const PostDetails = props => {
                 <Comment
                   comment_user_id={userId}
                   deleteOnPress={handleDelete}
+                  checkUsername={username}
                   comment_id={item.item.comment_id}
                   nameOfUser={item.item.username}
                   comment={item.item.comment}

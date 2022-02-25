@@ -161,6 +161,7 @@ const PostScreen = ({navigation,usernameSet}) => {
             });
           });
         });
+      console.log("User details ",list)
       usernameSet(list[0].username)
       useridSet(list[0].userId)
      

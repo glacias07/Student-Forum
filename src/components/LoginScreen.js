@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
     <KeyboardAvoidingView behavior='position' style={styles.container}>
       <View style={{alignSelf: 'center'}}>
         <Image
-          source={require('../assets/images/student-forum.png')}
+          source={require('../assets/images/splash.png')}
           style={styles.logo}
         />
         <CustomText
