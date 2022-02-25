@@ -86,28 +86,18 @@ const PostDetails = (props) => {
       {cancelable: false},
     );
   };
-  const removeByAttr = (arr, attr, value) => {
-    var i = arr.length;
-    while (i--) {
-      if (
-        arr[i] &&
-        arr[i].hasOwnProperty(attr) &&
-        arguments.length > 2 &&
-        arr[i][attr] === value
-      ) {
-        arr.splice(i, 1);
-      }
-    }
-    console.log('after removing', arr);
-    setPostCommentList(arr);
-    return arr;
+  const removeByCommentId = (arr, attr, value) => {
+    const newArr=arr.filter(obj=>obj.comment_id!=value)
+    console.log('after removing', newArr);
+    setPostCommentList(newArr)
+    updatePostComments(newArr,route.params.post_id)
   };
   const deleteComment = (commentId) => {
     updateComments('no comments', commentId);
   };
   const updateComments = (Comment, commentId) => {
     if (Comment == 'no comments') {
-      removeByAttr(postCommentList, 'comment_id', commentId);
+      removeByCommentId(postCommentList, 'comment_id', commentId);
       // updateComments(
       //   postCommentList,
       //   route.params.post_id,
