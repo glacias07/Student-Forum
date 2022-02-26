@@ -13,7 +13,7 @@ const ChatItem = props => {
   const {id, userName, userImg, messageTime, messageText, navigation, style} =
     props;
   return (
-    <View>
+    <View style={{borderBottomWidth:0.2}}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('Personal Message', {username: userName})
