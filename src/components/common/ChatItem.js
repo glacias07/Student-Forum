@@ -10,12 +10,15 @@ import {
 import {CustomText} from './';
 
 const ChatItem = props => {
-  const {id, userName, userImg, messageTime, messageText, navigation} = props;
+  const {id, userName, userImg, messageTime, messageText, navigation, style} =
+    props;
   return (
     <View>
       <TouchableOpacity
-        onPress={()=>navigation.navigate('Personal Message',{username:userName})}
-        style={styles.container}>
+        onPress={() =>
+          navigation.navigate('Personal Message', {username: userName})
+        }
+        style={[styles.container, style]}>
         <Image source={{uri: userImg}} style={styles.avatar} />
         <View style={styles.midContainer}>
           <Text style={styles.username}>{userName}</Text>
@@ -24,7 +27,7 @@ const ChatItem = props => {
           </Text>
         </View>
 
-        <Text style={styles.time}>{messageTime}</Text>
+          <Text style={styles.time}>{messageTime}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -36,10 +39,9 @@ const styles = StyleSheet.create({
     width: '70%',
     justifyContent: 'center',
     alignSelf: 'center',
-    padding: 10,
-    marginHorizontal: 30,
+    padding: 20,
   },
-  midContainer: {justifyContent: 'center',},
+  midContainer: {justifyContent: 'space-evenly'},
   avatar: {
     height: 60,
     width: 60,
@@ -57,7 +59,6 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 14,
     color: 'grey',
-    // marginRight:100
   },
 });
 
