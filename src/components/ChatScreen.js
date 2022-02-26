@@ -49,10 +49,10 @@ const data = [
 const ChatScreen = ({navigation}) => {
   return (
     <FlatList
-      DATA={data}
+      data={data}
       renderItem={({item}) => (
         <>
-        <Text>Hello</Text>
+  
         <ChatItem
           userImg={item.userImg}
           userName={item.userName}
