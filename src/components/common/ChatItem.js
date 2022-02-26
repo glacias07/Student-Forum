@@ -14,7 +14,7 @@ const ChatItem = props => {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Personal Message')}
+        onPress={()=>navigation.navigate('Personal Message',{username:userName})}
         style={styles.container}>
         <Image source={{uri: userImg}} style={styles.avatar} />
         <View style={styles.midContainer}>

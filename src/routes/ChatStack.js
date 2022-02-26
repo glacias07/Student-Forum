@@ -18,6 +18,10 @@ const ChatStack = () => {
       <ChatStackNav.Screen
         name="Personal Message"
         component={PersonalMessage}
+        options={({ route }) => ({
+          title: route.params.username
+        })
+        }
         
       />
     </ChatStackNav.Navigator>
