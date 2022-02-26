@@ -3,12 +3,12 @@ import {Component} from 'react';
 import {Text, View} from 'react-native';
 import {Comment} from './common'
 
-const Tab1 = () => {
+const PersonalMessage = () => {
   return (
     <View>
-     <Comment />
+     <Text>personal messafe</Text>
     </View>
   );
 };
 
-export default Tab1;
+export default PersonalMessage;

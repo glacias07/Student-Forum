@@ -3,8 +3,9 @@ import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AppStack from './AppStack';
 import Dashboard from '../components/Dashboard';
-import Tab2 from '../components/Tab2';
+import Tab2 from '../components/ChatScreen';
 import DashStack from './DashboardStack';
+import ChatStack from './ChatStack'
 const TabStackNav = createBottomTabNavigator();
 
 const TabStack = () => {
@@ -34,7 +35,7 @@ const TabStack = () => {
       />
       <TabStackNav.Screen
         name="Chat"
-        component={Tab2}
+        component={ChatStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
