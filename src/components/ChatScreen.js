@@ -54,6 +54,7 @@ const ChatScreen = ({navigation}) => {
         <>
   
         <ChatItem
+          navigation={navigation}
           userImg={item.userImg}
           userName={item.userName}
           messageText={item.messageText}

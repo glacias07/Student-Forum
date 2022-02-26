@@ -10,11 +10,11 @@ import {
 import {CustomText} from './';
 
 const ChatItem = props => {
-  const {id, userName, userImg, messageTime, messageText} = props;
+  const {id, userName, userImg, messageTime, messageText,navigation} = props;
   return (
     <>
       <TouchableOpacity
-        onPress={() => console.log('Pressed')}
+        onPress={()=>navigation.navigate('Personal Message')}
         style={styles.container}>
         <View style={styles.leftContainer}>
           <Image source={{uri: userImg}} style={styles.avatar} />
