@@ -10,40 +10,36 @@ import {
 import {CustomText} from './';
 
 const ChatItem = props => {
-  const {id, userName, userImg, messageTime, messageText,navigation} = props;
+  const {id, userName, userImg, messageTime, messageText, navigation} = props;
   return (
-    <>
+    <View>
       <TouchableOpacity
-        onPress={()=>navigation.navigate('Personal Message')}
+        onPress={() => navigation.navigate('Personal Message')}
         style={styles.container}>
-        <View style={styles.leftContainer}>
-          <Image source={{uri: userImg}} style={styles.avatar} />
-          <View style={styles.midContainer}>
-            <Text style={styles.username}>{userName}</Text>
-            <Text style={styles.lastMessage} numberOfLines={1}>
-              {messageText}
-            </Text>
-          </View>
+        <Image source={{uri: userImg}} style={styles.avatar} />
+        <View style={styles.midContainer}>
+          <Text style={styles.username}>{userName}</Text>
+          <Text style={styles.lastMessage} numberOfLines={1}>
+            {messageText}
+          </Text>
         </View>
 
-        <View>
-          <Text style={styles.time}>{messageTime}</Text>
-        </View>
+        <Text style={styles.time}>{messageTime}</Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // width: Dimensions.get('window').width,
-    width:'60%',
-    justifyContent: 'space-between',
+    width: '70%',
+    justifyContent: 'center',
+    alignSelf: 'center',
     padding: 10,
+    marginHorizontal: 30,
   },
-  leftContainer: {flexDirection: 'row'},
-  midContainer: {justifyContent: 'space-around'},
+  midContainer: {justifyContent: 'center',},
   avatar: {
     height: 60,
     width: 60,
