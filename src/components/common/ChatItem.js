@@ -13,7 +13,7 @@ const ChatItem = props => {
   const {id, userName, userImg, messageTime, messageText, navigation, style} =
     props;
   return (
-    <View style={{borderBottomWidth:0.2}}>
+    <>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('Personal Message', {username: userName})
@@ -29,7 +29,9 @@ const ChatItem = props => {
 
           <Text style={styles.time}>{messageTime}</Text>
       </TouchableOpacity>
-    </View>
+      <View style={{borderBottomWidth: 0.5, borderBottomColor: '#00000060', width: '85%', alignSelf: 'center',}}></View>
+    </>
+
   );
 };
 
