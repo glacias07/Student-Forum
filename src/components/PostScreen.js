@@ -209,6 +209,7 @@ const PostScreen = ({navigation,usernameSet,useridSet}) => {
             userId={item.userId}
             username={item.username}
             imageUrl={item.downloadUrl}
+            navigation={navigation}
           />
         )}></FlatList>
       <TouchableOpacity

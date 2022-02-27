@@ -46,7 +46,7 @@ const data = [
   },
 ];
 
-const ChatScreen = ({navigation}) => {
+const ChatScreen = ({navigation, route}) => {
   return (
     <FlatList
       data={data}

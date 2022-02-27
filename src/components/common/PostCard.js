@@ -26,6 +26,7 @@ const PostCard = ({
   imageUrl,
   deleteOnPress,
   style,
+  navigation,
 }) => {
   const {user} = useContext(AuthContext);
 
@@ -162,6 +163,27 @@ const PostCard = ({
                     </View>
                   </MenuOption>
                 ) : null}
+
+                <MenuOption
+                  onSelect={() => navigation.navigate('Chat',{username:username})}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      padding: 5,
+                    }}>
+                    <Image
+                      // source={require('../../assets/icons/bin.png')}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        marginRight: 12,
+                        tintColor: '#d91c45',
+                      }}
+                    />
+                    <CustomText text="Chat with user" textColor="black" />
+                  </View>
+                </MenuOption>
               </MenuOptions>
             </Menu>
           </View>
