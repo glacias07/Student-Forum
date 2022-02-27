@@ -1,7 +1,4 @@
 import {
-  DATA_SET_FETCH,
-  POST_CONTENT,
-  POST_TITLE,
   USERNAME_SET,
   USERID_SET
 } from './ActionTypes';

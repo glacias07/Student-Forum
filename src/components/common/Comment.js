@@ -9,7 +9,7 @@ import {
 import {CustomText} from '.';
 import {AuthContext} from '../../routes/AuthProvider';
 const Comment = ({
- checkUsername,
+  comment_user_id,
   comment_id,
   nameOfUser,
   comment,
@@ -73,7 +73,7 @@ const Comment = ({
           {/* {user.uid === userId ? ( */}
           {1 == 1 ? (
             <MenuOption
-              onSelect={() => console.log('Edit function yet to be developed',checkUsername)}>
+              onSelect={() => console.log('Edit function yet to be developed',comment_user_id, user.uid)}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -94,7 +94,7 @@ const Comment = ({
             </MenuOption>
           ) : null}
           {/* {user.uid === userId ? ( */}
-          {checkUsername === nameOfUser ? (
+          {comment_user_id === user.uid ? (
             <MenuOption onSelect={() => deleteOnPress(comment_id)}>
               <View
                 style={{

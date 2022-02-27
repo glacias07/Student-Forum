@@ -16,7 +16,7 @@ import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {usernameSet, useridSet} from '../actions/PostScreenActions';
 
-const PostScreen = ({navigation,usernameSet}) => {
+const PostScreen = ({navigation,usernameSet,useridSet}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -162,8 +162,9 @@ const PostScreen = ({navigation,usernameSet}) => {
           });
         });
       console.log("User details ",list)
-      usernameSet(list[0].username)
       useridSet(list[0].userId)
+      usernameSet(list[0].username)
+      
      
 
       if (loading) {

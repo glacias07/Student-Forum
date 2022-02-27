@@ -99,6 +99,7 @@ const PostDetails = props => {
       [
         ...postCommentList,
         {
+          comment_user_id: user.uid,
           comment_id: user.uid + moment().format(),
           comment: Comment,
           username: username,
@@ -193,9 +194,8 @@ const PostDetails = props => {
                   console.log(postCommentList);
                 }}>
                 <Comment
-                  comment_user_id={userId}
+                  comment_user_id={item.item.comment_user_id}
                   deleteOnPress={handleDelete}
-                  checkUsername={username}
                   comment_id={item.item.comment_id}
                   nameOfUser={item.item.username}
                   comment={item.item.comment}
@@ -234,10 +234,10 @@ const PostDetails = props => {
 };
 const mapStateToProps = state => {
   // console.log('Inside post -', state);
-  console.log('Inside post user id -', state.postListing.userid);
+  console.log('Inside post user id -', state.postListing.userId);
   return {
     username: state.postListing.username,
-    userId: state.postListing.userid,
+    userId: state.postListing.userId,
   };
 };
 export default connect(mapStateToProps, {})(PostDetails);
