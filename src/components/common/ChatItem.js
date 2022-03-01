@@ -10,7 +10,7 @@ import {
 import {CustomText} from './';
 
 const ChatItem = props => {
-  const {id, userName, userImg, messageTime, messageText, navigation, style} =
+  const {id, userName, userImg, messageTime, messageText, navigation, style, chatOnPress} =
     props;
   return (
     <>
