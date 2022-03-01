@@ -51,15 +51,13 @@ const ChatScreen = ({navigation, route}) => {
     <FlatList
       data={data}
       renderItem={({item}) => (
-        <>
-          <ChatItem
-            navigation={navigation}
-            userImg={item.userImg}
-            userName={item.userName}
-            messageText={item.messageText}
-            messageTime={item.messageTime}
-          />
-        </>
+        <ChatItem
+          navigation={navigation}
+          userImg={item.userImg}
+          userName={item.userName}
+          messageText={item.messageText}
+          messageTime={item.messageTime}
+        />
       )}
     />
   );
