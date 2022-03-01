@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {onAddFriend} from '../../components/SetupProfileScreen'
+import {onAddFriend} from '../SetupProfileScreen'
 import {
   StyleSheet,
   View,
@@ -30,7 +30,8 @@ const PostCard = ({
   deleteOnPress,
   style,
   navigation,
-  chatUserNameSet
+  chatUserNameSet,
+  chatUsername,
 }) => {
   const {user} = useContext(AuthContext);
 
@@ -170,7 +171,7 @@ const PostCard = ({
 
                 <MenuOption
                   // onSelect={() => navigation.navigate('Personal Message',{username:username})}
-                  onSelect={()=>chatUserNameSet(username)}
+                  onSelect={()=>chatUserNameSet(username),onAddFriend(chatUsername)}
                   
                   >
                   <View

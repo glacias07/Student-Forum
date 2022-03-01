@@ -72,7 +72,7 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
 
   //OnAddFriend
   
-  const onAddFriend = async (name =chatUsername )=> {
+  const onAddFriend = async (name = chatUsername )=> {
     try {
       //find user and add it to my friends and also add me to his friends
       const database = getDatabase();
