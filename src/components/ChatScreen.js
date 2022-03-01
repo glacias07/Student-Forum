@@ -1,11 +1,8 @@
-import React,{useContext,useEffect,useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, TouchableOpacity, FlatList} from 'react-native';
 import ChatItem from './common/ChatItem';
-import { AuthContext } from '../routes/AuthProvider';
-import {connect} from 'react-redux'
-
-
-
+import {AuthContext} from '../routes/AuthProvider';
+import {connect} from 'react-redux';
 
 const data = [
   {
@@ -50,40 +47,38 @@ const data = [
   },
 ];
 
-const ChatScreen = ({navigation, route,username}) => {
+const ChatScreen = ({navigation, route, username}) => {
+  const {findUser} = useContext(AuthContext);
+  const [myData, setMyData] = useState([]);
 
-  const {findUser} = useContext(AuthContext)
-  const{myData,setMyData}=useState()
-
-   
-  const  fetchData= async ()=>{
-    const user = await findUser(username)
-    console.log("Userrrr",user.friends)
-    setMyData(user.friends)
-  }
+  const fetchData = async () => {
+    const user = await findUser(username);
+    console.log('Userrrr', user.friends);
+    setMyData(user.friends);
+  };
   useEffect(() => {
-    fetchData()
-  },[])
+    fetchData();
+  }, [myData]);
   return (
     <FlatList
       data={myData}
       renderItem={({item}) => (
         <ChatItem
           navigation={navigation}
-          userImg={avatar}
-          userName={username}
-          messageText={item.messageText}
-          messageTime={item.messageTime}
+          userImg={item.avatar}
+          userName={item.username}
+          // messageText={item.messageText}
+          // messageTime={item.messageTime}
         />
       )}
     />
   );
 };
 
-const mapStateToProps=state=>{
-  return{
-    username:state.postListing.username
-  }
-}
+const mapStateToProps = state => {
+  return {
+    username: state.postListing.username,
+  };
+};
 
-export default connect(mapStateToProps,{}) (ChatScreen)
+export default connect(mapStateToProps, {})(ChatScreen);
