@@ -49,29 +49,36 @@ const data = [
 
 const ChatScreen = ({navigation, route, username}) => {
   const {findUser} = useContext(AuthContext);
-  const [myData, setMyData] = useState([]);
-  const [myFriends,setMyFriends]=useState([])
-
+  const [friendsList, setFriendsList] = useState();
+  const [myData, setMyData] = useState()
   const fetchData = async () => {
     const user = await findUser(username);
-    // console.log(user)
-    setMyData(myData)
-    setMyFriends(user.friends)
+    setFriendsList(user.friends);
+    setMyData(user)
+    // console.log(user);
   };
   useEffect(() => {
     fetchData();
-  }, [myFriends]);
+  }, [friendsList]);
   return (
     <FlatList
-      data={myFriends}
-      renderItem={({item}) => 
-      <ChatItem
-        navigation={navigation}
-        userImg={item.avatar}
-        userName={item.username}
-        messageText={item.messageText}
-        messageTime={item.messageTime}
-      />}
+      data={friendsList}
+      renderItem={({item}) => (
+        <ChatItem
+          chatOnPress={() => {
+            navigation.navigate('Personal Message', {
+              friendData: item,
+              myData: myData,
+              username:item.username
+            });
+          }}
+          navigation={navigation}
+          userImg={item.avatar}
+          userName={item.username}
+          messageText={item.messageText}
+          messageTime={item.messageTime}
+        />
+      )}
     />
   );
 };
