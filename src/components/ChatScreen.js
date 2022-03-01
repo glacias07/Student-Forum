@@ -59,7 +59,7 @@ const ChatScreen = ({navigation, route, username}) => {
   };
   useEffect(() => {
     fetchData();
-  }, [friendsList]);
+  }, [myData]);
   return (
     <FlatList
       data={friendsList}
