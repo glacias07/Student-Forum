@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {onAddFriend} from '../SetupProfileScreen'
+import {onAddFriend} from '../SetupProfileScreen';
 import {
   StyleSheet,
   View,
@@ -16,8 +16,8 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
-import { connect } from 'react-redux';
-import { chatUserNameSet } from '../../actions/PostScreenActions';
+import {connect} from 'react-redux';
+import {chatUserNameSet} from '../../actions/PostScreenActions';
 
 const PostCard = ({
   cardOnPress,
@@ -31,7 +31,7 @@ const PostCard = ({
   style,
   navigation,
   chatUserNameSet,
-  myUsername
+  myUsername,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
 
@@ -168,30 +168,29 @@ const PostCard = ({
                     </View>
                   </MenuOption>
                 ) : null}
-
-                <MenuOption
-                  // onSelect={() => navigation.navigate('Personal Message',{username:username})}
-                  onSelect={()=>onAddFriend(username,myUsername)}
-                  
-                  >
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      padding: 5,
-                    }}>
-                    <Image
-                      // source={require('../../assets/icons/bin.png')}
+                {user.uid === userId ? null : (
+                  <MenuOption
+                    // onSelect={() => navigation.navigate('Personal Message',{username:username})}
+                    onSelect={() => onAddFriend(username, myUsername)}>
+                    <View
                       style={{
-                        width: 20,
-                        height: 20,
-                        marginRight: 12,
-                        tintColor: '#d91c45',
-                      }}
-                    />
-                    <CustomText text="Chat with user" textColor="black" />
-                  </View>
-                </MenuOption>
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        padding: 5,
+                      }}>
+                      <Image
+                        // source={require('../../assets/icons/bin.png')}
+                        style={{
+                          width: 20,
+                          height: 20,
+                          marginRight: 12,
+                          tintColor: '#d91c45',
+                        }}
+                      />
+                      <CustomText text="Chat with user" textColor="black" />
+                    </View>
+                  </MenuOption>
+                )}
               </MenuOptions>
             </Menu>
           </View>
@@ -235,10 +234,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps=state=>{
-  return{
-    myUsername:state.postListing.username
-  }
-}
+const mapStateToProps = state => {
+  return {
+    myUsername: state.postListing.username,
+  };
+};
 
-export default connect(mapStateToProps,{chatUserNameSet})(PostCard);
+export default connect(mapStateToProps, {chatUserNameSet})(PostCard);

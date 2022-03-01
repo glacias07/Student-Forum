@@ -144,14 +144,15 @@ export const AuthProvider = ({children}) => {
             };
             const chatUser = await findUser(name);
             const myUsername = await findUser(username);
+
             if (chatUser) {
               if (
                 myUsername.friends &&
-                myUsername.friends.findIndex(
-                  f => f.username === chatUser.username,
-                ) > 0
+                chatUser.friends.filter(f => f.username === myUsername.username)
+                  .length > 0
               ) {
                 // don't let chatUser add a chatUser twice
+                Alert.alert("This is already your friend, go to your chats")
                 return;
               }
 
