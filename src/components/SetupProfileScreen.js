@@ -13,8 +13,9 @@ import {
   push,
   update,
 } from 'firebase/database';
+import { connect } from 'react-redux';
 
-const SetupProfileScreen = ({navigation}) => {
+const SetupProfileScreen = ({navigation,chatUsername}) => {
   const {user} = useContext(AuthContext);
   const [username, setUsername] = useState();
   const [bio, setBio] = useState();
@@ -67,6 +68,72 @@ const SetupProfileScreen = ({navigation}) => {
 
     return mySnapshot.val();
   };
+
+
+  //OnAddFriend
+  
+  const onAddFriend = async (name =chatUsername )=> {
+    try {
+      //find user and add it to my friends and also add me to his friends
+      const database = getDatabase();
+
+      const user = await findUser(name);
+
+      if (user) {
+        // if (user.username === myData.username) {
+        //   // don't let user add himself
+        //   return;
+        // }
+
+        if (
+          myData.friends &&
+          myData.friends.findIndex(f => f.username === user.username) > 0
+        ) {
+          // don't let user add a user twice
+          return;
+        }
+
+        // create a chatroom and store the chatroom id
+
+        const newChatroomRef = push(ref(database, 'chatrooms'), {
+          firstUser: myData.username,
+          secondUser: user.username,
+          messages: [],
+        });
+
+        const newChatroomId = newChatroomRef.key;
+
+        const userFriends = user.friends || [];
+        //join myself to this user friend list
+        update(ref(database, `users/${user.username}`), {
+          friends: [
+            ...userFriends,
+            {
+              username: myData.username,
+              avatar: myData.avatar,
+              chatroomId: newChatroomId,
+            },
+          ],
+        });
+
+        const myFriends = myData.friends || [];
+        //add this user to my friend list
+        update(ref(database, `users/${myData.username}`), {
+          friends: [
+            ...myFriends,
+            {
+              username: user.username,
+              avatar: user.avatar,
+              chatroomId: newChatroomId,
+            },
+          ],
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
 
@@ -147,4 +214,10 @@ const SetupProfileScreen = ({navigation}) => {
   );
 };
 
-export default SetupProfileScreen;
+const mapStateToProps=state=>{
+  return{
+    chatUsername:state.postListing.chatUsername
+  }
+}
+
+export default connect(mapStateToProps,{})( SetupProfileScreen)

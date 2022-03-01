@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Alert, FlatList} from 'react-native';
-import {PostCard} from './common';
+import PostCard from './common/PostCard'
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 

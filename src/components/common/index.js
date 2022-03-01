@@ -1,7 +1,7 @@
 export * from './CustomText'
 export * from './FormButton'
 export * from './FormInput'
-export * from './PostCard'
+// export * from './PostCard'
 export * from './SmallButton'
 export * from './CustomHeaderButton'
 export * from './ModalLoader'

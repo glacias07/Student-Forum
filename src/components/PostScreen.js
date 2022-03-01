@@ -1,4 +1,5 @@
 import React from 'react';
+import {} from './SetupProfileScreen'
 import {useEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -9,7 +10,9 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {CustomText, PostCard} from './common';
+// import {CustomText, PostCard} from './common';
+import PostCard from './common/PostCard'
+
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {AuthContext} from '../routes/AuthProvider';

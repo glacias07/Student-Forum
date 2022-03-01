@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {onAddFriend} from '../../components/SetupProfileScreen'
 import {
   StyleSheet,
   View,
@@ -15,6 +16,8 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+import { connect } from 'react-redux';
+import { chatUserNameSet } from '../../actions/PostScreenActions';
 
 const PostCard = ({
   cardOnPress,
@@ -27,6 +30,7 @@ const PostCard = ({
   deleteOnPress,
   style,
   navigation,
+  chatUserNameSet
 }) => {
   const {user} = useContext(AuthContext);
 
@@ -165,7 +169,10 @@ const PostCard = ({
                 ) : null}
 
                 <MenuOption
-                  onSelect={() => navigation.navigate('Personal Message',{username:username})}>
+                  // onSelect={() => navigation.navigate('Personal Message',{username:username})}
+                  onSelect={()=>chatUserNameSet(username)}
+                  
+                  >
                   <View
                     style={{
                       flexDirection: 'row',
@@ -227,4 +234,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export {PostCard};
+const mapStateToProps=state=>{
+  return{
+    chatUsername:state.postListing.chatUsername
+  }
+}
+
+export default connect(mapStateToProps,{chatUserNameSet})(PostCard);
+// export default PostCard;

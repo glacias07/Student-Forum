@@ -13,7 +13,9 @@ import {AuthContext} from '../routes/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
-import {PostCard} from './common';
+// import {PostCard} from './common';
+import PostCard from './common/PostCard'
+
 const Dashboard = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState([]);

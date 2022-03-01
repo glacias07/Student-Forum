@@ -1,8 +1,13 @@
-import {USERNAME_SET, USERID_SET} from '../actions/ActionTypes';
+import {
+  USERNAME_SET,
+  USERID_SET,
+  CHATUSERNAME_SET,
+} from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
   username: '',
   userId: '',
+  chatUsername: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +17,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, username: action.payload};
     case USERID_SET:
       return {...state, userId: action.payload};
+    case CHATUSERNAME_SET:
+      return{...state,chatUsername:action.payload}
     default:
       return state;
   }
