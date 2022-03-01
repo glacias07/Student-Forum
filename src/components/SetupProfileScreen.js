@@ -21,6 +21,7 @@ const SetupProfileScreen = ({navigation}) => {
   const [designation, setDesignation] = useState();
   const [workplace, setWorkplace] = useState();
   const [myData, setMyData] = useState(null);
+  const [users, setUsers] = useState([]);
 
   const onLogin = async () => {
     try {
@@ -52,11 +53,22 @@ const SetupProfileScreen = ({navigation}) => {
           friends: data.friends,
         }));
       });
-      setCurrentPage('users');
+      // setCurrentPage('users');
     } catch (error) {
       console.error(error);
     }
   };
+
+
+  const findUser = async name => {
+    const database = getDatabase();
+
+    const mySnapshot = await get(ref(database, `users/${name}`));
+
+    return mySnapshot.val();
+  };
+
+
 
   const uploadUserDetails = async () => {
     console.log('firestore connected(setupProfileScreen.js)');
