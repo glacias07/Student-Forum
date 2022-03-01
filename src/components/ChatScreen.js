@@ -50,27 +50,28 @@ const data = [
 const ChatScreen = ({navigation, route, username}) => {
   const {findUser} = useContext(AuthContext);
   const [myData, setMyData] = useState([]);
+  const [myFriends,setMyFriends]=useState([])
 
   const fetchData = async () => {
     const user = await findUser(username);
-    console.log('Userrrr', user.friends);
-    setMyData(user.friends);
+    // console.log(user)
+    setMyData(myData)
+    setMyFriends(user.friends)
   };
   useEffect(() => {
     fetchData();
-  }, [myData]);
+  }, [myFriends]);
   return (
     <FlatList
-      data={myData}
-      renderItem={({item}) => (
-        <ChatItem
-          navigation={navigation}
-          userImg={item.avatar}
-          userName={item.username}
-          // messageText={item.messageText}
-          // messageTime={item.messageTime}
-        />
-      )}
+      data={myFriends}
+      renderItem={({item}) => 
+      <ChatItem
+        navigation={navigation}
+        userImg={item.avatar}
+        userName={item.username}
+        messageText={item.messageText}
+        messageTime={item.messageTime}
+      />}
     />
   );
 };
