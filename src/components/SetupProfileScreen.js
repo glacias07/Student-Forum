@@ -4,12 +4,59 @@ import {AuthContext} from '../routes/AuthProvider';
 import {FormButton, FormInput} from './common';
 import firestore from '@react-native-firebase/firestore';
 
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
+
 const SetupProfileScreen = ({navigation}) => {
   const {user} = useContext(AuthContext);
   const [username, setUsername] = useState();
   const [bio, setBio] = useState();
   const [designation, setDesignation] = useState();
   const [workplace, setWorkplace] = useState();
+  const [myData, setMyData] = useState(null);
+
+  const onLogin = async () => {
+    try {
+      const database = getDatabase();
+      //first check if the user registered before
+
+      const user = await findUser(username);
+
+      //create a new user if not registered
+      if (user) {
+        setMyData(user);
+      } else {
+        const newUserObj = {
+          username: username,
+          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
+        };
+
+        set(ref(database, `users/${username}`), newUserObj);
+        setMyData(newUserObj);
+      }
+
+      // set friends list change listener
+      const myUserRef = ref(database, `users/${username}`);
+      onValue(myUserRef, snapshot => {
+        const data = snapshot.val();
+        setUsers(data.friends);
+        setMyData(prevData => ({
+          ...prevData,
+          friends: data.friends,
+        }));
+      });
+      setCurrentPage('users');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const uploadUserDetails = async () => {
     console.log('firestore connected(setupProfileScreen.js)');
