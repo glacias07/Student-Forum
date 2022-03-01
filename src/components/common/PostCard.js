@@ -30,9 +30,10 @@ const PostCard = ({
   deleteOnPress,
   style,
   navigation,
-  chatUserNameSet
+  chatUserNameSet,
+  myUsername
 }) => {
-  const {user} = useContext(AuthContext);
+  const {user, onAddFriend} = useContext(AuthContext);
 
   return (
     <TouchableHighlight
@@ -170,7 +171,7 @@ const PostCard = ({
 
                 <MenuOption
                   // onSelect={() => navigation.navigate('Personal Message',{username:username})}
-                  onSelect={()=>chatUserNameSet(username)}
+                  onSelect={()=>onAddFriend(username,myUsername)}
                   
                   >
                   <View
@@ -236,9 +237,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps=state=>{
   return{
-    chatUsername:state.postListing.chatUsername
+    myUsername:state.postListing.username
   }
 }
 
 export default connect(mapStateToProps,{chatUserNameSet})(PostCard);
-// export default PostCard;

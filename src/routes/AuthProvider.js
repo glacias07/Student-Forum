@@ -2,7 +2,15 @@ import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {Alert} from 'react-native';
-
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -128,6 +136,70 @@ export const AuthProvider = ({children}) => {
               console.log('Error in the firestore: ', e);
             });
         },
+        onAddFriend: async (name,username)=> {
+          try {
+            //find user and add it to my friends and also add me to his friends
+            const database = getDatabase();
+            const findUser = async (name) => {
+              const database = getDatabase();
+          
+              const mySnapshot = await get(ref(database, `users/${name}`));
+          
+              return mySnapshot.val();
+            };
+            const chatUser = await findUser(name);
+            const myUsername = await findUser(username);
+            if (chatUser) {
+      
+              if (
+                myUsername.friends &&
+                myUsername.friends.findIndex(f => f.username === chatUser.username) > 0
+              ) {
+                // don't let chatUser add a chatUser twice
+                return;
+              }
+      
+              // create a chatroom and store the chatroom id
+      
+              const newChatroomRef = push(ref(database, 'chatrooms'), {
+                firstUser: myUsername.username,
+                secondUser: chatUser.username,
+                messages: [],
+              });
+      
+              const newChatroomId = newChatroomRef.key;
+      
+              const userFriends = chatUser.friends || [];
+              //join myself to this chatUser friend list
+              update(ref(database, `users/${chatUser.username}`), {
+                friends: [
+                  ...userFriends,
+                  {
+                    username: myUsername.username,
+                    avatar: myUsername.avatar,
+                    chatroomId: newChatroomId,
+                  },
+                ],
+              });
+      
+              const myFriends = myUsername.friends || [];
+              //add this chatUser to my friend list
+              update(ref(database, `users/${myUsername.username}`), {
+                friends: [
+                  ...myFriends,
+                  {
+                    username: chatUser.username,
+                    avatar: chatUser.avatar,
+                    chatroomId: newChatroomId,
+                  },
+                ],
+              });
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        },
+        
       }}>
       {children}
     </AuthContext.Provider>
