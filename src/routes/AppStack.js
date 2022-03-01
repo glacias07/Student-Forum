@@ -9,6 +9,8 @@ import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from './AuthProvider';
 const AppStackNav = createNativeStackNavigator();
 import Styles from '../Styles';
+import ChatScreen from '../components/ChatScreen';
+import PersonalMessage from '../components/PersonalMessage';
 
 const AppStack = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -85,6 +87,27 @@ const AppStack = () => {
           headerTitleStyle: Styles.commonHeaderTitleStyle,
           headerTitleAlign: 'center',
         }}
+      />
+      <AppStackNav.Screen
+        name="Chat Screen"
+        component={ChatScreen}
+        options={{
+          headerShadowVisible: false,
+          headerStyle: Styles.commonHeaderStyle,
+          headerTitleStyle: Styles.commonHeaderTitleStyle,
+          headerTitleAlign: 'center',
+        }}
+      />
+      <AppStackNav.Screen
+        name="Personal Message"
+        component={PersonalMessage}
+        options={({route}) => ({
+          title: route.params.username,
+          headerShadowVisible: false,
+          headerStyle: Styles.commonHeaderStyle,
+          headerTitleStyle: Styles.commonHeaderTitleStyle,
+          headerTitleAlign: 'center',
+        })}
       />
     </AppStackNav.Navigator>
   );
