@@ -72,6 +72,7 @@ const SetupProfileScreen = ({navigation}) => {
       })
       .then(() => {
         console.log('Details Added');
+        onLogin()
       })
       .catch(e => {
         console.log('Error in the firestore: ', e);
