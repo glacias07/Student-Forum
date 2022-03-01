@@ -1,6 +1,11 @@
-import React from 'react';
+import React,{useContext,useEffect,useState} from 'react';
 import {Text, View, TouchableOpacity, FlatList} from 'react-native';
 import ChatItem from './common/ChatItem';
+import { AuthContext } from '../routes/AuthProvider';
+import {connect} from 'react-redux'
+
+
+
 
 const data = [
   {
@@ -45,15 +50,28 @@ const data = [
   },
 ];
 
-const ChatScreen = ({navigation, route}) => {
+const ChatScreen = ({navigation, route,username}) => {
+
+  const {findUser} = useContext(AuthContext)
+  const{myData,setMyData}=useState()
+
+   
+  const  fetchData= async ()=>{
+    const user = await findUser(username)
+    console.log("Userrrr",user.friends)
+    setMyData(user.friends)
+  }
+  useEffect(() => {
+    fetchData()
+  },[])
   return (
     <FlatList
-      data={data}
+      data={myData}
       renderItem={({item}) => (
         <ChatItem
           navigation={navigation}
-          userImg={item.userImg}
-          userName={item.userName}
+          userImg={avatar}
+          userName={username}
           messageText={item.messageText}
           messageTime={item.messageTime}
         />
@@ -62,4 +80,10 @@ const ChatScreen = ({navigation, route}) => {
   );
 };
 
-export default ChatScreen;
+const mapStateToProps=state=>{
+  return{
+    username:state.postListing.username
+  }
+}
+
+export default connect(mapStateToProps,{}) (ChatScreen)
