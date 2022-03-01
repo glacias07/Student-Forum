@@ -10,15 +10,19 @@ import {
 import {CustomText} from './';
 
 const ChatItem = props => {
-  const {id, userName, userImg, messageTime, messageText, navigation, style, chatOnPress} =
-    props;
+  const {
+    id,
+    userName,
+    userImg,
+    messageTime,
+    messageText,
+    navigation,
+    style,
+    chatOnPress,
+  } = props;
   return (
     <>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('Personal Message', {username: userName})
-        }
-        style={[styles.container, style]}>
+      <TouchableOpacity onPress={chatOnPress} style={[styles.container, style]}>
         <Image source={{uri: userImg}} style={styles.avatar} />
         <View style={styles.midContainer}>
           <Text style={styles.username}>{userName}</Text>
@@ -27,11 +31,16 @@ const ChatItem = props => {
           </Text>
         </View>
 
-          <Text style={styles.time}>{messageTime}</Text>
+        <Text style={styles.time}>{messageTime}</Text>
       </TouchableOpacity>
-      <View style={{borderBottomWidth: 0.5, borderBottomColor: '#00000060', width: '85%', alignSelf: 'center',}}></View>
+      <View
+        style={{
+          borderBottomWidth: 0.5,
+          borderBottomColor: '#00000060',
+          width: '85%',
+          alignSelf: 'center',
+        }}></View>
     </>
-
   );
 };
 
