@@ -1,5 +1,4 @@
 import React from 'react';
-import {Component} from 'react';
 import {Text, View, TouchableOpacity, FlatList} from 'react-native';
 import ChatItem from './common/ChatItem';
 
@@ -51,15 +50,13 @@ const ChatScreen = ({navigation, route}) => {
     <FlatList
       data={data}
       renderItem={({item}) => (
-        <>
-          <ChatItem
-            navigation={navigation}
-            userImg={item.userImg}
-            userName={item.userName}
-            messageText={item.messageText}
-            messageTime={item.messageTime}
-          />
-        </>
+        <ChatItem
+          navigation={navigation}
+          userImg={item.userImg}
+          userName={item.userName}
+          messageText={item.messageText}
+          messageTime={item.messageTime}
+        />
       )}
     />
   );

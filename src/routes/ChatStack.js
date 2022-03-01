@@ -26,10 +26,11 @@ const ChatStack = () => {
         component={PersonalMessage}
         options={({route}) => ({
           title: route.params.username,
+        
         })}
       />
     </ChatStackNav.Navigator>
   );
 };
 
-export default ChatStack;
+export default ChatStack

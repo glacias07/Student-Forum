@@ -165,7 +165,7 @@ const PostCard = ({
                 ) : null}
 
                 <MenuOption
-                  onSelect={() => navigation.navigate('Chat',{username:username})}>
+                  onSelect={() => navigation.navigate('Chat',{direct:true})}>
                   <View
                     style={{
                       flexDirection: 'row',
