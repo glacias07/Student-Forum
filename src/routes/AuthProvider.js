@@ -71,10 +71,6 @@ export const AuthProvider = ({children}) => {
             })
             .then(() => {
               console.log('Post Comments Updated!');
-              Alert.alert(
-                'Comment Updated!',
-                'Your comment has been posted successfully.',
-              );
             });
         },
         updateUserPostsDetails: async (doc_id, username) => {
