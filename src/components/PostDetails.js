@@ -318,9 +318,9 @@ const PostDetails = props => {
           borderWidth: 0.7,
           borderColor: '#00000050',
           paddingHorizontal: 10,
-          borderRadius: 10,
+          borderRadius: 5,
           margin: 10,
-          backgroundColor: 'white',
+          backgroundColor: '#00000010',
         }}>
         <TextInput
           onChangeText={comment => setPostComment(comment)}
