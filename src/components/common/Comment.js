@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -22,43 +22,67 @@ const Comment = ({
   return (
     <View style={container}>
       <View
+        style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+        <CustomText
+          style={{marginRight: 5}}
+          textSize={16}
+          textWeight={600}
+          text={nameOfUser}
+        />
+        <CustomText
+          style={{marginRight: 5}}
+          textSize={20}
+          textWeight={400}
+          text={'•'}
+        />
+        <CustomText
+          style={{}}
+          textSize={14}
+          textWeight={400}
+          text={comment_time}
+        />
+      </View>
+
+      <CustomText
+        style={{marginLeft: 10, marginVertical: 10}}
+        textWeight={500}
+        textSize={16}
+        text={comment}
+      />
+      <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 10,
+          justifyContent: 'flex-end',
         }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity
+        onPress={()=>console.log('reply function to be developed')}
+          style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
+          <Image
+            source={require('../../assets/icons/reply.png')}
+            style={{
+              width: 15,
+              height: 15,
+              // marginRight: 2,
+              tintColor: '#868686',
+            }}
+          />
           <CustomText
-            style={{marginRight: 5}}
+            style={{marginLeft: 10, marginVertical: 5}}
+            textWeight={500}
             textSize={16}
-            textWeight={600}
-            text={nameOfUser}
+            text={'reply'}
           />
-          <CustomText
-            style={{marginRight: 5}}
-            textSize={20}
-            textWeight={400}
-            text={'•'}
-          />
-          <CustomText
-            style={{}}
-            textSize={14}
-            textWeight={400}
-            text={comment_time}
-          />
-        </View>
+        </TouchableOpacity>
         <Menu>
           <MenuTrigger
-            style={
-              {
-                // width: '200%',
-                // alignSelf: 'center',
-                // alignItems: 'center',
-                // padding: 10,
-                // marginBottom: 30,
-              }
-            }>
+            style={{
+              // width: '200%',
+              // alignSelf: 'center',
+              // alignItems: 'center',
+              // padding: 10,
+              marginRight: 30,
+            }}>
             <CustomText
               textColor="#00000080"
               textSize={22}
@@ -150,7 +174,6 @@ const Comment = ({
           </MenuOptions>
         </Menu>
       </View>
-      <CustomText style={{marginLeft: 10}} textWeight={500} textSize={16} text={comment} />
     </View>
   );
 };
