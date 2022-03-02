@@ -320,7 +320,7 @@ const PostDetails = props => {
           paddingHorizontal: 10,
           borderRadius: 5,
           margin: 10,
-          backgroundColor: '#00000010',
+          backgroundColor: '#ffffff',
         }}>
         <TextInput
           onChangeText={comment => setPostComment(comment)}
