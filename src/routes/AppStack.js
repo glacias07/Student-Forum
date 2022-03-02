@@ -75,7 +75,8 @@ const AppStack = () => {
           headerShadowVisible: false,
           headerStyle: Styles.commonHeaderStyle,
           headerTitleStyle: Styles.commonHeaderTitleStyle,
-          headerTitleAlign: 'center',
+          // headerTitleAlign: 'center',
+          headerTitle: ''
         }}
       />
       <AppStackNav.Screen
