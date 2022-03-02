@@ -127,134 +127,139 @@ const PostDetails = props => {
     <>
       <ScrollView>
         <View
-          contentContainerStyle={{
-            justifyContent: 'center',
-            backgroundColor: 'white',
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 10,
+            backgroundColor: '#ffffff',
           }}>
+          <Image
+            style={{height: 50, width: 50, borderRadius: 150 / 2}}
+            source={{uri: route.params.download_url}}
+          />
           <View
-            style={{flexDirection: 'row', alignItems: 'center', padding: 10}}>
-            <Image
-              style={{height: 50, width: 50, borderRadius: 150 / 2}}
-              source={{uri: route.params.download_url}}
-            />
-            <View
-              style={{
-                // flexDirection: 'row',
-                // justifyContent: 'space-between',
-                paddingHorizontal: 15,
-                // alignItems: 'center',
-                // backgroundColor:'#000000'
-              }}>
-              <CustomText
-                text={route.params.username}
-                textWeight={500}
-                textSize={16}
-              />
-              <CustomText
-                text={
-                  route.params.post_time.toDate().toLocaleDateString() +
-                  ' ' +
-                  route.params.post_time.toDate().toLocaleTimeString()
-                }
-                textWeight={400}
-                textSize={12}
-              />
-            </View>
-          </View>
-          <View style={{paddingHorizontal: 10}}>
+            style={{
+              paddingHorizontal: 15,
+            }}>
             <CustomText
-              style={{marginVertical: 10}}
-              text={route.params.post_title}
-              textWeight={700}
-              textSize={25}
+              text={route.params.username}
+              textWeight={500}
+              textSize={16}
             />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              backgroundColor: 'black',
-            }}>
-            {route.params.download_url ? (
-              <View style={{background: 'black', flex: 1}}>
-                <Image
-                  style={{
-                    resizeMode: 'contain',
-                    height: 300,
-                    width: 300,
-                    aspectRatio: aspect(imageHeight, imageWidth),
-                    alignSelf: 'center',
-                  }}
-                  source={{uri: route.params.download_url}}
-                />
-              </View>
-            ) : null}
-          </View>
-
-          <View style={{}}>
-            <View style={{marginLeft: 10, marginBottom: 10}}>
-              <CustomText
-                text={route.params.post_content}
-                textSize={17}
-                textWeight={500}
-              />
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              paddingVertical: 10,
-            }}>
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                style={{height: 25, width: 25, marginRight: 5}}
-                source={require('../assets/icons/comment.png')}
-              />
-              <CustomText
-                textSize={15}
-                textWeight={500}
-                text={postCommentList.length}
-              />
-            </View>
-            <Image
-              style={{height: 25, width: 25, marginRight: 5}}
-              source={require('../assets/icons/share.png')}
-            />
-            <Image
-              style={{height: 25, width: 25, marginRight: 5}}
-              source={require('../assets/icons/chat.png')}
+            <CustomText
+              text={
+                route.params.post_time.toDate().toLocaleDateString() +
+                ' ' +
+                route.params.post_time.toDate().toLocaleTimeString()
+              }
+              textWeight={400}
+              textSize={12}
             />
           </View>
         </View>
-        {/* Comment FlatList  */}
-          <View
-            style={{
-              backgroundColor: '#00000005',
-              paddingVertical: 10,
-            }}>
-            <CustomText style={{marginLeft: 10}} text="COMMENTS" textSize={16} textWeight={500} />
-          </View>
-          <FlatList
-            data={postCommentList}
-            renderItem={item => (
-              <TouchableOpacity
-                onPress={() => {
-                  console.log(postCommentList);
-                }}>
-                <Comment
-                  comment_user_id={item.item.comment_user_id}
-                  deleteOnPress={handleDelete}
-                  comment_id={item.item.comment_id}
-                  nameOfUser={item.item.username}
-                  comment={item.item.comment}
-                  comment_time={moment(item.item.comment_time).format(
-                    'MM/DD/YYYY',
-                  )}
-                />
-              </TouchableOpacity>
-            )}
+        <View style={{paddingHorizontal: 10, 
+            backgroundColor: '#ffffff',}}>
+          <CustomText
+            style={{marginVertical: 10}}
+            text={route.params.post_title}
+            textWeight={700}
+            textSize={25}
           />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: 'black',
+          }}>
+          {route.params.download_url ? (
+            <View style={{background: 'black', flex: 1}}>
+              <Image
+                style={{
+                  resizeMode: 'contain',
+                  height: 300,
+                  width: 300,
+                  aspectRatio: aspect(imageHeight, imageWidth),
+                  alignSelf: 'center',
+                }}
+                source={{uri: route.params.download_url}}
+              />
+            </View>
+          ) : null}
+        </View>
+
+        <View style={{
+            backgroundColor: '#ffffff',}}>
+          <View style={{marginLeft: 10, marginBottom: 10}}>
+            <CustomText
+              text={route.params.post_content}
+              textSize={17}
+              textWeight={500}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            paddingVertical: 10,
+            backgroundColor: '#ffffff',
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <Image
+              style={{height: 25, width: 25, marginRight: 5}}
+              source={require('../assets/icons/comment.png')}
+            />
+            <CustomText
+              textSize={15}
+              textWeight={500}
+              text={postCommentList.length}
+            />
+          </View>
+          <Image
+            style={{height: 25, width: 25, marginRight: 5}}
+            source={require('../assets/icons/share.png')}
+          />
+          <Image
+            style={{height: 25, width: 25, marginRight: 5}}
+            source={require('../assets/icons/chat.png')}
+          />
+        </View>
+        {/* Comment FlatList  */}
+        <View
+          style={{
+            backgroundColor: '#00000005',
+            paddingVertical: 10,
+          }}>
+          <CustomText
+            style={{marginLeft: 10}}
+            text="COMMENTS"
+            textSize={16}
+            textWeight={500}
+          />
+        </View>
+        <FlatList
+          data={postCommentList}
+          contentContainerStyle = {{
+            backgroundColor: '#ffffff',}}
+          renderItem={item => (
+            <TouchableOpacity
+              onPress={() => {
+                console.log(postCommentList);
+              }}>
+              <Comment
+                comment_user_id={item.item.comment_user_id}
+                deleteOnPress={handleDelete}
+                comment_id={item.item.comment_id}
+                nameOfUser={item.item.username}
+                comment={item.item.comment}
+                comment_time={moment(item.item.comment_time).format(
+                  'MM/DD/YYYY',
+                )}
+              />
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
 
       <View
