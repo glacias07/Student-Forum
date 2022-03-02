@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     alignSelf: 'center',
-    backgroundColor: '#d9d1d0',
+    backgroundColor: 'white',
     elevation: 5,
     borderRadius: 10,
     margin: 10,

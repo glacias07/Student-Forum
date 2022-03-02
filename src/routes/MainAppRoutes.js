@@ -7,8 +7,11 @@ import TabStack from './TabStack';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
 import {useContext, useState, useEffect} from 'react';
+import SplashScreen from '../components/SplashScreen';
 
 const Stack = createNativeStackNavigator();
+
+// const Splash = createNativeStackNavigator();
 
 function MainAppRoutes() {
   const {user, setUser} = useContext(AuthContext);
@@ -27,15 +30,34 @@ function MainAppRoutes() {
   if (initializing) return null;
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator
+        initialRouteName="SplashScreen"
+        screenOptions={{headerShown: false}}>
+        {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
+        
         {user ? (
-          <Stack.Screen name="Main App" component={TabStack} />
+          <>
+            <Stack.Screen name="Main App" component={TabStack} />
+          </>
         ) : (
-          <Stack.Screen name="Auth Stack" component={AuthStack} />
+          <>
+            <Stack.Screen name="Auth Stack" component={AuthStack} />
+          </>
         )}
+{/* 
+        <Stack.Screen name="Main App" component={TabStack} />
+        <Stack.Screen name="Auth Stack" component={AuthStack} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+// const SplashStack = () => {
+//   return (
+//     <Splash.Navigator>
+//       <Splash.Screen name="Splash" component={SplashScreen} />
+//     </Splash.Navigator>
+//   );
+// };
 
 export default MainAppRoutes;
