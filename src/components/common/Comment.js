@@ -21,59 +21,63 @@ const Comment = ({
 
   return (
     <View style={container}>
-      <Text style={username}>{nameOfUser}</Text>
-      <Text style={text}>{comment}</Text>
-      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-        <Text style={time}>{comment_time}</Text>
-      </View>
-      <Menu style={{flex: 1}}>
-        <MenuTrigger
-          style={{
-            width: '200%',
-            alignSelf: 'center',
-            alignItems: 'center',
-            padding: 10,
-            marginBottom: 30,
-          }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 10,
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <CustomText
-            textColor="#00000080"
-            textSize={22}
-            textWeight={700}
-            text="..."
+            style={{marginRight: 5}}
+            textSize={16}
+            textWeight={600}
+            text={nameOfUser}
           />
-        </MenuTrigger>
-        <MenuOptions
-          optionsContainerStyle={{
-            borderRadius: 10,
-            // flex: 1,
-          }}
-          style={{
-            padding: 15,
-          }}>
-          <MenuOption
-            onSelect={() => console.log('Share function yet to be developed')}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: 5,
-              }}>
-              <Image
-                source={require('../../assets/icons/share.png')}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 12,
-                  tintColor: '#868686',
-                }}
-              />
-              <CustomText text="Share" textColor="#000000" />
-            </View>
-          </MenuOption>
-          {/* {user.uid === userId ? ( */}
-          {1 == 1 ? (
+          <CustomText
+            style={{marginRight: 5}}
+            textSize={20}
+            textWeight={400}
+            text={'•'}
+          />
+          <CustomText
+            style={{}}
+            textSize={14}
+            textWeight={400}
+            text={comment_time}
+          />
+        </View>
+        <Menu>
+          <MenuTrigger
+            style={
+              {
+                // width: '200%',
+                // alignSelf: 'center',
+                // alignItems: 'center',
+                // padding: 10,
+                // marginBottom: 30,
+              }
+            }>
+            <CustomText
+              textColor="#00000080"
+              textSize={22}
+              textWeight={700}
+              text="..."
+            />
+          </MenuTrigger>
+          <MenuOptions
+            optionsContainerStyle={{
+              borderRadius: 10,
+              // flex: 1,
+            }}
+            style={{
+              padding: 15,
+            }}>
             <MenuOption
-              onSelect={() => console.log('Edit function yet to be developed',comment_user_id, user.uid)}>
+              onSelect={() =>
+                console.log('Share function yet to be developed')
+              }>
               <View
                 style={{
                   flexDirection: 'row',
@@ -81,7 +85,7 @@ const Comment = ({
                   padding: 5,
                 }}>
                 <Image
-                  source={require('../../assets/icons/edit.png')}
+                  source={require('../../assets/icons/share.png')}
                   style={{
                     width: 20,
                     height: 20,
@@ -89,46 +93,76 @@ const Comment = ({
                     tintColor: '#868686',
                   }}
                 />
-                <CustomText text="Edit" textColor="#000000" />
+                <CustomText text="Share" textColor="#000000" />
               </View>
             </MenuOption>
-          ) : null}
-          {/* {user.uid === userId ? ( */}
-          {comment_user_id === user.uid ? (
-            <MenuOption onSelect={() => deleteOnPress(comment_id)}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  padding: 5,
-                }}>
-                <Image
-                  source={require('../../assets/icons/bin.png')}
+            {/* {user.uid === userId ? ( */}
+            {1 == 1 ? (
+              <MenuOption
+                onSelect={() =>
+                  console.log(
+                    'Edit function yet to be developed',
+                    comment_user_id,
+                    user.uid,
+                  )
+                }>
+                <View
                   style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 12,
-                    tintColor: '#d91c45',
-                  }}
-                />
-                <CustomText text="Delete" textColor="#d91c45" />
-              </View>
-            </MenuOption>
-          ) : null}
-        </MenuOptions>
-      </Menu>
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 5,
+                  }}>
+                  <Image
+                    source={require('../../assets/icons/edit.png')}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 12,
+                      tintColor: '#868686',
+                    }}
+                  />
+                  <CustomText text="Edit" textColor="#000000" />
+                </View>
+              </MenuOption>
+            ) : null}
+            {/* {user.uid === userId ? ( */}
+            {comment_user_id === user.uid ? (
+              <MenuOption onSelect={() => deleteOnPress(comment_id)}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 5,
+                  }}>
+                  <Image
+                    source={require('../../assets/icons/bin.png')}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 12,
+                      tintColor: '#d91c45',
+                    }}
+                  />
+                  <CustomText text="Delete" textColor="#d91c45" />
+                </View>
+              </MenuOption>
+            ) : null}
+          </MenuOptions>
+        </Menu>
+      </View>
+      <CustomText style={{marginLeft: 10}} textWeight={500} textSize={16} text={comment} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
-    alignSelf: 'center',
+    width: '100%',
+    // alignSelf: 'center',
     backgroundColor: 'white',
-    elevation: 5,
-    borderRadius: 10,
-    margin: 10,
+    // elevation: 5,
+    // borderRadius: 10,
+    marginBottom: 10,
     padding: 5,
   },
   username: {
