@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  Text,
 } from 'react-native';
 
 import {AuthContext} from '../routes/AuthProvider';
@@ -158,8 +159,7 @@ const PostDetails = props => {
             />
           </View>
         </View>
-        <View style={{paddingHorizontal: 10, 
-            backgroundColor: '#ffffff',}}>
+        <View style={{paddingHorizontal: 10, backgroundColor: '#ffffff'}}>
           <CustomText
             style={{marginVertical: 10}}
             text={route.params.post_title}
@@ -189,8 +189,10 @@ const PostDetails = props => {
           ) : null}
         </View>
 
-        <View style={{
-            backgroundColor: '#ffffff',}}>
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+          }}>
           <View style={{marginLeft: 10, marginBottom: 10}}>
             <CustomText
               text={route.params.post_content}
@@ -239,7 +241,54 @@ const PostDetails = props => {
             textWeight={500}
           />
         </View>
-        <FlatList
+        {postCommentList.length > 0 ? (
+          <FlatList
+            data={postCommentList}
+            contentContainerStyle={{
+              backgroundColor: '#00000005',
+            }}
+            renderItem={item => (
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(postCommentList);
+                }}>
+                <Comment
+                  comment_user_id={item.item.comment_user_id}
+                  deleteOnPress={handleDelete}
+                  comment_id={item.item.comment_id}
+                  nameOfUser={item.item.username}
+                  comment={item.item.comment}
+                  comment_time={moment(item.item.comment_time).fromNow(true)}
+                />
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View style={{backgroundColor: 'white', height: 200}}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Image
+                style={{height: 80, width: 80, marginBottom: 10}}
+                source={require('../assets/images/confused.png')}
+              />
+              <CustomText
+                text="No Conversations Yet !"
+                textSize={20}
+                textWeight={200}
+              />
+              <CustomText
+                text="Why don't you start one?"
+                textSize={15}
+                textWeight={600}
+              />
+            </View>
+          </View>
+        )}
+        {/* <FlatList
           data={postCommentList}
           contentContainerStyle = {{
             backgroundColor: '#00000005',}}
@@ -258,7 +307,7 @@ const PostDetails = props => {
               />
             </TouchableOpacity>
           )}
-        />
+        /> */}
       </ScrollView>
 
       <View
@@ -286,16 +335,15 @@ const PostDetails = props => {
             <Image
               style={{height: 25, width: 25, marginRight: 5}}
               source={require('../assets/icons/send.png')}
-              tintColor='#5374ff'
+              tintColor="#5374ff"
             />
           </TouchableOpacity>
         ) : (
-          
           <Image
-           tintColor='lightgrey'
-              style={{height: 25, width: 25, marginRight: 5}}
-              source={require('../assets/icons/send.png')}
-            />
+            tintColor="lightgrey"
+            style={{height: 25, width: 25, marginRight: 5}}
+            source={require('../assets/icons/send.png')}
+          />
         )}
       </View>
     </>
