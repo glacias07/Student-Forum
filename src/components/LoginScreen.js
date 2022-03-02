@@ -30,7 +30,7 @@ const LoginScreen = ({navigation}) => {
           text="Connect.Share.Discuss"
           textSize={16}
           textWeight={400}
-          style={{marginTop: -10, marginBottom: 100}}
+          style={{marginTop: -35, marginBottom: 120}}
         />
       </View>
       <FormInput
