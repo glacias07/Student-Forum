@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+
 import {AuthContext} from '../routes/AuthProvider';
 import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
@@ -228,33 +229,38 @@ const PostDetails = props => {
           </View>
         </View>
         {/* Comment FlatList  */}
-          <View
-            style={{
-              backgroundColor: '#00000005',
-              paddingVertical: 10,
-            }}>
-            <CustomText style={{marginLeft: 10}} text="COMMENTS" textSize={16} textWeight={500} />
-          </View>
-          <FlatList
-            data={postCommentList}
-            renderItem={item => (
-              <TouchableOpacity
-                onPress={() => {
-                  console.log(postCommentList);
-                }}>
-                <Comment
-                  comment_user_id={item.item.comment_user_id}
-                  deleteOnPress={handleDelete}
-                  comment_id={item.item.comment_id}
-                  nameOfUser={item.item.username}
-                  comment={item.item.comment}
-                  comment_time={moment(item.item.comment_time).format(
-                    'MM/DD/YYYY',
-                  )}
-                />
-              </TouchableOpacity>
-            )}
+        <View
+          style={{
+            backgroundColor: '#00000005',
+            paddingVertical: 10,
+          }}>
+          <CustomText
+            style={{marginLeft: 10}}
+            text="COMMENTS"
+            textSize={16}
+            textWeight={500}
           />
+        </View>
+        <FlatList
+          data={postCommentList}
+          renderItem={item => (
+            <TouchableOpacity
+              onPress={() => {
+                console.log(postCommentList);
+              }}>
+              <Comment
+                comment_user_id={item.item.comment_user_id}
+                deleteOnPress={handleDelete}
+                comment_id={item.item.comment_id}
+                nameOfUser={item.item.username}
+                comment={item.item.comment}
+                comment_time={moment(item.item.comment_time).format(
+                  'MM/DD/YYYY',
+                )}
+              />
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
 
       <View
@@ -265,20 +271,34 @@ const PostDetails = props => {
           borderWidth: 0.7,
           borderColor: '#00000050',
           paddingHorizontal: 10,
+          borderRadius: 10,
+          margin: 10,
+          backgroundColor: 'white',
         }}>
         <TextInput
           onChangeText={comment => setPostComment(comment)}
           style={{flex: 4}}
           value={postComment}
+          placeholder="Add a comment"
         />
-        <TouchableOpacity onPress={() => submitComment(postComment)}>
-          <CustomText
-            text="post"
-            textWeight={500}
-            textSize={20}
-            style={{flex: 1, marginLeft: 20}}
-          />
-        </TouchableOpacity>
+        {postComment ? (
+          <TouchableOpacity
+            style={{justifyContent: 'center', alignItems: 'center'}}
+            onPress={() => submitComment(postComment)}>
+            <Image
+              style={{height: 25, width: 25, marginRight: 5}}
+              source={require('../assets/icons/send.png')}
+              tintColor='#5374ff'
+            />
+          </TouchableOpacity>
+        ) : (
+          
+          <Image
+           tintColor='lightgrey'
+              style={{height: 25, width: 25, marginRight: 5}}
+              source={require('../assets/icons/send.png')}
+            />
+        )}
       </View>
     </>
   );
