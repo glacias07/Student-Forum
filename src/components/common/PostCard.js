@@ -179,12 +179,13 @@ const PostCard = ({
                         padding: 5,
                       }}>
                       <Image
-                        // source={require('../../assets/icons/bin.png')}
+                        source={require('../../assets/icons/messenger.png')}
                         style={{
                           width: 20,
                           height: 20,
                           marginRight: 12,
-                          tintColor: '#d91c45',
+                          tintColor:'#868686'
+                         
                         }}
                       />
                       <CustomText text="Chat with user" textColor="black" />

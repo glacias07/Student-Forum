@@ -6,7 +6,7 @@ import {AuthContext} from '../routes/AuthProvider';
 import {useContext, useState, useEffect} from 'react';
 
 const SplashScreen = ({navigation}) => {
-//   const {main} = styles;
+  const {main} = styles;
 
 //   const {user, setUser} = useContext(AuthContext);
 //   const [initializing, setInitializing] = useState(true);
@@ -30,7 +30,7 @@ const SplashScreen = ({navigation}) => {
           autoPlay
           loop={false}
           speed={3}
-          onAnimationFinish={() => console.log("Splash")}
+          onAnimationFinish={() => navigation.navigate("Auth Stack")}
         />
       </View>
     </>

@@ -105,7 +105,6 @@ const PersonalMessage = ({onBack, myData, route}) => {
   return (
     <>
       <Pressable>
-        {/* <Image source={require('./assets/back.png')} /> */}
         <Text>{route.params.friendData?.name}</Text>
       </Pressable>
       <GiftedChat
