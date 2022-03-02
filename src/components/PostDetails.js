@@ -132,59 +132,108 @@ const PostDetails = props => {
             backgroundColor: 'white',
           }}>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-            }}>
-            <CustomText
-              text={route.params.username}
-              textWeight={200}
-              textSize={16}
+            style={{flexDirection: 'row', alignItems: 'center', padding: 10}}>
+            <Image
+              style={{height: 50, width: 50, borderRadius: 150 / 2}}
+              source={{uri: route.params.download_url}}
             />
-            <CustomText
-              text={
-                route.params.post_time.toDate().toLocaleDateString() +
-                ' ' +
-                route.params.post_time.toDate().toLocaleTimeString()
-              }
-              textWeight={100}
-              textSize={12}
-            />
+            <View
+              style={{
+                // flexDirection: 'row',
+                // justifyContent: 'space-between',
+                paddingHorizontal: 15,
+                // alignItems: 'center',
+                // backgroundColor:'#000000'
+              }}>
+              <CustomText
+                text={route.params.username}
+                textWeight={500}
+                textSize={16}
+              />
+              <CustomText
+                text={
+                  route.params.post_time.toDate().toLocaleDateString() +
+                  ' ' +
+                  route.params.post_time.toDate().toLocaleTimeString()
+                }
+                textWeight={400}
+                textSize={12}
+              />
+            </View>
           </View>
-          <View style={{margin: 10, marginTop: -3}}>
+          <View style={{paddingHorizontal: 10}}>
             <CustomText
+              style={{marginVertical: 10}}
               text={route.params.post_title}
               textWeight={700}
               textSize={25}
             />
           </View>
-          {route.params.download_url ? (
-            <View style={{marginLeft: 10}}>
-              <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 300,
-                  width: 300,
-                  aspectRatio: aspect(imageHeight, imageWidth),
-                  borderRadius: 10,
-                }}
-                source={{uri: route.params.download_url}}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: 'black',
+            }}>
+            {route.params.download_url ? (
+              <View style={{background: 'black', flex: 1}}>
+                <Image
+                  style={{
+                    resizeMode: 'contain',
+                    height: 300,
+                    width: 300,
+                    aspectRatio: aspect(imageHeight, imageWidth),
+                    alignSelf: 'center',
+                  }}
+                  source={{uri: route.params.download_url}}
+                />
+              </View>
+            ) : null}
+          </View>
+
+          <View style={{}}>
+            <View style={{marginLeft: 10, marginBottom: 10}}>
+              <CustomText
+                text={route.params.post_content}
+                textSize={17}
+                textWeight={500}
               />
             </View>
-          ) : null}
-          <View style={{marginLeft: 10, marginBottom: 10}}>
-            <CustomText
-              text={route.params.post_content}
-              textSize={20}
-              textWeight={500}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              paddingVertical: 10,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                style={{height: 25, width: 25, marginRight: 5}}
+                source={require('../assets/icons/comment.png')}
+              />
+              <CustomText
+                textSize={15}
+                textWeight={500}
+                text={postCommentList.length}
+              />
+            </View>
+            <Image
+              style={{height: 25, width: 25, marginRight: 5}}
+              source={require('../assets/icons/share.png')}
+            />
+            <Image
+              style={{height: 25, width: 25, marginRight: 5}}
+              source={require('../assets/icons/chat.png')}
             />
           </View>
         </View>
         {/* Comment FlatList  */}
-        <View style={{backgroundColor: '#fff3d9'}}>
-          <View style={{marginLeft: 20}}>
-            <CustomText text="Comments" textSize={20} textWeight={900} />
+          <View
+            style={{
+              backgroundColor: '#00000005',
+              paddingVertical: 10,
+            }}>
+            <CustomText style={{marginLeft: 10}} text="COMMENTS" textSize={16} textWeight={500} />
           </View>
           <FlatList
             data={postCommentList}
@@ -206,7 +255,6 @@ const PostDetails = props => {
               </TouchableOpacity>
             )}
           />
-        </View>
       </ScrollView>
 
       <View
@@ -214,10 +262,13 @@ const PostDetails = props => {
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
+          borderWidth: 0.7,
+          borderColor: '#00000050',
+          paddingHorizontal: 10,
         }}>
         <TextInput
           onChangeText={comment => setPostComment(comment)}
-          style={{borderColor: 'black', borderWidth: 1, flex: 4}}
+          style={{flex: 4}}
           value={postComment}
         />
         <TouchableOpacity onPress={() => submitComment(postComment)}>
