@@ -1,5 +1,5 @@
 import React from 'react';
-import {} from './SetupProfileScreen'
+import {} from './SetupProfileScreen';
 import {useEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -11,15 +11,16 @@ import {
   Alert,
 } from 'react-native';
 // import {CustomText, PostCard} from './common';
-import PostCard from './common/PostCard'
+import PostCard from './common/PostCard';
 
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {usernameSet, useridSet} from '../actions/PostScreenActions';
+import {CustomText} from './common';
 
-const PostScreen = ({navigation,usernameSet,useridSet}) => {
+const PostScreen = ({navigation, usernameSet, useridSet}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -164,11 +165,9 @@ const PostScreen = ({navigation,usernameSet,useridSet}) => {
             });
           });
         });
-      console.log("User details ",list)
-      useridSet(list[0].userId)
-      usernameSet(list[0].username)
-      
-     
+      console.log('User details ', list);
+      useridSet(list[0].userId);
+      usernameSet(list[0].username);
 
       if (loading) {
         setLoading(false);
@@ -177,14 +176,40 @@ const PostScreen = ({navigation,usernameSet,useridSet}) => {
       console.log('Error while fetching User Details', error);
     }
   };
- 
+
   return (
     <View
       style={{
-        backgroundColor: '#ffffff',
+        // backgroundColor: '#faf2e8',
         paddingHorizontal: 20,
         flex: 1,
       }}>
+      <View
+        style={{
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          margin: 10,
+          flexDirection: 'row',
+          backgroundColor: '#f5dabc',
+          height:60,
+          width:'95%',
+          borderRadius:10,
+        }}>
+        <Image
+          style={{height: 40, width: 40}}
+          source={require('../assets/images/boy.png')}
+        />
+        <CustomText
+          text="Share your thoughts here "
+          textSize={20}
+          textWeight={600}
+          textColor="black"
+        />
+        <Image
+          style={{height: 40, width: 40}}
+          source={require('../assets/images/girl.png')}
+        />
+      </View>
       <FlatList
         contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
@@ -219,8 +244,8 @@ const PostScreen = ({navigation,usernameSet,useridSet}) => {
         activeOpacity={0.65}
         onPress={() => {
           navigation.navigate('Create Screen');
-        // usernameSet(userDetails[0].username)
-        // console.log('redux usernamme', username);
+          // usernameSet(userDetails[0].username)
+          // console.log('redux usernamme', username);
         }}
         style={styles.postbtn}>
         <Image
@@ -266,7 +291,4 @@ const mapStateToProps = state => {
   };
 };
 
-
-
-
-export default connect(mapStateToProps,{usernameSet, useridSet})(PostScreen);
+export default connect(mapStateToProps, {usernameSet, useridSet})(PostScreen);

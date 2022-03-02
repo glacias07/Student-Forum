@@ -62,6 +62,7 @@ const AppStack = () => {
         name="Posts Screen"
         component={PostScreen}
         options={{
+          headerShown: false,
           headerShadowVisible: false,
           headerStyle: Styles.commonHeaderStyle,
           headerTitleStyle: Styles.commonHeaderTitleStyle,
@@ -76,7 +77,7 @@ const AppStack = () => {
           headerStyle: Styles.commonHeaderStyle,
           headerTitleStyle: Styles.commonHeaderTitleStyle,
           // headerTitleAlign: 'center',
-          headerTitle: ''
+          headerTitle: '',
         }}
       />
       <AppStackNav.Screen

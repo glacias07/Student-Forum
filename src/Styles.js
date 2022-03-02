@@ -1,6 +1,6 @@
 const Styles = {
   commonHeaderStyle: {
-    backgroundColor: '#F6F7FB',
+    backgroundColor: 'white',
   },
   commonHeaderTitleStyle: {
     fontFamily: 'Satoshi-Medium',
