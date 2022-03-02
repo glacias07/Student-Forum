@@ -21,39 +21,31 @@ const ChatItem = props => {
     chatOnPress,
   } = props;
   return (
-    <>
       <TouchableOpacity onPress={chatOnPress} style={[styles.container, style]}>
         <Image source={{uri: userImg}} style={styles.avatar} />
         <View style={styles.midContainer}>
-          <CustomText textSize={28} textWeight={500} text={userName}/>
+          <CustomText textSize={18} textWeight={500} text={userName} />
         </View>
       </TouchableOpacity>
-      <View
-        style={{
-          borderBottomWidth: 0.5,
-          borderBottomColor: '#00000060',
-          width: '85%',
-          alignSelf: 'center',
-        }}></View>
-    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '70%',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
-    paddingVertical: 20,
-    paddingHorizontal: -5,
+    // width: '70%',
+    // justifyContent: 'space-between',
+    // alignSelf: 'center',
+    // paddingVertical: 10,
+    backgroundColor: '#ffffff',
+    padding: 10,
   },
   midContainer: {alignSelf: 'center', paddingRight: 40},
   avatar: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
     marginRight: 15,
-    borderRadius: 50,
+    borderRadius: 150/2,
   },
 });
 
