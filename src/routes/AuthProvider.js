@@ -87,12 +87,19 @@ export const AuthProvider = ({children}) => {
           firestore()
             .collection('posts')
             .doc(post_id)
-            .set(
-              {
-                comments: [...oldComments, comment],
-              },
-              {merge: true},
-            )
+            .set({
+              comments: [
+                ...oldComments,
+                {
+                  comment,
+                  comment_id,
+                  comment_time,
+                  comment_user_id,
+                  replies,
+                  username,
+                },
+              ],
+            },{merge:true})
             .then(() => {
               console.log('Post Comments Updated!');
             });

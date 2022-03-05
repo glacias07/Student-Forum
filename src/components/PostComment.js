@@ -49,18 +49,17 @@ const PostComment = props => {
 
 
     replyListSet(new_replies);
-    findAndUpdate(route.params.allCommentList)
-    // updatePostCommentReplies(
-    //   route.params.allCommentList,
-    //   route.params.post_id,
-    //   route.params.comment,
-    //   route.params.comment_id,
-    //   route.params.comment_time,
-    //   route.params.comment_user_id,
-    //   ['replyList'],
-    //   route.params.nameOfUser,
-    // );
-    // console.log('Final', replyList);
+    updatePostCommentReplies(
+      route.params.allCommentList.filter(obj => obj.comment_id != route.params.comment_id),
+      route.params.post_id,
+      route.params.comment,
+      route.params.comment_id,
+      route.params.comment_time,
+      route.params.comment_user_id,
+      ['replyList', 'this is it', 'nice welldone'],
+      route.params.nameOfUser,
+    );
+    console.log('Final', replyList);
   };
 
 

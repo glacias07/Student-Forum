@@ -262,9 +262,7 @@ const PostDetails = props => {
                       comment_user_id: item.item.comment_user_id,
                       nameOfUser: item.item.username,
                       comment: item.item.comment,
-                      comment_time: moment(item.item.comment_time).fromNow(
-                        true,
-                      ),
+                      comment_time: item.item.comment_time,
                       post_title: route.params.post_title,
                       post_id:route.params.post_id,
                       comment_replies:item.item.replies,
