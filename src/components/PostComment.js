@@ -48,13 +48,13 @@ const PostComment = props => {
 
     replyListSet(new_replies);
     updatePostCommentReplies(
-      route.params.allCommentList,
+      route.params.allCommentList.filter(obj => obj.comment_id != route.params.comment_id),
       route.params.post_id,
       route.params.comment,
       route.params.comment_id,
       route.params.comment_time,
       route.params.comment_user_id,
-      ['replyList'],
+      ['replyList', 'this is it', 'nice welldone'],
       route.params.nameOfUser,
     );
     console.log('Final', replyList);
