@@ -74,31 +74,22 @@ export const AuthProvider = ({children}) => {
             });
         },
         updatePostCommentReplies: async (
-          updatedComments,
+          oldComments,
           post_id,
+          // comment,
+          // comment_id,
+          // comment_time,
+          // comment_user_id,
+          // replies,
+          // username,
           comment,
-          comment_id,
-          comment_time,
-          comment_user_id,
-          replies,
-          username,
         ) => {
           firestore()
             .collection('posts')
             .doc(post_id)
             .set(
               {
-                comments: [
-                  ...updatedComments,
-                  {
-                    comment,
-                    comment_id,
-                    comment_time,
-                    comment_user_id,
-                    replies,
-                    username,
-                  },
-                ],
+                comments: [...oldComments, comment],
               },
               {merge: true},
             )

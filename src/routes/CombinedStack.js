@@ -6,7 +6,10 @@ const MaterialTab = createMaterialTopTabNavigator();
 
 const CombinedStack = () => {
   return (
-    <MaterialTab.Navigator>
+    <MaterialTab.Navigator
+      options={{
+        tabBarVisible: false,
+      }}>
       <MaterialTab.Screen name="Home" component={AppStack} />
       <MaterialTab.Screen name="Help Desk" component={HelpDesk} />
     </MaterialTab.Navigator>

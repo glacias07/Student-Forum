@@ -46,19 +46,30 @@ const PostComment = props => {
       },
     ];
 
+
+
     replyListSet(new_replies);
-    updatePostCommentReplies(
-      route.params.allCommentList,
-      route.params.post_id,
-      route.params.comment,
-      route.params.comment_id,
-      route.params.comment_time,
-      route.params.comment_user_id,
-      ['replyList'],
-      route.params.nameOfUser,
-    );
-    console.log('Final', replyList);
+    findAndUpdate(route.params.allCommentList)
+    // updatePostCommentReplies(
+    //   route.params.allCommentList,
+    //   route.params.post_id,
+    //   route.params.comment,
+    //   route.params.comment_id,
+    //   route.params.comment_time,
+    //   route.params.comment_user_id,
+    //   ['replyList'],
+    //   route.params.nameOfUser,
+    // );
+    // console.log('Final', replyList);
   };
+
+
+  const findAndUpdate=(Comments)=>{
+    const extracted_comment= Comments.filter(comment=> comment.id=== route.params.comment_id)
+    extracted_comment.replies=["New Reply"]
+    updatePostCommentReplies(route.params.allCommentList,route.params.post_id,extracted_comment)
+   
+  }
 
   return (
     <View>
@@ -71,7 +82,7 @@ const PostComment = props => {
         style={{fontSize: 17, margin: 10}}
       />
       <Button title="Submit" onPress={() => addReplies(reply)} />
-      <Button title="Submit" onPress={() => replyListSet(new_replies)} />
+      {/* <Button title="Submit" onPress={() => replyListSet(new_replies)} /> */}
     </View>
   );
 };

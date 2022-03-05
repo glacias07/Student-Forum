@@ -3,11 +3,22 @@ import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AppStack from './AppStack';
 import DashStack from './DashboardStack';
-import ChatStack from './ChatStack'
+import ChatStack from './ChatStack';
 import CombinedStack from './CombinedStack';
 const TabStackNav = createBottomTabNavigator();
 
-const TabStack = () => {
+const TabStack = route => {
+  getTabBarVisibility = route => {
+    const routeName = route.state
+      ? route.state.routes[route.state.index].name
+      : '';
+
+    if (routeName === 'Post Details') {
+      return false;
+    }
+
+    return true;
+  };
   return (
     <TabStackNav.Navigator
       screenOptions={{
@@ -30,6 +41,7 @@ const TabStack = () => {
               }}
             />
           ),
+          tabBarStyle: { backgroundColor: 'powderblue' }
         }}
       />
       <TabStackNav.Screen

@@ -13,7 +13,7 @@ import ChatScreen from '../components/ChatScreen';
 import PersonalMessage from '../components/PersonalMessage';
 import PostComment from '../components/PostComment';
 
-const AppStack = () => {
+const AppStack = route => {
   const [userDetails, setUserDetails] = useState([]);
   const {user} = useContext(AuthContext);
   const fetchUserDetails = async () => {
@@ -44,6 +44,8 @@ const AppStack = () => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
+
+
 
   return (
     <AppStackNav.Navigator>
