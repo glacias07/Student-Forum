@@ -15,6 +15,7 @@ const Comment = ({
   comment,
   comment_time,
   deleteOnPress,
+  replies,
 }) => {
   const {user} = useContext(AuthContext);
   const {container, username, text, time} = styles;
@@ -56,7 +57,7 @@ const Comment = ({
           justifyContent: 'flex-end',
         }}>
         <TouchableOpacity
-        onPress={()=>console.log('reply function to be developed')}
+          onPress={() => console.log('reply function to be developed')}
           style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
           <Image
             source={require('../../assets/icons/reply.png')}
@@ -77,10 +78,6 @@ const Comment = ({
         <Menu>
           <MenuTrigger
             style={{
-              // width: '200%',
-              // alignSelf: 'center',
-              // alignItems: 'center',
-              // padding: 10,
               marginRight: 30,
             }}>
             <CustomText
@@ -93,7 +90,6 @@ const Comment = ({
           <MenuOptions
             optionsContainerStyle={{
               borderRadius: 10,
-              // flex: 1,
             }}
             style={{
               padding: 15,
@@ -120,7 +116,6 @@ const Comment = ({
                 <CustomText text="Share" textColor="#000000" />
               </View>
             </MenuOption>
-            {/* {user.uid === userId ? ( */}
             {1 == 1 ? (
               <MenuOption
                 onSelect={() =>
@@ -149,7 +144,6 @@ const Comment = ({
                 </View>
               </MenuOption>
             ) : null}
-            {/* {user.uid === userId ? ( */}
             {comment_user_id === user.uid ? (
               <MenuOption onSelect={() => deleteOnPress(comment_id)}>
                 <View
@@ -174,6 +168,11 @@ const Comment = ({
           </MenuOptions>
         </Menu>
       </View>
+      <TouchableOpacity 
+      onPress={()=>console.log('replies')}
+      >
+        <CustomText text={'Replies'} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -181,10 +180,7 @@ const Comment = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    // alignSelf: 'center',
     backgroundColor: 'white',
-    // elevation: 5,
-    // borderRadius: 10,
     marginBottom: 10,
     padding: 5,
   },
