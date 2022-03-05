@@ -1,27 +1,26 @@
 import {View, Text, TextInput, StyleSheet} from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import moment from 'moment';
 
-const PostComment = props => {
-  const {route} = props;
+const PostComment = (props) => {
+  const {route}=props
   const [reply, setReply] = useState('');
   const {user} = useContext(AuthContext);
-  const [replyList, setReplyList] = useState([]);
+  const[replyList,setReplyList]=useState([])
 
-  // const submitReply = reply => {
+  // const submitReply = Comment => {
   //   updatePostComments(
   //     [
   //       ...postCommentList,
   //       {
-  //         comment_user_id: user.uid,
-  //         comment_id: user.uid + moment().format(),
-  //         comment: Comment,
+  //         reply_user_id: user.uid,
+  //         reply_id: user.uid + moment().format(),
+  //         reply: reply,
   //         username: username,
-  //         comment_time: moment().format(),
-  //         replies:[]
+  //         reply_time: moment().format(),
   //       },
   //     ],
   //     route.params.post_id,
@@ -29,22 +28,8 @@ const PostComment = props => {
 
   //  setReply('')
   // };
-  const addReply = reply => {
-    [
-      ...replyList,
-      {
-        reply_user_id: user.uid,
-        reply_id: user.uid + moment().format(),
-        reply: reply,
-        username: username,
-        reply_time: moment().format(),
-      },
-    ];
-    submitReply(replyList)
-  };
-  useEffect(() => {
-    setReplyList(route.params.post_replies);
-  }, []);
+  
+
   return (
     <View>
       <TextInput
@@ -55,16 +40,17 @@ const PostComment = props => {
         placeholder="Add your Reply ..."
         style={{fontSize: 17, margin: 10}}
       />
-      <TouchableOpacity onPress={addReply(reply)} />
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-const mapStateToProps = state => {
-  return {
-    username: state.postListing.username,
-  };
-};
+
+const mapStateToProps=state=>{
+    return{
+        username:state.postListing.username
+    }
+}
 export default connect(mapStateToProps, {})(PostComment);
