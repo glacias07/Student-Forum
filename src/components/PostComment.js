@@ -12,19 +12,20 @@ import {AuthContext} from '../routes/AuthProvider';
 
 import {connect} from 'react-redux';
 import moment from 'moment';
+import {NavigationContainer} from '@react-navigation/native';
 
 const PostComment = props => {
   const [reply, setReply] = useState('');
-  const {route, username} = props;
-  const {user, updatePostCommentReplies} = useContext(AuthContext);
+  const {route, username, navigation} = props;
+  const {user, updatePostComments} = useContext(AuthContext);
 
   useEffect(() => {
     fetctCommentArray();
   }, [reply]);
   var commentList = [];
   var replyArray = [];
-  var comment=[]
-  
+  var comment = [];
+  var comment_object = {};
   const fetctCommentArray = async () => {
     try {
       await firestore()
@@ -37,7 +38,7 @@ const PostComment = props => {
             commentList = [...comments];
           });
         });
-      console.log(commentList);
+      // console.log(commentList);
       extractCommentObjectAndReplyArray(commentList, route.params.comment_id);
     } catch (error) {
       console.log('Error while fetching comments', error);
@@ -46,6 +47,7 @@ const PostComment = props => {
 
   const extractCommentObjectAndReplyArray = (commentArray, id) => {
     comment = commentArray.filter(comment => comment.comment_id === id);
+    commentList = commentArray.filter(comment => comment.comment_id != id);
     replyArray = comment[0].replies;
   };
 
@@ -60,9 +62,19 @@ const PostComment = props => {
         reply_time: moment().format(),
       },
     ];
-  
-   comment[0].replies=new_replylist.map(reply=>reply)
-   console.log("Final",comment[0])
+
+    setTimeout(test1, 2000);
+    function test1() {
+      // console.log('Our method of async await', comment[0]);
+      comment_object = comment[0];
+      comment_object.replies = new_replylist.map(reply => reply);
+      console.log('Final Push', comment_object);
+      updatePostComments(
+        [...commentList, comment_object],
+        route.params.post_id,
+      );
+      navigation.goBack();
+    }
   };
 
   return (
@@ -83,13 +95,13 @@ const PostComment = props => {
   );
 };
 
-const mapStateToProps=state=>{
-  return{
-    username:state.postListing.username
-  }
-}
+const mapStateToProps = state => {
+  return {
+    username: state.postListing.username,
+  };
+};
 
-export default connect(mapStateToProps,{})( PostComment);
+export default connect(mapStateToProps, {})(PostComment);
 
 // import {replyListSet} from '../actions/PostScreenActions';
 // const PostComment = props => {
