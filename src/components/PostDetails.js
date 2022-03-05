@@ -259,7 +259,7 @@ const PostDetails = props => {
                   deleteOnPress={handleDelete}
                   replyOnPress={() =>
                     navigation.navigate('Post Comment', {
-                      comment_id: item.item.comment_user_id,
+                      comment_user_id: item.item.comment_user_id,
                       nameOfUser: item.item.username,
                       comment: item.item.comment,
                       comment_time: moment(item.item.comment_time).fromNow(
@@ -267,9 +267,9 @@ const PostDetails = props => {
                       ),
                       post_title: route.params.post_title,
                       post_id:route.params.post_id,
-                      comment_replies:item.item.replies
-                  
-                      
+                      comment_replies:item.item.replies,
+                      allCommentList: postCommentList,
+                      comment_id: item.item.comment_id
                     })
                   }
                   comment_id={item.item.comment_id}

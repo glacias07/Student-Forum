@@ -8,7 +8,7 @@ import {replyListSet} from '../actions/PostScreenActions';
 const PostComment = props => {
   const {route, username, replyListSet, replyList} = props;
   const [reply, setReply] = useState('');
-  const {user} = useContext(AuthContext);
+  const {user, updatePostCommentReplies} = useContext(AuthContext);
   //   const [replyList, setReplyList] = useState([]);
 
   // const submitReply = Comment => {
@@ -47,7 +47,16 @@ const PostComment = props => {
     ];
 
     replyListSet(new_replies);
-
+    updatePostCommentReplies(
+      route.params.allCommentList,
+      route.params.post_id,
+      route.params.comment,
+      route.params.comment_id,
+      route.params.comment_time,
+      route.params.comment_user_id,
+      ['replyList'],
+      route.params.nameOfUser,
+    );
     console.log('Final', replyList);
   };
 
@@ -62,7 +71,7 @@ const PostComment = props => {
         style={{fontSize: 17, margin: 10}}
       />
       <Button title="Submit" onPress={() => addReplies(reply)} />
-      <Button title="Submit" onPress={() => console.log(replyList)} />
+      <Button title="Submit" onPress={() => replyListSet(new_replies)} />
     </View>
   );
 };

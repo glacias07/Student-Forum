@@ -73,9 +73,40 @@ export const AuthProvider = ({children}) => {
               console.log('Post Comments Updated!');
             });
         },
+        updatePostCommentReplies: async (
+          updatedComments,
+          post_id,
+          comment,
+          comment_id,
+          comment_time,
+          comment_user_id,
+          replies,
+          username,
+        ) => {
+          firestore()
+            .collection('posts')
+            .doc(post_id)
+            .set(
+              {
+                comments: [
+                  ...updatedComments,
+                  {
+                    comment,
+                    comment_id,
+                    comment_time,
+                    comment_user_id,
+                    replies,
+                    username,
+                  },
+                ],
+              },
+              {merge: true},
+            )
+            .then(() => {
+              console.log('Post Comments Updated!');
+            });
+        },
 
-
-        
         updateUserPostsDetails: async (doc_id, username) => {
           console.log('executing updateUserPostsDetails');
           firestore()
@@ -151,7 +182,7 @@ export const AuthProvider = ({children}) => {
                   .length > 0
               ) {
                 // don't let chatUser add a chatUser twice
-                Alert.alert("This is already your friend, go to your chats")
+                Alert.alert('This is already your friend, go to your chats');
                 return;
               }
 
