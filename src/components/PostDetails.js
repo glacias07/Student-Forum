@@ -268,6 +268,7 @@ const PostDetails = props => {
                       post_title: route.params.post_title,
                       post_id:route.params.post_id,
                       comment_replies:item.item.replies
+                  
                       
                     })
                   }

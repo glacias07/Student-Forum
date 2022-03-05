@@ -1,7 +1,8 @@
 import {
   USERNAME_SET,
   USERID_SET,
-  CHATUSERNAME_SET
+  CHATUSERNAME_SET,
+  REPLY_LIST
 } from './ActionTypes';
 
 
@@ -27,6 +28,15 @@ export const chatUserNameSet = (text) => dispatch => {
   console.log("Action ",text)
   dispatch({
     type: CHATUSERNAME_SET,
+    payload: text,
+  });
+  
+};
+
+export const replyListSet = (text) => dispatch => {
+  console.log("Action ",text)
+  dispatch({
+    type: REPLY_LIST,
     payload: text,
   });
   
