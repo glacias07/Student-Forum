@@ -11,6 +11,7 @@ const AppStackNav = createNativeStackNavigator();
 import Styles from '../Styles';
 import ChatScreen from '../components/ChatScreen';
 import PersonalMessage from '../components/PersonalMessage';
+import PostComment from '../components/PostComment';
 
 const AppStack = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -72,6 +73,18 @@ const AppStack = () => {
       <AppStackNav.Screen
         name="Post Details"
         component={PostDetails}
+        options={{
+          headerShadowVisible: false,
+          headerStyle: Styles.commonHeaderStyle,
+          headerTitleStyle: Styles.commonHeaderTitleStyle,
+          // headerTitleAlign: 'center',
+          headerTitle: '',
+        }}
+      />
+
+      <AppStackNav.Screen
+        name="Post Comment"
+        component={PostComment}
         options={{
           headerShadowVisible: false,
           headerStyle: Styles.commonHeaderStyle,

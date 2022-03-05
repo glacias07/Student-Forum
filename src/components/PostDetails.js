@@ -15,9 +15,10 @@ import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
 import {connect} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
 
 const PostDetails = props => {
-  const {route, username, userId} = props;
+  const {route, username, userId, navigation} = props;
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
@@ -106,6 +107,7 @@ const PostDetails = props => {
           comment: Comment,
           username: username,
           comment_time: moment().format(),
+          replies:[]
         },
       ],
       route.params.post_id,
@@ -255,6 +257,20 @@ const PostDetails = props => {
                 <Comment
                   comment_user_id={item.item.comment_user_id}
                   deleteOnPress={handleDelete}
+                  replyOnPress={() =>
+                    navigation.navigate('Post Comment', {
+                      comment_id: item.item.comment_user_id,
+                      nameOfUser: item.item.username,
+                      comment: item.item.comment,
+                      comment_time: moment(item.item.comment_time).fromNow(
+                        true,
+                      ),
+                      post_title: route.params.post_title,
+                      post_id:route.params.post_id,
+                      comment_replies:item.item.replies
+                      
+                    })
+                  }
                   comment_id={item.item.comment_id}
                   nameOfUser={item.item.username}
                   comment={item.item.comment}

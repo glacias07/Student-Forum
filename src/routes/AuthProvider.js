@@ -73,6 +73,9 @@ export const AuthProvider = ({children}) => {
               console.log('Post Comments Updated!');
             });
         },
+
+
+        
         updateUserPostsDetails: async (doc_id, username) => {
           console.log('executing updateUserPostsDetails');
           firestore()

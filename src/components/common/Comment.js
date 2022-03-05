@@ -1,5 +1,13 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Menu,
   MenuOptions,
@@ -16,6 +24,7 @@ const Comment = ({
   comment_time,
   deleteOnPress,
   replies,
+  replyOnPress,
 }) => {
   const {user} = useContext(AuthContext);
   const {container, username, text, time} = styles;
@@ -57,7 +66,7 @@ const Comment = ({
           justifyContent: 'flex-end',
         }}>
         <TouchableOpacity
-          onPress={() => console.log('reply function to be developed')}
+          onPress={replyOnPress}
           style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
           <Image
             source={require('../../assets/icons/reply.png')}
@@ -168,9 +177,7 @@ const Comment = ({
           </MenuOptions>
         </Menu>
       </View>
-      <TouchableOpacity 
-      onPress={()=>console.log('replies')}
-      >
+      <TouchableOpacity onPress={() => console.log('replies')}>
         <CustomText text={'Replies'} />
       </TouchableOpacity>
     </View>
