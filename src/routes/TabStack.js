@@ -41,7 +41,7 @@ const TabStack = route => {
               }}
             />
           ),
-          tabBarStyle: { backgroundColor: 'powderblue' }
+          // tabBarStyle: { backgroundColor: 'powderblue' }
         }}
       />
       <TabStackNav.Screen
