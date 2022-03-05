@@ -2,10 +2,9 @@ import * as React from 'react';
 import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AppStack from './AppStack';
-import Dashboard from '../components/Dashboard';
-import Tab2 from '../components/ChatScreen';
 import DashStack from './DashboardStack';
 import ChatStack from './ChatStack'
+import CombinedStack from './CombinedStack';
 const TabStackNav = createBottomTabNavigator();
 
 const TabStack = () => {
@@ -19,7 +18,7 @@ const TabStack = () => {
       }}>
       <TabStackNav.Screen
         name="Posts"
-        component={AppStack}
+        component={CombinedStack}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
