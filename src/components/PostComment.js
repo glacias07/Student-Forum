@@ -1,4 +1,10 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useContext, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../routes/AuthProvider';
@@ -6,29 +12,29 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 const PostComment = props => {
-  const {route} = props;
+  const {route, username} = props;
   const [reply, setReply] = useState('');
-  const {user} = useContext(AuthContext);
+  const {user,updatePostComments} = useContext(AuthContext);
   const [replyList, setReplyList] = useState([]);
 
-  // const submitReply = reply => {
-  //   updatePostComments(
-  //     [
-  //       ...postCommentList,
-  //       {
-  //         comment_user_id: user.uid,
-  //         comment_id: user.uid + moment().format(),
-  //         comment: Comment,
-  //         username: username,
-  //         comment_time: moment().format(),
-  //         replies:[]
-  //       },
-  //     ],
-  //     route.params.post_id,
-  //   );
+  const submitReply = reply => {
+    // updatePostComments(
+    //   [
+    //     ...postCommentList,
+    //     {
+    //       comment_user_id: user.uid,
+    //       comment_id: user.uid + moment().format(),
+    //       comment: Comment,
+    //       username: username,
+    //       comment_time: moment().format(),
+    //       replies: [],
+    //     },
+    //   ],
+    //   route.params.post_id,
+    // );
 
-  //  setReply('')
-  // };
+    setReply('');
+  };
   const addReply = reply => {
     [
       ...replyList,
@@ -40,7 +46,7 @@ const PostComment = props => {
         reply_time: moment().format(),
       },
     ];
-    submitReply(replyList)
+    submitReply(replyList);
   };
   useEffect(() => {
     setReplyList(route.params.post_replies);
