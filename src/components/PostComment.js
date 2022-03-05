@@ -54,7 +54,7 @@ const PostComment = props => {
       route.params.comment_id,
       route.params.comment_time,
       route.params.comment_user_id,
-      ['replyList', 'this is it', 'nice welldone'],
+      ['replyList', 'this is it', 'nice welldone '],
       route.params.nameOfUser,
     );
     console.log('Final', replyList);
