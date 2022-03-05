@@ -24,6 +24,7 @@ const PostComment = props => {
   var commentList = [];
   var replyArray = [];
   var comment=[]
+  
   const fetctCommentArray = async () => {
     try {
       await firestore()
@@ -59,6 +60,7 @@ const PostComment = props => {
         reply_time: moment().format(),
       },
     ];
+  
    comment[0].replies=new_replylist.map(reply=>reply)
    console.log("Final",comment[0])
   };
