@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action.type, '=', action.payload);
+  // console.log(action.type, '=', action.payload);
   switch (action.type) {
     case USERNAME_SET:
       return {...state, username: action.payload};

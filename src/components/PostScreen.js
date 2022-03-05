@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  console.log('Global State=', state);
+  // console.log('Global State=', state);
   return {
     username: state.postListing.username,
   };

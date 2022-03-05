@@ -366,7 +366,7 @@ const PostDetails = props => {
 };
 const mapStateToProps = state => {
   // console.log('Inside post -', state);
-  console.log('Inside post user id -', state.postListing.userId);
+  // console.log('Inside post user id -', state.postListing.userId);
   return {
     username: state.postListing.username,
     userId: state.postListing.userId,

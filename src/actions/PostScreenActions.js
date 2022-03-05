@@ -8,7 +8,7 @@ import {
 
 
 export const usernameSet = (text) => dispatch => {
-  console.log("Action  ",text)
+  // console.log("Action  ",text)
   dispatch({
     type: USERNAME_SET,
     payload: text,
@@ -16,7 +16,7 @@ export const usernameSet = (text) => dispatch => {
   
 };
 export const useridSet = (text) => dispatch => {
-  console.log("Action ",text)
+  // console.log("Action ",text)
   dispatch({
     type: USERID_SET,
     payload: text,
@@ -25,7 +25,7 @@ export const useridSet = (text) => dispatch => {
 };
 
 export const chatUserNameSet = (text) => dispatch => {
-  console.log("Action ",text)
+  // console.log("Action ",text)
   dispatch({
     type: CHATUSERNAME_SET,
     payload: text,
@@ -34,7 +34,7 @@ export const chatUserNameSet = (text) => dispatch => {
 };
 
 export const replyListSet = (text) => dispatch => {
-  console.log("Action ",text)
+  // console.log("Action ",text)
   dispatch({
     type: REPLY_LIST,
     payload: text,
