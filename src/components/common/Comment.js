@@ -48,7 +48,7 @@ const Comment = ({
             <>
               <TouchableOpacity onPress={() => changeState(false, true)}>
                 <CustomText
-                  text={'hide replies'}
+                  text={'Hide Replies'}
                   textColor={'blue'}
                   style={{marginLeft: 10}}
                 />
@@ -74,7 +74,8 @@ const Comment = ({
             </>
           ) : (
             <CustomText
-              text={replies.length + ' more replies'}
+            
+              text={  replies.length >1? 'View Replies' + " ("+replies.length+')':"View Reply"}
               textColor={'blue'}
               style={{marginLeft: 5, marginBottom:5}}
             />
