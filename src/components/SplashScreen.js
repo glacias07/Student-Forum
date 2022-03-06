@@ -4,24 +4,26 @@ import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../routes/AuthProvider';
 import {useContext, useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {modalVisibleSet} from '../actions/PostScreenActions';
 
-const SplashScreen = ({navigation}) => {
+const SplashScreen = ({navigation, modalVisibleSet}) => {
   const {main} = styles;
 
-//   const {user, setUser} = useContext(AuthContext);
-//   const [initializing, setInitializing] = useState(true);
+  //   const {user, setUser} = useContext(AuthContext);
+  //   const [initializing, setInitializing] = useState(true);
 
-//   const onAuthStateChanged = user => {
-//     setUser(user);
-//     if (initializing) setInitializing(false);
-//   };
+  //   const onAuthStateChanged = user => {
+  //     setUser(user);
+  //     if (initializing) setInitializing(false);
+  //   };
 
-//   useEffect(() => {
-//     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-//     return subscriber; // unsubscribe on unmount
-//   }, []);
+  //   useEffect(() => {
+  //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //     return subscriber; // unsubscribe on unmount
+  //   }, []);
 
-//   if (initializing) return null;
+  //   if (initializing) return null;
   return (
     <>
       <View style={main}>
@@ -30,7 +32,7 @@ const SplashScreen = ({navigation}) => {
           autoPlay
           loop={false}
           speed={3}
-          onAnimationFinish={() => navigation.navigate("Auth Stack")}
+          onAnimationFinish={() => modalVisibleSet(false)}
         />
       </View>
     </>
@@ -44,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashScreen;
+export default connect(null, {modalVisibleSet})(SplashScreen);

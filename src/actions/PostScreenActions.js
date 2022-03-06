@@ -2,7 +2,8 @@ import {
   USERNAME_SET,
   USERID_SET,
   CHATUSERNAME_SET,
-  REPLY_LIST
+  REPLY_LIST,
+  MODAL_VISIBLE,
 } from './ActionTypes';
 
 
@@ -41,6 +42,13 @@ export const replyListSet = (text) => dispatch => {
   });
   
 };
+
+export const modalVisibleSet=bool=>dispatch=>{
+  dispatch({
+    type:MODAL_VISIBLE,
+    payload:bool
+  })
+}
 // export const usernameSet = text => {
 //   return {
 //     type: USERNAME_SET,
