@@ -112,13 +112,11 @@ const CreateScreen = ({navigation}) => {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {userId, username, bio, workplace, designation} = doc.data();
+            const {userId, username, avatar} = doc.data();
             list.push({
               userId,
               username,
-              bio,
-              workplace,
-              designation,
+              avatar
             });
           });
         });
@@ -133,7 +131,6 @@ const CreateScreen = ({navigation}) => {
 
   useEffect(() => {
     fetchUserDetails();
-    // console.log();
     navigation.addListener('focus', () => setLoading(!loading));
   }, [navigation, loading]);
 

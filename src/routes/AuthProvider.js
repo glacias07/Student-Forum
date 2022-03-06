@@ -88,8 +88,9 @@ export const AuthProvider = ({children}) => {
           postTitle,
           postContent,
           imageUrl = null,
+          avatar = 'https://robohash.org/' + username
         ) => {
-          console.log(imageUrl);
+          console.log(avatar);
           firestore()
             .collection('posts')
             .add({
@@ -100,6 +101,7 @@ export const AuthProvider = ({children}) => {
               postContent: postContent,
               postTime: firestore.Timestamp.fromDate(new Date()),
               comments: [],
+              avatar: avatar
             })
             .then(() => {
               console.log('Post Added');

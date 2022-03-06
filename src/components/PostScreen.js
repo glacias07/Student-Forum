@@ -217,6 +217,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         removeClippedSubviews={true}
         initialNumToRender={5}
         renderItem={({item, index}) => (
+          
           <PostCard
             deleteOnPress={handleDelete}
             cardOnPress={() => {
@@ -228,6 +229,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
                 username: item.username,
                 post_time: item.postTime,
                 download_url: item.downloadUrl,
+                avatar: item.avatar
               });
             }}
             postId={item.id}
@@ -239,7 +241,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
             imageUrl={item.downloadUrl}
             navigation={navigation}
             comment_length={item.comments.length}
-            
+            avatar = {item.avatar}
           />
         )}></FlatList>
       <TouchableOpacity
