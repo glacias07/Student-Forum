@@ -35,7 +35,7 @@ const PostComment = props => {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            newReplyList(reply)
+            newReplyList(reply);
           }}
           disabled={postFilledOrNot(reply).disabled}
           icon={require('../assets/icons/tick.png')}
@@ -47,7 +47,7 @@ const PostComment = props => {
     });
   });
 
-  const postFilledOrNot = (reply) => {
+  const postFilledOrNot = reply => {
     var buttonColor = 'blue';
     var disabled = false;
     if (reply === null) {
@@ -110,10 +110,14 @@ const PostComment = props => {
       comment_object = comment[0];
       comment_object.replies = new_replylist.map(reply => reply);
       console.log('Final Push', comment_object);
-      updatePostComments(
-        [...commentList, comment_object],
-        route.params.post_id,
-      );
+      setTimeout(test2, 1000);
+      function test2() {
+        updatePostComments(
+          [...commentList, comment_object],
+          route.params.post_id,
+        );
+      }
+
       navigation.goBack();
     }
   };
