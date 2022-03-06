@@ -184,7 +184,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         paddingHorizontal: 20,
         flex: 1,
       }}>
-      <View
+      {/* <View
         style={{
           justifyContent: 'space-evenly',
           alignItems: 'center',
@@ -209,7 +209,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
           style={{height: 40, width: 40}}
           source={require('../assets/images/girl.png')}
         />
-      </View>
+      </View> */}
       <FlatList
         contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
@@ -238,6 +238,8 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
             username={item.username}
             imageUrl={item.downloadUrl}
             navigation={navigation}
+            comment_length={item.comments.length}
+            
           />
         )}></FlatList>
       <TouchableOpacity

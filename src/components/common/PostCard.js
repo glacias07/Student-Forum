@@ -32,6 +32,7 @@ const PostCard = ({
   navigation,
   chatUserNameSet,
   myUsername,
+  comment_length,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
 
@@ -58,7 +59,7 @@ const PostCard = ({
                 flex: 2,
                 resizeMode: 'contain',
               }}
-              source={require('../../assets/images/profile.png')}
+              source={require('../../assets/images/boy.png')}
             />
             <View style={{marginLeft: 10, flex: 7}}>
               <CustomText
@@ -184,8 +185,7 @@ const PostCard = ({
                           width: 20,
                           height: 20,
                           marginRight: 12,
-                          tintColor:'#868686'
-                         
+                          tintColor: '#868686',
                         }}
                       />
                       <CustomText text="Chat with user" textColor="black" />
@@ -217,6 +217,23 @@ const PostCard = ({
             text={postTitle}
             style={{marginBottom: 30}}
           />
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            source={require('../../assets/icons/comment.png')}
+            style={{
+              width: 20,
+              height: 20,
+              marginRight: 12,
+              tintColor: '#868686',
+              marginLeft: 25,
+            }}
+          />
+          {comment_length != 0 ? (
+            <CustomText textSize={15} textWeight={500} text={comment_length} />
+          ) : (
+            <></>
+          )}
         </View>
       </View>
     </TouchableHighlight>
