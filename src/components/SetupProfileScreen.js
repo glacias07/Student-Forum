@@ -37,7 +37,7 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
       } else {
         const newUserObj = {
           username: username,
-          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
+          avatar: 'https://robohash.org/' + username,
         };
 
         set(ref(database, `users/${username}`), newUserObj);
@@ -78,9 +78,6 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
       .set({
         userId: user.uid,
         username: username,
-        bio: bio,
-        designation: designation,
-        workplace: workplace,
       })
       .then(() => {
         console.log('Details Added');
@@ -107,33 +104,6 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
         autoCapitalize="none"
         autoCorrect={false}
         label="Username"
-        onlyBottomBorder={true}
-        style={{marginBottom: 12}}
-      />
-      <FormInput
-        onChangeText={Bio => setBio(Bio)}
-        placeHolderText="Bio"
-        multiline={true}
-        maxLength={200}
-        label="Bio"
-        onlyBottomBorder={true}
-        style={{marginBottom: 12}}
-      />
-      <FormInput
-        onChangeText={designation => setDesignation(designation)}
-        placeHolderText="Designation"
-        multiline={true}
-        maxLength={200}
-        label="Designation"
-        onlyBottomBorder={true}
-        style={{marginBottom: 12}}
-      />
-      <FormInput
-        onChangeText={workplace => setWorkplace(workplace)}
-        placeHolderText="company/school"
-        multiline={true}
-        maxLength={200}
-        label="Workplace"
         onlyBottomBorder={true}
         style={{marginBottom: 12}}
       />
