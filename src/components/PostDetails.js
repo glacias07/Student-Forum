@@ -61,7 +61,7 @@ const PostDetails = props => {
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             const {comments} = doc.data();
-            console.log('This is fetch ', comments);
+            // console.log('This is fetch ', comments);
             // list=comments.map(item=>list.push(item))
             list = [...comments];
           });

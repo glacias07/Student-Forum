@@ -33,6 +33,7 @@ const PostCard = ({
   chatUserNameSet,
   myUsername,
   comment_length,
+  avatar
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
 
@@ -59,7 +60,7 @@ const PostCard = ({
                 flex: 2,
                 resizeMode: 'contain',
               }}
-              source={require('../../assets/images/boy.png')}
+              source={{uri: avatar}}
             />
             <View style={{marginLeft: 10, flex: 7}}>
               <CustomText

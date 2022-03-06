@@ -78,6 +78,7 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
       .set({
         userId: user.uid,
         username: username,
+        avatar: 'https://robohash.org/' + username
       })
       .then(() => {
         console.log('Details Added');
