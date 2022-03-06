@@ -47,6 +47,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
               postTime,
               likes,
               comments,
+              avatar
             } = doc.data();
             list.push({
               userId,
@@ -59,6 +60,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
               id: doc.id,
               postContent,
               postTime,
+              avatar
             });
           });
         });
@@ -155,13 +157,10 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {userId, username, bio, workplace, designation} = doc.data();
+            const {userId, username} = doc.data();
             list.push({
               userId,
               username,
-              bio,
-              workplace,
-              designation,
             });
           });
         });
@@ -217,7 +216,6 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         removeClippedSubviews={true}
         initialNumToRender={5}
         renderItem={({item, index}) => (
-          
           <PostCard
             deleteOnPress={handleDelete}
             cardOnPress={() => {
@@ -229,7 +227,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
                 username: item.username,
                 post_time: item.postTime,
                 download_url: item.downloadUrl,
-                avatar: item.avatar
+                avatar: item.avatar,
               });
             }}
             postId={item.id}
@@ -241,7 +239,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
             imageUrl={item.downloadUrl}
             navigation={navigation}
             comment_length={item.comments.length}
-            avatar = {item.avatar}
+            avatar={item.avatar}
           />
         )}></FlatList>
       <TouchableOpacity
