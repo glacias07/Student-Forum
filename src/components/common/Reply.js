@@ -1,58 +1,10 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React, {useContext} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  FlatList
-} from 'react-native';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
-import {CustomText} from '.';
-import {AuthContext} from '../../routes/AuthProvider';
-import Reply from './Reply';
-const Comment = ({
-  comment_user_id,
-  comment_id,
-  nameOfUser,
-  comment,
-  comment_time,
-  comment_replies,
-  deleteOnPress,
-  replies,
-  replyOnPress,
-  
-}) => {
-  const {user} = useContext(AuthContext);
-  const {container, username, text, time} = styles;
+import React from 'react';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {CustomText} from './CustomText';
 
-
-  const renderReplies=(replies)=>{
-    if (replies.length>0){
-      return(
-        <TouchableOpacity onPress={() =><FlatList
-        data={replies}
-        renderItem={item=>console.log(item)
-        }
-
-        />}>
-        <CustomText text={'Replies'} textColor={'blue'}/>
-      </TouchableOpacity>
-      )
-    }else{
-      return (
-        <></>
-      )
-    }
-  }
-
+const Reply = props => {
+  const { reply, reply_id, reply_time, reply_user_id, username} = props;
+  const {container} = styles;
   return (
     <View style={container}>
       <View
@@ -201,9 +153,9 @@ const Comment = ({
           </MenuOptions>
         </Menu>
       </View>
-
-     {renderReplies(comment_replies)}
-    
+      <TouchableOpacity onPress={() => console.log('replies')}>
+        <CustomText text={'Replies'} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -215,20 +167,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
   },
-  username: {
-    fontWeight: 'bold',
-    marginLeft: 3,
-  },
-  text: {
-    fontSize: 20,
-    color: 'black',
-    opacity: 0.8,
-    margin: 5,
-  },
-  time: {
-    fontSize: 15,
-    marginRight: 10,
-  },
 });
 
-export {Comment};
+export default Reply;

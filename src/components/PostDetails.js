@@ -259,6 +259,7 @@ const PostDetails = props => {
                   deleteOnPress={handleDelete}
                   replyOnPress={() =>
                     navigation.navigate('Post Comment', {
+                    
                       comment_user_id: item.item.comment_user_id,
                       nameOfUser: item.item.username,
                       comment: item.item.comment,
@@ -268,11 +269,13 @@ const PostDetails = props => {
                       comment_replies:item.item.replies,
                       allCommentList: postCommentList,
                       comment_id: item.item.comment_id
-                    })
+                    }) 
+                   
                   }
                   comment_id={item.item.comment_id}
                   nameOfUser={item.item.username}
                   comment={item.item.comment}
+                  comment_replies={item.item.replies}
                   comment_time={moment(item.item.comment_time).fromNow(true)}
                 />
               </TouchableOpacity>
