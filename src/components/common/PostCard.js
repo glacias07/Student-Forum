@@ -33,7 +33,7 @@ const PostCard = ({
   chatUserNameSet,
   myUsername,
   comment_length,
-  avatar
+  avatar,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
 
@@ -54,11 +54,13 @@ const PostCard = ({
             }}>
             <Image
               style={{
-                width: 40,
-                height: 40,
-                borderRadius: 780,
                 flex: 2,
-                resizeMode: 'contain',
+                height: 50,
+                width: 50,
+                marginRight: 15,
+                borderRadius: 150 / 2,
+                borderWidth:0.4,
+                borderColor:'black'
               }}
               source={{uri: avatar}}
             />

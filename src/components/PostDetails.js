@@ -139,7 +139,7 @@ const PostDetails = props => {
           }}>
           <Image
             style={{height: 50, width: 50, borderRadius: 150 / 2}}
-            source={{uri: route.params.download_url}}
+            source={{uri: route.params.avatar}}
           />
           <View
             style={{
@@ -277,6 +277,8 @@ const PostDetails = props => {
                   comment={item.item.comment}
                   comment_replies={item.item.replies}
                   comment_time={moment(item.item.comment_time).fromNow(true)}
+                  avatar={route.params.avatar}
+                  
                 />
               </TouchableOpacity>
             )}

@@ -28,6 +28,7 @@ const Comment = ({
   comment_replies,
   deleteOnPress,
   replyOnPress,
+  avatar
 }) => {
   const {user} = useContext(AuthContext);
   const {container} = styles;
@@ -90,7 +91,7 @@ const Comment = ({
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
         <Image
-          source={require('../../assets/images/Avatars/Boy/1.png')}
+          source={{uri:avatar}}
           style={{
             height: 25,
             width: 25,

@@ -14,7 +14,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
 // import {PostCard} from './common';
-import PostCard from './common/PostCard'
+import PostCard from './common/PostCard';
 
 const Dashboard = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
@@ -42,6 +42,7 @@ const Dashboard = ({navigation}) => {
               postTime,
               likes,
               comments,
+              avatar,
             } = doc.data();
             list.push({
               userId,
@@ -54,6 +55,7 @@ const Dashboard = ({navigation}) => {
               id: doc.id,
               postContent,
               postTime,
+              avatar,
             });
           });
         });
@@ -62,8 +64,6 @@ const Dashboard = ({navigation}) => {
       console.log('Error while fetching posts', error);
     }
   };
-
-  
 
   const handleDelete = postId => {
     Alert.alert(
@@ -127,24 +127,20 @@ const Dashboard = ({navigation}) => {
         }
       });
   };
-
+  var list = [];
   const fetchUserDetails = async () => {
     try {
-      const list = [];
-
       await firestore()
         .collection('userDetails')
         .where('userId', '==', user.uid)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {userId, username, bio, workplace, designation} = doc.data();
+            const {userId, username, avatar} = doc.data();
             list.push({
               userId,
               username,
-              bio,
-              workplace,
-              designation,
+              avatar,
             });
           });
         });
@@ -179,16 +175,6 @@ const Dashboard = ({navigation}) => {
       ]}
       renderSectionHeader={({section}) => (
         <View>
-          <Image
-            source={require('../assets/images/profile.png')}
-            style={{
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-              aspectRatio: 1,
-              height: 200,
-              alignSelf: 'center',
-            }}
-          />
           {userDetails.map(item => (
             <View key={'unique'}>
               <View
@@ -196,6 +182,18 @@ const Dashboard = ({navigation}) => {
                   marginVertical: 20,
                 }}>
                 <View>
+                  <Image
+                    source={{uri: item.avatar}}
+                    style={{
+        
+                      width:150,
+                      borderWidth:0.6,
+                      borderColor:'black',
+                      borderRadius:150/2,
+                      height: 150,
+                      alignSelf: 'center',
+                    }}
+                  />
                   <CustomText
                     text={item.username}
                     textColor="#3e3f53"
@@ -215,7 +213,7 @@ const Dashboard = ({navigation}) => {
                       // window.setTimeout (()=>{setPostsIdsArray(posts);},0)
                       navigation.navigate('Edit Profile', {
                         userDetails: item,
-                        posts: posts
+                        posts: posts,
                       });
                     }}
                     title="Edit"
@@ -282,7 +280,6 @@ const Dashboard = ({navigation}) => {
                   />
                 </View>
               </View>
-              
             </View>
           ))}
           <View
@@ -317,26 +314,28 @@ const Dashboard = ({navigation}) => {
       )}
       renderItem={({item}) => (
         <PostCard
-            deleteOnPress={handleDelete}
-            cardOnPress={() => {
-              navigation.navigate('Post Details', {
-                user_id: item.userId,
-                post_id: item.id,
-                post_title: item.postTitle,
-                post_content: item.postContent,
-                username: item.username,
-                post_time: item.postTime,
-                download_url: item.downloadUrl,
-              });
-            }}
-            postId={item.id}
-            postTitle={item.postTitle}
-            postContent={item.postContent}
-            postDate={item.postTime}
-            userId={item.userId}
-            username={item.username}
-            imageUrl={item.downloadUrl}
-          />
+          deleteOnPress={handleDelete}
+          cardOnPress={() => {
+            navigation.navigate('Post Details', {
+              user_id: item.userId,
+              post_id: item.id,
+              post_title: item.postTitle,
+              post_content: item.postContent,
+              username: item.username,
+              post_time: item.postTime,
+              download_url: item.downloadUrl,
+              avatar: item.avatar,
+            });
+          }}
+          postId={item.id}
+          postTitle={item.postTitle}
+          postContent={item.postContent}
+          postDate={item.postTime}
+          userId={item.userId}
+          username={item.username}
+          imageUrl={item.downloadUrl}
+          avatar={item.avatar}
+        />
       )}
     />
   );
