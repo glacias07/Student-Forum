@@ -1,14 +1,32 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import {CustomText} from './CustomText';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
+import {AuthContext} from '../../routes/AuthProvider';
 
 const Reply = props => {
-  const { reply, reply_id, reply_time, reply_user_id, username} = props;
+  const {reply, reply_id, reply_time, reply_user_id, nameOfUser} = props;
   const {container} = styles;
+  const {user} = useContext(AuthContext);
+
   return (
     <View style={container}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+        <Image
+          source={require('../../assets/images/Avatars/Boy/1.png')}
+          style={{
+            height: 25,
+            width: 25,
+            borderRadius: 150 / 2,
+            marginRight: 10,
+          }}
+        />
         <CustomText
           style={{marginRight: 5}}
           textSize={16}
@@ -25,7 +43,7 @@ const Reply = props => {
           style={{}}
           textSize={14}
           textWeight={400}
-          text={comment_time}
+          text={reply_time}
         />
       </View>
 
@@ -33,7 +51,7 @@ const Reply = props => {
         style={{marginLeft: 10, marginVertical: 10}}
         textWeight={500}
         textSize={16}
-        text={comment}
+        text={reply}
       />
       <View
         style={{
@@ -42,7 +60,7 @@ const Reply = props => {
           justifyContent: 'flex-end',
         }}>
         <TouchableOpacity
-          onPress={replyOnPress}
+          // onPress={replyOnPress}
           style={{flexDirection: 'row', alignItems: 'center', marginRight: 20}}>
           <Image
             source={require('../../assets/icons/reply.png')}
@@ -106,7 +124,7 @@ const Reply = props => {
                 onSelect={() =>
                   console.log(
                     'Edit function yet to be developed',
-                    comment_user_id,
+                    reply_user_id,
                     user.uid,
                   )
                 }>
@@ -129,8 +147,8 @@ const Reply = props => {
                 </View>
               </MenuOption>
             ) : null}
-            {comment_user_id === user.uid ? (
-              <MenuOption onSelect={() => deleteOnPress(comment_id)}>
+            {reply_user_id === user.uid ? (
+              <MenuOption onSelect={() => deleteOnPress(reply_id)}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -153,9 +171,6 @@ const Reply = props => {
           </MenuOptions>
         </Menu>
       </View>
-      <TouchableOpacity onPress={() => console.log('replies')}>
-        <CustomText text={'Replies'} />
-      </TouchableOpacity>
     </View>
   );
 };

@@ -1,5 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React, {useContext} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  FlatList
+  FlatList,
 } from 'react-native';
 import {
   Menu,
@@ -18,6 +18,7 @@ import {
 import {CustomText} from '.';
 import {AuthContext} from '../../routes/AuthProvider';
 import Reply from './Reply';
+import moment from 'moment';
 const Comment = ({
   comment_user_id,
   comment_id,
@@ -26,37 +27,77 @@ const Comment = ({
   comment_time,
   comment_replies,
   deleteOnPress,
-  replies,
   replyOnPress,
-  
 }) => {
   const {user} = useContext(AuthContext);
-  const {container, username, text, time} = styles;
+  const {container} = styles;
+  const [flatListVisible, setFlatListVisible] = useState(false);
+  const [repliesButtonVisible, setRepliesButtonVisible] = useState(true);
 
+  const changeState = (flatlist, button) => {
+    setFlatListVisible(flatlist);
+    setRepliesButtonVisible(button);
+  };
 
-  const renderReplies=(replies)=>{
-    if (replies.length>0){
-      return(
-        <TouchableOpacity onPress={() =><FlatList
-        data={replies}
-        renderItem={item=>console.log(item)
-        }
-
-        />}>
-        <CustomText text={'Replies'} textColor={'blue'}/>
-      </TouchableOpacity>
-      )
-    }else{
+  const renderReplies = replies => {
+    if (replies.length > 0) {
       return (
-        <></>
-      )
+        <TouchableOpacity onPress={() => changeState(true, false)}>
+          {flatListVisible ? (
+            <>
+              <TouchableOpacity onPress={() => changeState(false, true)}>
+                <CustomText
+                  text={'hide replies'}
+                  textColor={'blue'}
+                  style={{marginLeft: 10}}
+                />
+              </TouchableOpacity>
+              <FlatList
+                data={replies}
+                style={{
+                  marginLeft: 10,
+                  marginTop: 15,
+                  borderLeftWidth: 0.5,
+                  borderLeftColor: '#00000050',
+                }}
+                renderItem={item => (
+                  <Reply
+                    reply={item.item.reply}
+                    reply_id={item.item.reply_id}
+                    reply_time={moment(item.item.reply_time).fromNow(true)}
+                    reply_user_id={item.item.reply_user_id}
+                    nameOfUser={item.item.username}
+                  />
+                )}
+              />
+            </>
+          ) : (
+            <CustomText
+              text={replies.length + ' more replies'}
+              textColor={'blue'}
+              style={{marginLeft: 5, marginBottom:5}}
+            />
+          )}
+        </TouchableOpacity>
+      );
+    } else {
+      return <></>;
     }
-  }
+  };
 
   return (
     <View style={container}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+        <Image
+          source={require('../../assets/images/Avatars/Boy/1.png')}
+          style={{
+            height: 25,
+            width: 25,
+            borderRadius: 150 / 2,
+            marginRight: 10,
+          }}
+        />
         <CustomText
           style={{marginRight: 5}}
           textSize={16}
@@ -202,8 +243,7 @@ const Comment = ({
         </Menu>
       </View>
 
-     {renderReplies(comment_replies)}
-    
+      {renderReplies(comment_replies)}
     </View>
   );
 };

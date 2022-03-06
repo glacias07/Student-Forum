@@ -91,8 +91,7 @@ const AppStack = route => {
           headerShadowVisible: false,
           headerStyle: Styles.commonHeaderStyle,
           headerTitleStyle: Styles.commonHeaderTitleStyle,
-          // headerTitleAlign: 'center',
-          headerTitle: '',
+          headerTitleAlign: 'center',
         }}
       />
       <AppStackNav.Screen

@@ -6,22 +6,63 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useLayoutEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../routes/AuthProvider';
-
+import {CustomHeaderButton} from './common';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {NavigationContainer} from '@react-navigation/native';
 
 const PostComment = props => {
-  const [reply, setReply] = useState('');
+  const [reply, setReply] = useState(null);
   const {route, username, navigation} = props;
   const {user, updatePostComments} = useContext(AuthContext);
 
   useEffect(() => {
     fetctCommentArray();
   }, [reply]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Reply',
+      headerLeft: () => (
+        <CustomHeaderButton
+          onPress={() => navigation.goBack()}
+          icon={require('../assets/icons/cancel.png')}
+        />
+      ),
+      headerRight: () => (
+        <CustomHeaderButton
+          onPress={() => {
+            newReplyList(reply)
+          }}
+          disabled={postFilledOrNot(reply).disabled}
+          icon={require('../assets/icons/tick.png')}
+          tintColor={postFilledOrNot(reply).color}
+          height={20}
+          width={20}
+        />
+      ),
+    });
+  });
+
+  const postFilledOrNot = (reply) => {
+    var buttonColor = 'blue';
+    var disabled = false;
+    if (reply === null) {
+      disabled = true;
+      buttonColor = '#00000070';
+    } else {
+      disabled = false;
+      buttonColor = 'blue';
+    }
+    return {
+      color: buttonColor,
+      disabled: disabled,
+    };
+  };
+
   var commentList = [];
   var replyArray = [];
   var comment = [];
@@ -87,10 +128,6 @@ const PostComment = props => {
         placeholder="Add your Reply ..."
         style={{fontSize: 17, margin: 10}}
       />
-
-      <TouchableOpacity onPress={() => newReplyList(reply)}>
-        <Text>Press</Text>
-      </TouchableOpacity>
     </View>
   );
 };
