@@ -86,36 +86,6 @@ const EditProfile = ({navigation, route}) => {
           autoCorrect={false}
           style={{marginBottom: 12}}
         />
-        <FormInput
-          label="Bio"
-          onlyBottomBorder={true}
-          value={bio}
-          onChangeText={Bio => setBio(Bio)}
-          placeHolderText="Bio"
-          multiline={true}
-          maxLength={200}
-          style={{marginBottom: 12}}
-        />
-        <FormInput
-          label="Designation"
-          onlyBottomBorder={true}
-          value={designation}
-          onChangeText={designation => setDesignation(designation)}
-          placeHolderText="Designation"
-          multiline={true}
-          maxLength={200}
-          style={{marginBottom: 12}}
-        />
-        <FormInput
-          value={workplace}
-          onChangeText={workplace => setWorkplace(workplace)}
-          placeHolderText="company/school"
-          label="Workplace"
-          onlyBottomBorder={true}
-          multiline={true}
-          maxLength={200}
-          style={{marginBottom: 12}}
-        />
       </ScrollView>
     </KeyboardAvoidingView>
   );

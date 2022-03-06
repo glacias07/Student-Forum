@@ -44,15 +44,12 @@ export const AuthProvider = ({children}) => {
             console.log(e);
           }
         },
-        updateUserDetails: async (username, bio, workplace, designation) => {
+        updateUserDetails: async (username) => {
           firestore()
             .collection('userDetails')
             .doc(user.uid)
             .update({
               username,
-              bio,
-              workplace,
-              designation,
             })
             .then(() => {
               console.log('User Updated!');

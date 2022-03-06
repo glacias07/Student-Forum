@@ -203,20 +203,6 @@ const Dashboard = ({navigation}) => {
                     textWeight={400}
                     style={{alignSelf: 'center'}}
                   />
-                  <CustomText
-                    text={item.designation}
-                    textColor="#656567"
-                    textSize={16}
-                    textWeight={500}
-                    style={{marginTop: 8, alignSelf: 'center'}}
-                  />
-                  <CustomText
-                    text={'at ' + item.workplace}
-                    textColor="#656567"
-                    textSize={15}
-                    textWeight={500}
-                    style={{alignSelf: 'center'}}
-                  />
                 </View>
                 <View
                   style={{
@@ -296,21 +282,7 @@ const Dashboard = ({navigation}) => {
                   />
                 </View>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderBottomWidth: 1,
-                  borderColor: '#eaeaea',
-                  paddingVertical: 20,
-                }}>
-                <CustomText
-                  style={{paddingHorizontal: 20}}
-                  text={item.bio}
-                  textSize={16}
-                  textColor="#656567"
-                />
-              </View>
+              
             </View>
           ))}
           <View
