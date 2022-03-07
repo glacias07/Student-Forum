@@ -129,6 +129,7 @@ const PostDetails = props => {
 
   return (
     <>
+    <ScrollView>
       <View
         style={{
           flexDirection: 'row',
@@ -304,6 +305,8 @@ const PostDetails = props => {
           </View>
         </View>
       )}
+            </ScrollView>
+
       <View
         style={{
           flexDirection: 'row',
