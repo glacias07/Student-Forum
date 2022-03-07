@@ -16,7 +16,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 const PostComment = props => {
   const [reply, setReply] = useState(null);
-  const {route, username, navigation} = props;
+  const {route, username, navigation,avatar} = props;
   const {user, updatePostComments} = useContext(AuthContext);
 
   useEffect(() => {
@@ -101,7 +101,8 @@ const PostComment = props => {
         reply: reply,
         username: username,
         reply_time: moment().format(),
-        parent_comment_id: 'awed'
+        parent_comment_id: 'awed',
+        avatar:avatar
       },
     ];
 
@@ -144,6 +145,7 @@ const PostComment = props => {
 const mapStateToProps = state => {
   return {
     username: state.postListing.username,
+    avatar:state.postListing.avatar
   };
 };
 

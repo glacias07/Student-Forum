@@ -4,6 +4,7 @@ import {
   CHATUSERNAME_SET,
   REPLY_LIST,
   MODAL_VISIBLE,
+  AVATAR_SET
 } from './ActionTypes';
 
 
@@ -47,6 +48,14 @@ export const modalVisibleSet=bool=>dispatch=>{
   dispatch({
     type:MODAL_VISIBLE,
     payload:bool
+  })
+}
+
+
+export const avatarSet=link=>dispatch=>{
+  dispatch({
+    type:AVATAR_SET,
+    payload:link
   })
 }
 // export const usernameSet = text => {

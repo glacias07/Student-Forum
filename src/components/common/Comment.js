@@ -48,7 +48,7 @@ const Comment = ({
             <>
               <TouchableOpacity onPress={() => changeState(false, true)}>
                 <CustomText
-                  text={'Hide Replies'}
+                  text={replies.length>1?'Hide Replies':'Hide Reply'}
                   textColor={'blue'}
                   style={{marginLeft: 10}}
                 />
@@ -68,6 +68,7 @@ const Comment = ({
                     reply_time={moment(item.item.reply_time).fromNow(true)}
                     reply_user_id={item.item.reply_user_id}
                     nameOfUser={item.item.username}
+                    avatar={item.item.avatar}
                   />
                 )}
               />

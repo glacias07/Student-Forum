@@ -17,10 +17,10 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
-import {usernameSet, useridSet} from '../actions/PostScreenActions';
+import {usernameSet, useridSet,avatarSet} from '../actions/PostScreenActions';
 import {CustomText} from './common';
 
-const PostScreen = ({navigation, usernameSet, useridSet}) => {
+const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -159,16 +159,18 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {userId, username} = doc.data();
+            const {userId, username,avatar} = doc.data();
             list.push({
               userId,
               username,
+              avatar
             });
           });
         });
       console.log('User details ', list);
       useridSet(list[0].userId);
       usernameSet(list[0].username);
+      avatarSet(list[0].avatar)
 
       if (loading) {
         setLoading(false);
@@ -270,4 +272,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {usernameSet, useridSet})(PostScreen);
+export default connect(mapStateToProps, {usernameSet, useridSet,avatarSet})(PostScreen);

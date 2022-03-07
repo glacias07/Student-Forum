@@ -4,6 +4,7 @@ import {
   CHATUSERNAME_SET,
   REPLY_LIST,
   MODAL_VISIBLE,
+  AVATAR_SET
 } from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
@@ -11,7 +12,8 @@ const INITIAL_STATE = {
   userId: '',
   chatUsername: '',
   reply_list:[],
-  modal_visible:true
+  modal_visible:true,
+  avatar:''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -27,6 +29,8 @@ export default (state = INITIAL_STATE, action) => {
       return{...state,reply_list:action.payload}
     case MODAL_VISIBLE:
       return{...state,modal_visible:action.payload}
+    case AVATAR_SET:
+      return{...state,avatar:action.payload}
     default:
       return state;
   }

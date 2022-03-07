@@ -10,7 +10,8 @@ import {
 import {AuthContext} from '../../routes/AuthProvider';
 
 const Reply = props => {
-  const {reply, reply_id, reply_time, reply_user_id, nameOfUser} = props;
+  const {reply, reply_id, reply_time, reply_user_id, nameOfUser, avatar} =
+    props;
   const {container} = styles;
   const {user} = useContext(AuthContext);
 
@@ -19,7 +20,7 @@ const Reply = props => {
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
         <Image
-          source={require('../../assets/images/Avatars/Boy/1.png')}
+          source={{uri: avatar}}
           style={{
             height: 25,
             width: 25,

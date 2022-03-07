@@ -18,7 +18,7 @@ const HelpDesk = () => {
     containerThree,
   } = styles;
   return (
-    <ScrollView>
+    <ScrollView  showsVerticalScrollIndicator>
       <View style={screen}>
         <View style={containerOne}>
           <CustomText

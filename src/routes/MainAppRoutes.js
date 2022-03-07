@@ -46,6 +46,8 @@ function MainAppRoutes() {
 
         {user ? (
           <>
+
+          <Stack.Screen name="Setup Screen" component={SetupProfileScreen} />
             <Stack.Screen
               name="Main App"
               component={TabStack}

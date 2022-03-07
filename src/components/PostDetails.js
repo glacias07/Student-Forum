@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 
 const PostDetails = props => {
-  const {route, username, userId, navigation} = props;
+  const {route, username, userId, navigation,avatar} = props;
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
@@ -108,6 +108,7 @@ const PostDetails = props => {
           username: username,
           comment_time: moment().format(),
           replies: [],
+          avatar:avatar
         },
       ],
       route.params.post_id,
@@ -268,6 +269,7 @@ const PostDetails = props => {
                     comment_replies: item.item.replies,
                     allCommentList: postCommentList,
                     comment_id: item.item.comment_id,
+                    avatar:item.item.avatar
                   })
                 }
                 comment_id={item.item.comment_id}
@@ -275,7 +277,7 @@ const PostDetails = props => {
                 comment={item.item.comment}
                 comment_replies={item.item.replies}
                 comment_time={moment(item.item.comment_time).fromNow(true)}
-                avatar={route.params.avatar}
+                avatar={item.item.avatar}
               />
             </TouchableOpacity>
           )}
@@ -352,6 +354,7 @@ const mapStateToProps = state => {
   return {
     username: state.postListing.username,
     userId: state.postListing.userId,
+    avatar:state.postListing.avatar
   };
 };
 export default connect(mapStateToProps, {})(PostDetails);
