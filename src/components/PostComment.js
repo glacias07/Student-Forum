@@ -101,6 +101,7 @@ const PostComment = props => {
         reply: reply,
         username: username,
         reply_time: moment().format(),
+        parent_comment_id: 'awed'
       },
     ];
 
@@ -109,10 +110,10 @@ const PostComment = props => {
       // console.log('Our method of async await', comment[0]);
       comment_object = comment[0];
       // const [comment_object]=comment
-      // comment_object.replies = new_replylist.map(reply => reply);
-      for (var i of new_replylist){
-        comment_object.replies.push(i)
-      }
+      comment_object.replies = new_replylist.map(reply => reply);
+      // for (var i of new_replylist){
+      //   comment_object.replies.push(i)
+      // }
       console.log('Final Push', comment_object);
       setTimeout(test2, 1000);
       function test2() {

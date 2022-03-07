@@ -107,7 +107,7 @@ const PostDetails = props => {
           comment: Comment,
           username: username,
           comment_time: moment().format(),
-          replies:[]
+          replies: [],
         },
       ],
       route.params.post_id,
@@ -129,189 +129,125 @@ const PostDetails = props => {
 
   return (
     <>
-      <ScrollView>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 10,
+          backgroundColor: '#ffffff',
+        }}>
+        <Image
+          style={{height: 50, width: 50, borderRadius: 150 / 2}}
+          source={{uri: route.params.avatar}}
+        />
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 10,
-            backgroundColor: '#ffffff',
-          }}>
-          <Image
-            style={{height: 50, width: 50, borderRadius: 150 / 2}}
-            source={{uri: route.params.avatar}}
-          />
-          <View
-            style={{
-              paddingHorizontal: 15,
-            }}>
-            <CustomText
-              text={route.params.username}
-              textWeight={500}
-              textSize={16}
-            />
-            <CustomText
-              text={
-                route.params.post_time.toDate().toLocaleDateString() +
-                ' ' +
-                route.params.post_time.toDate().toLocaleTimeString()
-              }
-              textWeight={400}
-              textSize={12}
-            />
-          </View>
-        </View>
-        <View style={{paddingHorizontal: 10, backgroundColor: '#ffffff'}}>
-          <CustomText
-            style={{marginVertical: 10}}
-            text={route.params.post_title}
-            textWeight={700}
-            textSize={25}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: 'black',
-          }}>
-          {route.params.download_url ? (
-            <View style={{background: 'black', flex: 1}}>
-              <Image
-                style={{
-                  resizeMode: 'contain',
-                  height: 300,
-                  width: 300,
-                  aspectRatio: aspect(imageHeight, imageWidth),
-                  alignSelf: 'center',
-                }}
-                source={{uri: route.params.download_url}}
-              />
-            </View>
-          ) : null}
-        </View>
-
-        <View
-          style={{
-            backgroundColor: '#ffffff',
-          }}>
-          <View style={{marginLeft: 10, marginBottom: 10}}>
-            <CustomText
-              text={route.params.post_content}
-              textSize={17}
-              textWeight={500}
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            paddingVertical: 10,
-            backgroundColor: '#ffffff',
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <Image
-              style={{height: 25, width: 25, marginRight: 5}}
-              source={require('../assets/icons/comment.png')}
-            />
-            <CustomText
-              textSize={15}
-              textWeight={500}
-              text={postCommentList.length}
-            />
-          </View>
-          <Image
-            style={{height: 25, width: 25, marginRight: 5}}
-            source={require('../assets/icons/share.png')}
-          />
-          <Image
-            style={{height: 25, width: 25, marginRight: 5}}
-            source={require('../assets/icons/chat.png')}
-          />
-        </View>
-        {/* Comment FlatList  */}
-        <View
-          style={{
-            backgroundColor: '#00000005',
-            paddingVertical: 10,
+            paddingHorizontal: 15,
           }}>
           <CustomText
-            style={{marginLeft: 10}}
-            text="COMMENTS"
+            text={route.params.username}
+            textWeight={500}
             textSize={16}
+          />
+          <CustomText
+            text={
+              route.params.post_time.toDate().toLocaleDateString() +
+              ' ' +
+              route.params.post_time.toDate().toLocaleTimeString()
+            }
+            textWeight={400}
+            textSize={12}
+          />
+        </View>
+      </View>
+      <View style={{paddingHorizontal: 10, backgroundColor: '#ffffff'}}>
+        <CustomText
+          style={{marginVertical: 10}}
+          text={route.params.post_title}
+          textWeight={700}
+          textSize={25}
+        />
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          backgroundColor: 'black',
+        }}>
+        {route.params.download_url ? (
+          <View style={{background: 'black', flex: 1}}>
+            <Image
+              style={{
+                resizeMode: 'cover',
+                height: 300,
+                width: 300,
+                aspectRatio: aspect(imageHeight, imageWidth),
+                alignSelf: 'center',
+              }}
+              source={{uri: route.params.download_url}}
+            />
+          </View>
+        ) : null}
+      </View>
+
+      <View
+        style={{
+          backgroundColor: '#ffffff',
+        }}>
+        <View style={{marginLeft: 10, marginBottom: 10}}>
+          <CustomText
+            text={route.params.post_content}
+            textSize={17}
             textWeight={500}
           />
         </View>
-        {postCommentList.length > 0 ? (
-          <FlatList
-            data={postCommentList}
-            contentContainerStyle={{
-              backgroundColor: '#00000005',
-            }}
-            renderItem={item => (
-              <TouchableOpacity
-                onPress={() => {
-                  console.log(postCommentList);
-                }}>
-                <Comment
-                  comment_user_id={item.item.comment_user_id}
-                  deleteOnPress={handleDelete}
-                  replyOnPress={() =>
-                    navigation.navigate('Post Comment', {
-                    
-                      comment_user_id: item.item.comment_user_id,
-                      nameOfUser: item.item.username,
-                      comment: item.item.comment,
-                      comment_time: item.item.comment_time,
-                      post_title: route.params.post_title,
-                      post_id:route.params.post_id,
-                      comment_replies:item.item.replies,
-                      allCommentList: postCommentList,
-                      comment_id: item.item.comment_id
-                    }) 
-                   
-                  }
-                  comment_id={item.item.comment_id}
-                  nameOfUser={item.item.username}
-                  comment={item.item.comment}
-                  comment_replies={item.item.replies}
-                  comment_time={moment(item.item.comment_time).fromNow(true)}
-                  avatar={route.params.avatar}
-                  
-                />
-              </TouchableOpacity>
-            )}
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          paddingVertical: 10,
+          backgroundColor: '#ffffff',
+        }}>
+        <View style={{flexDirection: 'row'}}>
+          <Image
+            style={{height: 25, width: 25, marginRight: 5}}
+            source={require('../assets/icons/comment.png')}
           />
-        ) : (
-          <View style={{backgroundColor: 'white', height: 200}}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 20,
-              }}>
-              <Image
-                style={{height: 80, width: 80, marginBottom: 10}}
-                source={require('../assets/images/confused.png')}
-              />
-              <CustomText
-                text="No Conversations Yet !"
-                textSize={20}
-                textWeight={200}
-              />
-              <CustomText
-                text="Why don't you start one?"
-                textSize={15}
-                textWeight={600}
-              />
-            </View>
-          </View>
-        )}
-        {/* <FlatList
+          <CustomText
+            textSize={15}
+            textWeight={500}
+            text={postCommentList.length}
+          />
+        </View>
+        <Image
+          style={{height: 25, width: 25, marginRight: 5}}
+          source={require('../assets/icons/share.png')}
+        />
+        <Image
+          style={{height: 25, width: 25, marginRight: 5}}
+          source={require('../assets/icons/chat.png')}
+        />
+      </View>
+      {/* Comment FlatList  */}
+      <View
+        style={{
+          backgroundColor: '#00000005',
+          paddingVertical: 10,
+        }}>
+        <CustomText
+          style={{marginLeft: 10}}
+          text="COMMENTS"
+          textSize={16}
+          textWeight={500}
+        />
+      </View>
+      {postCommentList.length > 0 ? (
+        <FlatList
           data={postCommentList}
-          contentContainerStyle = {{
-            backgroundColor: '#00000005',}}
+          contentContainerStyle={{
+            backgroundColor: '#00000005',
+          }}
           renderItem={item => (
             <TouchableOpacity
               onPress={() => {
@@ -320,16 +256,54 @@ const PostDetails = props => {
               <Comment
                 comment_user_id={item.item.comment_user_id}
                 deleteOnPress={handleDelete}
+                replyOnPress={() =>
+                  navigation.navigate('Post Comment', {
+                    comment_user_id: item.item.comment_user_id,
+                    nameOfUser: item.item.username,
+                    comment: item.item.comment,
+                    comment_time: item.item.comment_time,
+                    post_title: route.params.post_title,
+                    post_id: route.params.post_id,
+                    comment_replies: item.item.replies,
+                    allCommentList: postCommentList,
+                    comment_id: item.item.comment_id,
+                  })
+                }
                 comment_id={item.item.comment_id}
                 nameOfUser={item.item.username}
                 comment={item.item.comment}
+                comment_replies={item.item.replies}
                 comment_time={moment(item.item.comment_time).fromNow(true)}
+                avatar={route.params.avatar}
               />
             </TouchableOpacity>
           )}
-        /> */}
-      </ScrollView>
-
+        />
+      ) : (
+        <View style={{backgroundColor: 'white', height: 200}}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+            }}>
+            <Image
+              style={{height: 80, width: 80, marginBottom: 10}}
+              source={require('../assets/images/confused.png')}
+            />
+            <CustomText
+              text="No Conversations Yet !"
+              textSize={20}
+              textWeight={200}
+            />
+            <CustomText
+              text="Why don't you start one?"
+              textSize={15}
+              textWeight={600}
+            />
+          </View>
+        </View>
+      )}
       <View
         style={{
           flexDirection: 'row',

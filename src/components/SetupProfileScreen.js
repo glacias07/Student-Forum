@@ -111,7 +111,13 @@ const SetupProfileScreen = ({navigation,chatUsername}) => {
       <FormButton
         buttonTitle="Save"
         onPress={() => {
-          uploadUserDetails(), navigation.navigate('Posts Screen');
+          uploadUserDetails(), navigation.navigate('Main App');
+        }}
+      />
+      <FormButton
+        buttonTitle="Already have"
+        onPress={() => {
+          navigation.navigate('Main App');
         }}
       />
     </View>
