@@ -23,7 +23,7 @@ const SignUp = ({navigation}) => {
   const {register} = useContext(AuthContext);
 
   return (
-    <ScrollView contentContainerStyle={styles.container} >
+    <ScrollView contentContainerStyle={styles.container}>
       <CustomText
         text="Create an account"
         textSize={40}
@@ -37,32 +37,27 @@ const SignUp = ({navigation}) => {
         autoCapitalize="none"
         autoCorrect={false}
         icon={require('../assets/icons/profile.png')}
-        onChangeText={userEmail => (
-          setEmail(userEmail)
-        )}
+        onChangeText={userEmail => setEmail(userEmail)}
       />
 
       <FormInput
         placeHolderText="Password"
         secureTextEntry={true}
         icon={require('../assets/icons/lock.png')}
-        onChangeText={pass => (
-          setPassword(pass)
-        )}
+        onChangeText={pass => setPassword(pass)}
       />
       <FormInput
         placeHolderText="Confirm Password"
         secureTextEntry={true}
         icon={require('../assets/icons/lock.png')}
-        onChangeText={cpass => (
-         setConfirmPassword(cpass)
-        )}
+        onChangeText={cpass => setConfirmPassword(cpass)}
       />
       <FormButton
         buttonTitle="Sign Up"
         onPress={() => {
           if (formValidation(password, confirmPassword, email)) {
-            register(email.replace(/^\s+|\s+$/g, ''), password);
+            register(email.replace(/^\s+|\s+$/g, ''), password),
+              navigation.navigate('Setup Screen');
           }
         }}
       />
@@ -102,4 +97,4 @@ const styles = {
   },
 };
 
-export default SignUp
+export default SignUp;

@@ -41,7 +41,9 @@ const TabStack = route => {
               }}
             />
           ),
+          headerTitle:"Hello"
           // tabBarStyle: { backgroundColor: 'powderblue' }
+    
         }}
       />
       <TabStackNav.Screen
@@ -58,7 +60,9 @@ const TabStack = route => {
               }}
             />
           ),
+          
         }}
+   
       />
       <TabStackNav.Screen
         name="Dashboard"

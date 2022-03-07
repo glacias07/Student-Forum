@@ -46,7 +46,6 @@ function MainAppRoutes() {
 
         {user ? (
           <>
-            <Stack.Screen name="Setup Screen" component={SetupProfileScreen} />
             <Stack.Screen
               name="Main App"
               component={TabStack}
@@ -55,6 +54,7 @@ function MainAppRoutes() {
                   // // headerShown: false
                   // headerStyle: Styles.commonHeaderStyle,
                   // headerTitleStyle: Styles.commonHeaderTitleStyle,
+                  title:"Main App"
                 }
               }
             />
@@ -66,7 +66,6 @@ function MainAppRoutes() {
                 headerStyle: Styles.commonHeaderStyle,
                 headerTitleStyle: Styles.commonHeaderTitleStyle,
                 // headerTitleAlign: 'center',
-                headerTitle: '',
               }}
             />
             <Stack.Screen

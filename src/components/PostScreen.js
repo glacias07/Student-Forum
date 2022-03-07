@@ -77,6 +77,8 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
     }
   };
 
+  
+
   useEffect(() => {
     fetchUserDetails();
     fetchPosts();
@@ -183,32 +185,7 @@ const PostScreen = ({navigation, usernameSet, useridSet}) => {
         paddingHorizontal: 20,
         flex: 1,
       }}>
-      {/* <View
-        style={{
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          margin: 10,
-          flexDirection: 'row',
-          backgroundColor: '#f5dabc',
-          height:60,
-          width:'95%',
-          borderRadius:10,
-        }}>
-        <Image
-          style={{height: 40, width: 40}}
-          source={require('../assets/images/boy.png')}
-        />
-        <CustomText
-          text="Share your thoughts here "
-          textSize={20}
-          textWeight={600}
-          textColor="black"
-        />
-        <Image
-          style={{height: 40, width: 40}}
-          source={require('../assets/images/girl.png')}
-        />
-      </View> */}
+    
       <FlatList
         contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
