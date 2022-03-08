@@ -13,10 +13,11 @@ import {CustomHeaderButton} from './common';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {NavigationContainer} from '@react-navigation/native';
+import {Comment} from './common';
 
 const PostComment = props => {
   const [reply, setReply] = useState(null);
-  const {route, username, navigation,avatar} = props;
+  const {route, username, navigation, avatar} = props;
   const {user, updatePostComments} = useContext(AuthContext);
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const PostComment = props => {
         username: username,
         reply_time: moment().format(),
         parent_comment_id: 'awed',
-        avatar:avatar
+        avatar: avatar,
       },
     ];
 
@@ -111,10 +112,10 @@ const PostComment = props => {
       // console.log('Our method of async await', comment[0]);
       comment_object = comment[0];
       // const [comment_object]=comment
-      comment_object.replies = new_replylist.map(reply => reply);
-      // for (var i of new_replylist){
-      //   comment_object.replies.push(i)
-      // }
+      // comment_object.replies = new_replylist.map(reply => reply);
+      for (var i of new_replylist) {
+        comment_object.replies.push(i);
+      }
       console.log('Final Push', comment_object);
       setTimeout(test2, 1000);
       function test2() {
@@ -130,6 +131,17 @@ const PostComment = props => {
 
   return (
     <View>
+      {/* {setTimeout(()=>{},3000)} */}
+      <View style={{margin:10}}></View>
+      <Comment
+        nameOfUser={route.params.nameOfUser}
+        comment={route.params.comment}
+        comment_time={moment(route.params.comment_time).fromNow(true)}
+        comment_replies={route.params.comment_replies}
+        avatar={route.params.avatar}
+        showValue={true}
+      />
+      <View style={{borderColor:'black',borderWidth:0.3,marginTop:-10,}}></View>
       <TextInput
         multiline={true}
         onChangeText={reply => {
@@ -145,7 +157,7 @@ const PostComment = props => {
 const mapStateToProps = state => {
   return {
     username: state.postListing.username,
-    avatar:state.postListing.avatar
+    avatar: state.postListing.avatar,
   };
 };
 

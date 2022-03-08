@@ -60,7 +60,7 @@ const PostCard = ({
                 marginRight: 15,
                 borderRadius: 150 / 2,
                 borderWidth:0.5,
-                borderColor:'blue'
+                borderColor:'black'
               }}
               source={{uri: avatar}}
             />
