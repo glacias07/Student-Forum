@@ -56,8 +56,7 @@ const SignUp = ({navigation}) => {
         buttonTitle="Sign Up"
         onPress={() => {
           if (formValidation(password, confirmPassword, email)) {
-            register(email.replace(/^\s+|\s+$/g, ''), password),
-              navigation.navigate('Setup Screen');
+            register(email.replace(/^\s+|\s+$/g, ''), password)
           }
         }}
       />

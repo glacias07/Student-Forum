@@ -130,27 +130,28 @@ const PostComment = props => {
   };
 
   return (
-    <View>
-      {/* {setTimeout(()=>{},3000)} */}
-      <View style={{margin:10}}></View>
-      <Comment
-        nameOfUser={route.params.nameOfUser}
-        comment={route.params.comment}
-        comment_time={moment(route.params.comment_time).fromNow(true)}
-        comment_replies={route.params.comment_replies}
-        avatar={route.params.avatar}
-        showValue={true}
-      />
-      <View style={{borderColor:'black',borderWidth:0.3,marginTop:-10,}}></View>
-      <TextInput
-        multiline={true}
-        onChangeText={reply => {
-          setReply(reply.replace(/^\s+|\s+$/g, ''));
-        }}
-        placeholder="Add your Reply ..."
-        style={{fontSize: 17, margin: 10}}
-      />
-    </View>
+    <>
+        <Comment
+          nameOfUser={route.params.nameOfUser}
+          comment={route.params.comment}
+          comment_time={moment(route.params.comment_time).fromNow(true)}
+          comment_replies={route.params.comment_replies}
+          avatar={route.params.avatar}
+          showValue={true}
+          style={{marginTop: 10}}
+        />
+
+      <View style={{backgroundColor: 'white', flex: 1, marginTop: 10}}>
+        <TextInput
+          multiline={true}
+          onChangeText={reply => {
+            setReply(reply.replace(/^\s+|\s+$/g, ''));
+          }}
+          placeholder="Add your Reply ..."
+          style={{fontSize: 17, margin: 10, backgroundColor: 'white'}}
+        />
+      </View>
+    </>
   );
 };
 

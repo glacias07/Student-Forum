@@ -30,6 +30,7 @@ const Comment = ({
   replyOnPress,
   avatar,
   showValue,
+  style,
 }) => {
   const {user} = useContext(AuthContext);
   const {container} = styles;
@@ -44,7 +45,9 @@ const Comment = ({
   const renderReplies = replies => {
     if (replies.length > 0) {
       return (
-        <TouchableOpacity onPress={() => changeState(true, false)}>
+        <TouchableOpacity
+          onPress={() => changeState(true, false)}
+          >
           {flatListVisible ? (
             <>
               <TouchableOpacity onPress={() => changeState(false, true)}>
@@ -93,7 +96,7 @@ const Comment = ({
   };
 
   return (
-    <View style={container}>
+    <View style={[container,style]}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
         <Image
