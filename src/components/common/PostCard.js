@@ -24,6 +24,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 const PostCard = ({
   cardOnPress,
   postTitle,
+  postContent,
   username,
   postDate,
   userId,
@@ -38,12 +39,30 @@ const PostCard = ({
   avatar,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
- const person ="Shriyans"
+  const person = 'Shriyans';
+  const getCurrentDate=()=>{
+
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
+}
+
   const createPDF = async () => {
     let options = {
-      html: `<h1> ${person} this is cool </h1>`,
-      fileName: 'Amodh',
-      directory: 'Documents',
+      html: `<h1>Report</h1>
+      <p><strong>Date: ${getCurrentDate()}</strong></p>
+      <p><span style="font-weight: 400;"><strong>Subject:</strong>&nbsp; Report regarding a vulnerable post</span></p>
+      <p><span style="font-weight: 400;"><strong>To the concerned Authorities</strong>,</span></p>
+      <p><span style="font-weight: 400;">A post has come to my notice that needs immediate attention from the school/college authorities, here is the content of the post,</span></p>
+      <p><span style="font-weight: 400;"><strong>Post Title: ${postTitle}</strong></span></p>
+      <p><span style="font-weight: 400;"><strong>Post Content: ${postContent}</strong></span></p>
+      <p><span style="font-weight: 400;"><strong>Images: <a href="${imageUrl}">Images of the post</a></strong></span></p>
+      <p><span style="font-weight: 400;">Let&rsquo;s convene a meeting to address this issue.</span></p>
+      <p><strong>Thanks &amp; Regards,</strong></p>
+      <p>(name of counsellor)</p>`,
+      fileName: username,
+      directory: '../storage',
     };
 
     let file = await RNHTMLtoPDF.convert(options);
