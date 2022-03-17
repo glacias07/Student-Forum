@@ -3,7 +3,7 @@ import {Image, Pressable, StyleSheet, Text} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {getDatabase, get, ref, onValue, off, update} from 'firebase/database';
 
-const PersonalMessage = ({onBack, myData, route}) => {
+const PersonalMessage = ({route}) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {

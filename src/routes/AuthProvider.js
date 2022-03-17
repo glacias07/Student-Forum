@@ -44,7 +44,7 @@ export const AuthProvider = ({children}) => {
             console.log(e);
           }
         },
-        updateUserDetails: async (username) => {
+        updateUserDetails: async username => {
           firestore()
             .collection('userDetails')
             .doc(user.uid)
@@ -88,7 +88,7 @@ export const AuthProvider = ({children}) => {
           postTitle,
           postContent,
           imageUrl = null,
-          avatar = 'https://robohash.org/' + username
+          avatar = 'https://robohash.org/' + username,
         ) => {
           console.log(avatar);
           firestore()
@@ -101,7 +101,7 @@ export const AuthProvider = ({children}) => {
               postContent: postContent,
               postTime: firestore.Timestamp.fromDate(new Date()),
               comments: [],
-              avatar: avatar
+              avatar: avatar,
             })
             .then(() => {
               console.log('Post Added');
@@ -126,7 +126,7 @@ export const AuthProvider = ({children}) => {
               console.log('Error in the firestore: ', e);
             });
         },
-        onAddFriend: async (name, username) => {
+        onAddFriend: async (name, username, navigation) => {
           try {
             //find user and add it to my friends and also add me to his friends
             const database = getDatabase();
@@ -147,7 +147,15 @@ export const AuthProvider = ({children}) => {
                   .length > 0
               ) {
                 // don't let chatUser add a chatUser twice
-                Alert.alert('This is already your friend, go to your chats');
+                // Alert.alert('This is already your friend, go to your chats');
+                const friendData = chatUser.friends.filter(
+                  f => f.username == myUsername.username,
+                );
+                navigation.navigate('Personal Message', {
+                  username: chatUser.username,
+                  myData: myUsername,
+                  friendData: friendData[0],
+                });
                 return;
               }
 

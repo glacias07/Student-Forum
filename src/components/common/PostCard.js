@@ -175,7 +175,7 @@ const PostCard = ({
                 {user.uid === userId ? null : (
                   <MenuOption
                     // onSelect={() => navigation.navigate('Personal Message',{username:username})}
-                    onSelect={() => onAddFriend(username, myUsername)}>
+                    onSelect={() => onAddFriend(username, myUsername, navigation)}>
                     <View
                       style={{
                         flexDirection: 'row',
