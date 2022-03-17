@@ -148,14 +148,18 @@ export const AuthProvider = ({children}) => {
               ) {
                 // don't let chatUser add a chatUser twice
                 // Alert.alert('This is already your friend, go to your chats');
-                const friendData = chatUser.friends.filter(
-                  f => f.username == myUsername.username,
+                const friendData = myUsername.friends.filter(
+                  f => f.username == chatUser.username,
                 );
+
                 navigation.navigate('Personal Message', {
                   username: chatUser.username,
                   myData: myUsername,
                   friendData: friendData[0],
                 });
+                // console.log('Username from Auth',chatUser.username)
+                // console.log('myData from Auth',myUsername)
+                // console.log('friendData from Auth',friendData[0])
                 return;
               }
 
@@ -194,12 +198,49 @@ export const AuthProvider = ({children}) => {
                   },
                 ],
               });
+              // Alert.alert("Firend Added, go to chats")
+              // const friendData = myUsername.friends.filter(
+              //     f => f.username == chatUser.username,
+              //   );
+
+              //   navigation.navigate('Personal Message', {
+              //     username: chatUser.username,
+              //     myData: myUsername,
+              //     friendData: friendData[0],
+              //   });
+              // Alert.alert(
+              //   'Friend Added',
+              //   'Go to chat',
+              //   [
+              //     {
+              //       text: 'ok',
+              //       onPress: () => {
+              //          goToChat(name, username, navigation);
+              //       },
+              //       style: 'cancel',
+              //     },
+              //   ],
+              //   {cancelable: false},
+              // );
+              goToChat(name, username, navigation);
             }
           } catch (error) {
             console.error(error);
           }
         },
+        // goToChat: async (name, username, navigation) => {
+        //   const chatUser = await findUser(name);
+        //   const myUsername = await findUser(username);
+        //   const friendData = myUsername.friends.filter(
+        //     f => f.username == chatUser.username,
+        //   );
 
+        //   navigation.navigate('Personal Message', {
+        //     username: chatUser.username,
+        //     myData: myUsername,
+        //     friendData: friendData[0],
+        //   });
+        // },
         //FindUser
         findUser: async name => {
           const database = getDatabase();

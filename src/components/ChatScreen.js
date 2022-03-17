@@ -76,6 +76,9 @@ const ChatScreen = ({navigation, route, username}) => {
                   myData: myData,
                   username: item.username,
                 });
+                // console.log("Username",item.username)
+                // console.log("MyData",myData)
+                // console.log("FirendData",item)
               }}
               navigation={navigation}
               userImg={item.avatar}
