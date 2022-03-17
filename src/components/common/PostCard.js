@@ -221,7 +221,7 @@ const PostCard = ({
                       padding: 5,
                     }}>
                     <Image
-                      source={require('../../assets/icons/messenger.png')}
+                      source={require('../../assets/icons/download.png')}
                       style={{
                         width: 20,
                         height: 20,
