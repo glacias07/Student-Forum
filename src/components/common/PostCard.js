@@ -19,6 +19,8 @@ import {
 import {connect} from 'react-redux';
 import {chatUserNameSet} from '../../actions/PostScreenActions';
 
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+
 const PostCard = ({
   cardOnPress,
   postTitle,
@@ -36,6 +38,18 @@ const PostCard = ({
   avatar,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
+ const person ="Shriyans"
+  const createPDF = async () => {
+    let options = {
+      html: `<h1> ${person} this is cool </h1>`,
+      fileName: 'Amodh',
+      directory: 'Documents',
+    };
+
+    let file = await RNHTMLtoPDF.convert(options);
+    // console.log(file.filePath);
+    alert(file.filePath);
+  };
 
   return (
     <TouchableHighlight
@@ -59,8 +73,8 @@ const PostCard = ({
                 width: 50,
                 marginRight: 15,
                 borderRadius: 150 / 2,
-                borderWidth:0.5,
-                borderColor:'black'
+                borderWidth: 0.5,
+                borderColor: 'black',
               }}
               source={{uri: avatar}}
             />
@@ -175,7 +189,9 @@ const PostCard = ({
                 {user.uid === userId ? null : (
                   <MenuOption
                     // onSelect={() => navigation.navigate('Personal Message',{username:username})}
-                    onSelect={() => onAddFriend(username, myUsername, navigation)}>
+                    onSelect={() =>
+                      onAddFriend(username, myUsername, navigation)
+                    }>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -195,6 +211,27 @@ const PostCard = ({
                     </View>
                   </MenuOption>
                 )}
+                <MenuOption
+                  // onSelect={() => navigation.navigate('Personal Message',{username:username})}
+                  onSelect={() => createPDF()}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      padding: 5,
+                    }}>
+                    <Image
+                      source={require('../../assets/icons/messenger.png')}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        marginRight: 12,
+                        tintColor: '#868686',
+                      }}
+                    />
+                    <CustomText text="Download PDF" textColor="black" />
+                  </View>
+                </MenuOption>
               </MenuOptions>
             </Menu>
           </View>
