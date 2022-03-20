@@ -296,8 +296,7 @@ const PostCard = ({
 const styles = StyleSheet.create({
   flatListStyle: {
     alignSelf: 'center',
-    width: '95%',
-    borderRadius: 20,
+    width: '100%',
     marginVertical: 10,
     backgroundColor: '#ffffff',
     elevation: 5,

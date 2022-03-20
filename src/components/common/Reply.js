@@ -10,7 +10,7 @@ import {
 import {AuthContext} from '../../routes/AuthProvider';
 
 const Reply = props => {
-  const {reply, reply_id, reply_time, reply_user_id, nameOfUser, avatar} =
+  const {reply, reply_id, reply_time, reply_user_id, nameOfUser, avatar, deleteOnPress} =
     props;
   const {container} = styles;
   const {user} = useContext(AuthContext);

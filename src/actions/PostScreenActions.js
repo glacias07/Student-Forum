@@ -4,7 +4,8 @@ import {
   CHATUSERNAME_SET,
   REPLY_LIST,
   MODAL_VISIBLE,
-  AVATAR_SET
+  AVATAR_SET,
+  COMMENT_ADDED
 } from './ActionTypes';
 
 
@@ -51,6 +52,12 @@ export const modalVisibleSet=bool=>dispatch=>{
   })
 }
 
+export const setCommentAdded=bool=>dispatch=>{
+  dispatch({
+    type:COMMENT_ADDED,
+    payload:bool
+  })
+}
 
 export const avatarSet=link=>dispatch=>{
   dispatch({

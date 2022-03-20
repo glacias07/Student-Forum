@@ -15,10 +15,18 @@ import {CustomText, Comment} from './common';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
 import {connect} from 'react-redux';
-import {NavigationContainer} from '@react-navigation/native';
+import {setCommentAdded} from '../actions/PostScreenActions';
 
 const PostDetails = props => {
-  const {route, username, userId, navigation, avatar} = props;
+  const {
+    route,
+    username,
+    userId,
+    navigation,
+    avatar,
+    comment_added,
+    setCommentAdded,
+  } = props;
   const {user} = useContext(AuthContext);
   const [imageHeight, setImageHeight] = useState();
   const [imageWidth, setImageWidth] = useState();
@@ -54,7 +62,7 @@ const PostDetails = props => {
 
   var list = [];
 
-  const fetctCommentArray = async () => {
+  const fetchCommentArray = async () => {
     try {
       await firestore()
         .collection('posts')
@@ -82,7 +90,7 @@ const PostDetails = props => {
             });
           });
         });
-      console.log(list);
+      // console.log(list);
       setPostCommentList(list);
     } catch (error) {
       console.log('Error while fetching comments', error);
@@ -122,19 +130,6 @@ const PostDetails = props => {
         console.log('Error occured when deleting comment from firebase: ', e),
       );
   };
-  const submitComment = Comment => {
-    postThisCommentToFirebase(
-      user.uid,
-      Comment,
-      username,
-      avatar,
-      route.params.no_of_comments + 1,
-      route.params.post_id,
-    );
-
-    setPostComment('');
-    setLoading(true);
-  };
 
   useEffect(() => {
     {
@@ -142,9 +137,11 @@ const PostDetails = props => {
         ? getImageSize(route.params.download_url)
         : null;
     }
-    fetctCommentArray();
+    console.log('UseEffect fetch');
+    fetchCommentArray();
+    setCommentAdded(false);
     setLoading(false);
-  }, [loading, navigation]);
+  }, [loading, navigation, comment_added]);
 
   const headerComponent = () => {
     return (
@@ -323,6 +320,7 @@ const PostDetails = props => {
                   comment_id: item.item.comment_id,
                   avatar: item.item.avatar,
                   no_of_replies: item.item.no_of_replies,
+                  title_of_screen: 'Reply',
                 })
               }
               comment_id={item.item.comment_id}
@@ -331,59 +329,87 @@ const PostDetails = props => {
               comment_time={moment(item.item.comment_time.toDate()).fromNow()}
               avatar={item.item.avatar}
               no_of_replies={item.item.no_of_replies}
+              post_id = {route.params.post_id}
             />
           </TouchableOpacity>
         )}
       />
-
-      <View
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() =>
+          navigation.navigate('Post Comment', {
+            post_id: route.params.post_id,
+            no_of_comments: postCommentList.length,
+            title_of_screen: 'Comment',
+            // user_id: route.params.user_id,
+            post_title: route.params.post_title,
+            // post_content: route.params.post_content,
+            // username: route.params.username,
+            // post_time: route.params.post_time,
+            // download_url: route.params.downloadUrl,
+            // avatar: route.params.avatar,
+            // no_of_comments: route.params.no_of_comments,
+          })
+        }
         style={{
-          flexDirection: 'row',
+          backgroundColor: '#ffffff',
+          height: 65,
           justifyContent: 'center',
           alignItems: 'center',
-          borderWidth: 0.7,
-          borderColor: '#00000050',
+          flexDirection: 'row',
           paddingHorizontal: 10,
-          borderRadius: 5,
-          margin: 10,
-          backgroundColor: '#ffffff',
+          elevation: 5,
+          borderTopWidth: 0.2,
+          borderTopColor: '#00000030',
         }}>
-        <TextInput
-          onChangeText={comment => setPostComment(comment)}
-          style={{flex: 4}}
-          value={postComment}
-          placeholder="Add a comment"
+        <Image
+          style={{
+            height: 45,
+            marginRight: 5,
+            flex: 2,
+            backgroundColor: '#dde1e4',
+            borderRadius: 150 / 2,
+          }}
+          source={{uri: route.params.avatar}}
         />
-        {postComment ? (
-          <TouchableOpacity
-            style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => {
-              submitComment(postComment);
-            }}>
-            <Image
-              style={{height: 25, width: 25, marginRight: 5}}
-              source={require('../assets/icons/send.png')}
-              tintColor="#5374ff"
-            />
-          </TouchableOpacity>
-        ) : (
+        <View
+          style={{
+            backgroundColor: '#dde1e4',
+            height: '80%',
+            flex: 15,
+            borderRadius: 8,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <CustomText
+            text={'Add a comment'}
+            textSize={17}
+            style={{marginLeft: 10}}
+          />
           <Image
-            tintColor="lightgrey"
-            style={{height: 25, width: 25, marginRight: 5}}
+            style={{
+              height: 30,
+              width: 30,
+              tintColor: 'grey',
+              borderRadius: 150 / 2,
+              marginRight: 12,
+            }}
             source={require('../assets/icons/send.png')}
           />
-        )}
-      </View>
+        </View>
+      </TouchableOpacity>
     </>
   );
 };
 const mapStateToProps = state => {
-  // console.log('Inside post -', state);
+  console.log('Inside post -', state);
   // console.log('Inside post user id -', state.postListing.userId);
   return {
     username: state.postListing.username,
     userId: state.postListing.userId,
     avatar: state.postListing.avatar,
+    comment_added: state.postListing.comment_added,
   };
 };
-export default connect(mapStateToProps, {})(PostDetails);
+export default connect(mapStateToProps, {setCommentAdded})(PostDetails);

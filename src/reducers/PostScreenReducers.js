@@ -4,16 +4,18 @@ import {
   CHATUSERNAME_SET,
   REPLY_LIST,
   MODAL_VISIBLE,
-  AVATAR_SET
+  AVATAR_SET,
+  COMMENT_ADDED,
 } from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
   username: '',
   userId: '',
   chatUsername: '',
-  reply_list:[],
-  modal_visible:true,
-  avatar:''
+  reply_list: [],
+  modal_visible: true,
+  avatar: '',
+  comment_added: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,13 +26,15 @@ export default (state = INITIAL_STATE, action) => {
     case USERID_SET:
       return {...state, userId: action.payload};
     case CHATUSERNAME_SET:
-      return{...state,chatUsername:action.payload}
+      return {...state, chatUsername: action.payload};
     case REPLY_LIST:
-      return{...state,reply_list:action.payload}
+      return {...state, reply_list: action.payload};
     case MODAL_VISIBLE:
-      return{...state,modal_visible:action.payload}
+      return {...state, modal_visible: action.payload};
     case AVATAR_SET:
-      return{...state,avatar:action.payload}
+      return {...state, avatar: action.payload};
+    case COMMENT_ADDED:
+      return {...state, comment_added: action.payload};
     default:
       return state;
   }

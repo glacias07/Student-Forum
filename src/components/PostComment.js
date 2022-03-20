@@ -9,21 +9,22 @@ import {
 import React, {useState, useContext, useEffect, useLayoutEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../routes/AuthProvider';
-import {CustomHeaderButton} from './common';
+import {CustomHeaderButton, CustomText} from './common';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {NavigationContainer} from '@react-navigation/native';
 import {Comment} from './common';
-
+import {setCommentAdded} from '../actions/PostScreenActions';
 const PostComment = props => {
-  const [reply, setReply] = useState(null);
-  const {route, username, navigation, avatar} = props;
-  const {user, postThisReplyToFirebase} =
+  const [replyOrComment, setReplyOrComment] = useState(null);
+  const {route, username, navigation, avatar, setCommentAdded, comment_added} =
+    props;
+  const {user, postThisReplyToFirebase, postThisCommentToFirebase} =
     useContext(AuthContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Reply',
+      title: route.params.title_of_screen,
       headerLeft: () => (
         <CustomHeaderButton
           onPress={() => navigation.goBack()}
@@ -33,11 +34,15 @@ const PostComment = props => {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            submitReply();
+            {
+              route.params.title_of_screen == 'Reply'
+                ? submitReply()
+                : submitComment();
+            }
           }}
-          disabled={replyOrCommentFilledOrNot(reply).disabled}
+          disabled={replyOrCommentFilledOrNot(replyOrComment).disabled}
           icon={require('../assets/icons/tick.png')}
-          tintColor={replyOrCommentFilledOrNot(reply).color}
+          tintColor={replyOrCommentFilledOrNot(replyOrComment).color}
           height={20}
           width={20}
         />
@@ -45,10 +50,10 @@ const PostComment = props => {
     });
   });
 
-  const replyOrCommentFilledOrNot = reply => {
+  const replyOrCommentFilledOrNot = replyOrComment => {
     var buttonColor = 'blue';
     var disabled = false;
-    if (reply === null) {
+    if (replyOrComment === null) {
       disabled = true;
       buttonColor = '#00000070';
     } else {
@@ -61,38 +66,69 @@ const PostComment = props => {
     };
   };
 
+  const submitComment = () => {
+    postThisCommentToFirebase(
+      user.uid,
+      replyOrComment,
+      username,
+      avatar,
+      route.params.no_of_comments + 1,
+      route.params.post_id,
+    );
+
+    navigation.goBack();
+    setCommentAdded(true);
+    // setPostComment('');
+    // setLoading(true);
+  };
+
   const submitReply = () => {
     postThisReplyToFirebase(
       user.uid,
-      reply,
+      replyOrComment,
       username,
       avatar,
       route.params.no_of_replies + 1,
       route.params.comment_id,
       route.params.post_id,
     );
+    setCommentAdded(true);
     navigation.goBack();
   };
 
   return (
     <>
-      <Comment
-        nameOfUser={route.params.nameOfUser}
-        comment={route.params.comment}
-        comment_time={moment(route.params.comment_time).fromNow(true)}
-        comment_replies={route.params.comment_replies}
-        avatar={route.params.avatar}
-        showValue={true}
-        style={{marginTop: 10}}
-      />
+      {route.params.title_of_screen == 'Reply' ? (
+        <Comment
+          nameOfUser={route.params.nameOfUser}
+          comment={route.params.comment}
+          comment_time={moment(route.params.comment_time.toDate()).fromNow()}
+          comment_replies={route.params.comment_replies}
+          avatar={route.params.avatar}
+          showValue={true}
+          style={{marginTop: 10}}
+        />
+      ) : (
+        <CustomText
+          style={{
+            backgroundColor: '#ffffff',
+            paddingVertical: 20,
+            paddingHorizontal: 10,
+          }}
+          text={route.params.post_title}
+          textColor={'#000000'}
+          textSize={16}
+          textWeight={400}
+        />
+      )}
 
       <View style={{backgroundColor: 'white', flex: 1, marginTop: 10}}>
         <TextInput
           multiline={true}
-          onChangeText={reply => {
-            setReply(reply.replace(/^\s+|\s+$/g, ''));
+          onChangeText={replyOrComment => {
+            setReplyOrComment(replyOrComment.replace(/^\s+|\s+$/g, ''));
           }}
-          placeholder="Add your Reply ..."
+          placeholder={'Add your ' + route.params.title_of_screen}
           style={{fontSize: 17, margin: 10, backgroundColor: 'white'}}
         />
       </View>
@@ -104,17 +140,18 @@ const mapStateToProps = state => {
   return {
     username: state.postListing.username,
     avatar: state.postListing.avatar,
+    comment_added: state.postListing.comment_added,
   };
 };
 
-export default connect(mapStateToProps, {})(PostComment);
+export default connect(mapStateToProps, {setCommentAdded})(PostComment);
 
 // import {replyListSet} from '../actions/PostScreenActions';
 // const PostComment = props => {
 //   const {route, username, replyListSet, replyList} = props;
-//   const [reply, setReply] = useState('');
+//   const [replyOrComment, setReplyOrComment] = useState('');
 //   const {user, updatePostCommentReplies} = useContext(AuthContext);
-//   //   const [replyList, setReplyList] = useState([]);
+//   //   const [replyList, setReplyOrCommentList] = useState([]);
 
 //   // const submitReply = Comment => {
 //   //   updatePostComments(
@@ -123,7 +160,7 @@ export default connect(mapStateToProps, {})(PostComment);
 //   //       {
 //   //         reply_user_id: user.uid,
 //   //         reply_id: user.uid + moment().format(),
-//   //         reply: reply,
+//   //         replyOrComment: replyOrComment,
 //   //         username: username,
 //   //         reply_time: moment().format(),
 //   //       },
@@ -131,21 +168,21 @@ export default connect(mapStateToProps, {})(PostComment);
 //   //     route.params.post_id,
 //   //   );
 
-//   //  setReply('')
+//   //  setReplyOrComment('')
 //   // };
 //   // useEffect(() => {
 //   //   const k = route.params.comment_replies;
 //   //   replyListSet(k);
 //   // }, []);
 
-//   // const addReplies = async reply => {
-//   //   console.log('Checking ', reply, 'Old replies', replyList);
+//   // const addReplies = async replyOrComment => {
+//   //   console.log('Checking ', replyOrComment, 'Old replies', replyList);
 //   //   const new_replies = [
 //   //     ...replyList,
 //   //     {
 //   //       reply_user_id: user.uid,
 //   //       reply_id: user.uid + moment().format(),
-//   //       reply: reply,
+//   //       replyOrComment: replyOrComment,
 //   //       username: username,
 //   //       reply_time: moment().format(),
 //   //     },
@@ -175,7 +212,7 @@ export default connect(mapStateToProps, {})(PostComment);
 //     const extracted_comment = Comments.filter(
 //       comment => comment.id === route.params.comment_id,
 //     );
-//     extracted_comment.replies = ['New Reply'];
+//     extracted_comment.replies = ['New replyOrComment'];
 //     updatePostCommentReplies(
 //       route.params.allCommentList,
 //       route.params.post_id,
@@ -187,13 +224,13 @@ export default connect(mapStateToProps, {})(PostComment);
 //     <View>
 //       <TextInput
 //         multiline={true}
-//         onChangeText={reply => {
-//           setReply(reply.replace(/^\s+|\s+$/g, ''));
+//         onChangeText={replyOrComment => {
+//           setReplyOrComment(replyOrComment.replace(/^\s+|\s+$/g, ''));
 //         }}
-//         placeholder="Add your Reply ..."
+//         placeholder="Add your replyOrComment ..."
 //         style={{fontSize: 17, margin: 10}}
 //       />
-//       <Button title="Submit" onPress={() => addReplies(reply)} />
+//       <Button title="Submit" onPress={() => addReplies(replyOrComment)} />
 //       {/* <Button title="Submit" onPress={() => replyListSet(new_replies)} /> */}
 //     </View>
 //   );

@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import {
   Menu,
@@ -19,6 +20,8 @@ import {CustomText} from '.';
 import {AuthContext} from '../../routes/AuthProvider';
 import Reply from './Reply';
 import moment from 'moment';
+import firestore from '@react-native-firebase/firestore';
+
 const Comment = ({
   comment_user_id,
   comment_id,
@@ -30,73 +33,153 @@ const Comment = ({
   replyOnPress,
   avatar,
   showValue,
+  no_of_replies,
   style,
+  post_id,
 }) => {
   const {user} = useContext(AuthContext);
   const {container} = styles;
   const [flatListVisible, setFlatListVisible] = useState(false);
   const [repliesButtonVisible, setRepliesButtonVisible] = useState(true);
+  const [replyList, setReplyList] = useState([]);
 
   const changeState = (flatlist, button) => {
     setFlatListVisible(flatlist);
     setRepliesButtonVisible(button);
   };
 
-  // const renderReplies = replies => {
-  //   if (replies.length > 0) {
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() => changeState(true, false)}
-  //         >
-  //         {flatListVisible ? (
-  //           <>
-  //             <TouchableOpacity onPress={() => changeState(false, true)}>
-  //               <CustomText
-  //                 text={replies.length > 1 ? 'Hide Replies' : 'Hide Reply'}
-  //                 textColor={'blue'}
-  //                 style={{marginLeft: 10}}
-  //               />
-  //             </TouchableOpacity>
-  //             <FlatList
-  //               data={replies}
-  //               style={{
-  //                 marginLeft: 10,
-  //                 marginTop: 15,
-  //                 borderLeftWidth: 0.5,
-  //                 borderLeftColor: '#00000050',
-  //               }}
-  //               renderItem={item => (
-  //                 <Reply
-  //                   reply={item.item.reply}
-  //                   reply_id={item.item.reply_id}
-  //                   reply_time={moment(item.item.reply_time).fromNow(true)}
-  //                   reply_user_id={item.item.reply_user_id}
-  //                   nameOfUser={item.item.username}
-  //                   avatar={item.item.avatar}
-  //                 />
-  //               )}
-  //             />
-  //           </>
-  //         ) : showValue ? null : (
-  //           <CustomText
-  //             text={
-  //               replies.length > 1
-  //                 ? 'View Replies' + ' (' + replies.length + ')'
-  //                 : 'View Reply'
-  //             }
-  //             textColor={'blue'}
-  //             style={{marginLeft: 5, marginBottom: 5}}
-  //           />
-  //         )}
-  //       </TouchableOpacity>
-  //     );
-  //   } else {
-  //     return <></>;
-  //   }
-  // };
+  var list = [];
+
+  const fetchReplyArray = async () => {
+    try {
+      await firestore()
+        .collection('posts')
+        .doc(post_id)
+        .collection('comments')
+        .doc(comment_id)
+        .collection('replies')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const {reply_user_id, reply, username, reply_time, avatar} =
+              doc.data();
+            list.push({
+              reply_id: doc.id,
+              reply_user_id,
+              reply,
+              username,
+              reply_time,
+              avatar,
+            });
+          });
+        });
+      // console.log('list list listlist list',list);
+      setReplyList(list);
+    } catch (error) {
+      console.log('Error while fetching comments', error);
+    }
+  };
+
+  const handleDelete = replyId => {
+    Alert.alert(
+      'Delete Comment',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deleteReply(replyId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deleteReply = replyId => {
+    firestore()
+      .collection('posts')
+      .doc(post_id)
+      .collection('comments')
+      .doc(comment_id)
+      .collection('replies')
+      .doc(replyId)
+      .delete()
+      .then(() => {
+        console.log('reply deleted from firebase successfully'),
+          firestore()
+            .collection('posts')
+            .doc(post_id)
+            .collection('comments')
+            .doc(comment_id)
+            .update({no_of_replies: no_of_replies - 1});
+        changeState(false, true);
+      })
+      .catch(e =>
+        console.log('Error occured when deleting reply from firebase: ', e),
+      );
+  };
+
+  const renderReplies = () => {
+    if (no_of_replies > 0) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            changeState(true, false), fetchReplyArray();
+          }}>
+          {flatListVisible ? (
+            <>
+              <TouchableOpacity onPress={() => changeState(false, true)}>
+                <CustomText
+                  text={no_of_replies > 1 ? 'Hide Replies' : 'Hide Reply'}
+                  textColor={'blue'}
+                  style={{marginLeft: 10}}
+                />
+              </TouchableOpacity>
+              <FlatList
+                data={replyList}
+                style={{
+                  marginLeft: 10,
+                  marginTop: 15,
+                  borderLeftWidth: 0.5,
+                  borderLeftColor: '#00000050',
+                }}
+                renderItem={item => (
+                  <Reply
+                    deleteOnPress={handleDelete}
+                    reply={item.item.reply}
+                    reply_id={item.item.reply_id}
+                    reply_time={moment(item.item.reply_time.toDate()).fromNow()}
+                    reply_user_id={item.item.reply_user_id}
+                    nameOfUser={item.item.username}
+                    avatar={item.item.avatar}
+                  />
+                )}
+              />
+            </>
+          ) : showValue ? null : (
+            <CustomText
+              text={
+                no_of_replies > 1
+                  ? 'View Replies' + ' (' + no_of_replies + ')'
+                  : 'View Reply'
+              }
+              textColor={'blue'}
+              style={{marginLeft: 5, marginBottom: 5}}
+            />
+          )}
+        </TouchableOpacity>
+      );
+    } else {
+      return <></>;
+    }
+  };
 
   return (
-    <View style={[container,style]}>
+    <View style={[container, style]}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
         <Image
@@ -262,7 +345,7 @@ const Comment = ({
         )}
       </View>
 
-      {/* {renderReplies(comment_replies)} */}
+      {renderReplies(comment_replies)}
     </View>
   );
 };

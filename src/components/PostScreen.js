@@ -180,7 +180,6 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
     <View
       style={{
         // backgroundColor: '#faf2e8',
-        paddingHorizontal: 20,
         flex: 1,
       }}>
       <FlatList
