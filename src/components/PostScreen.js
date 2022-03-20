@@ -17,10 +17,10 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
-import {usernameSet, useridSet,avatarSet} from '../actions/PostScreenActions';
+import {usernameSet, useridSet, avatarSet} from '../actions/PostScreenActions';
 import {CustomText} from './common';
 
-const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
+const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -45,22 +45,20 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
               postTitle,
               postContent,
               postTime,
-              likes,
-              comments,
-              avatar
+              no_of_comments,
+              avatar,
             } = doc.data();
             list.push({
               userId,
               username,
               downloadUrl,
-              likes,
-              comments,
+              no_of_comments,
               liked: false,
               postTitle,
               id: doc.id,
               postContent,
               postTime,
-              avatar
+              avatar,
             });
           });
         });
@@ -76,8 +74,6 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
       );
     }
   };
-
-  
 
   useEffect(() => {
     fetchUserDetails();
@@ -159,18 +155,18 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {userId, username,avatar} = doc.data();
+            const {userId, username, avatar} = doc.data();
             list.push({
               userId,
               username,
-              avatar
+              avatar,
             });
           });
         });
       console.log('User details ', list);
       useridSet(list[0].userId);
       usernameSet(list[0].username);
-      avatarSet(list[0].avatar)
+      avatarSet(list[0].avatar);
 
       if (loading) {
         setLoading(false);
@@ -187,7 +183,6 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
         paddingHorizontal: 20,
         flex: 1,
       }}>
-    
       <FlatList
         contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
@@ -207,6 +202,7 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
                 post_time: item.postTime,
                 download_url: item.downloadUrl,
                 avatar: item.avatar,
+                no_of_comments: item.no_of_comments,
               });
             }}
             postId={item.id}
@@ -217,7 +213,7 @@ const PostScreen = ({navigation, usernameSet, useridSet,avatarSet}) => {
             username={item.username}
             imageUrl={item.downloadUrl}
             navigation={navigation}
-            comment_length={item.comments.length}
+            no_of_comments={item.no_of_comments}
             avatar={item.avatar}
           />
         )}></FlatList>
@@ -272,4 +268,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {usernameSet, useridSet,avatarSet})(PostScreen);
+export default connect(mapStateToProps, {usernameSet, useridSet, avatarSet})(
+  PostScreen,
+);

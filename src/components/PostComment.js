@@ -18,11 +18,8 @@ import {Comment} from './common';
 const PostComment = props => {
   const [reply, setReply] = useState(null);
   const {route, username, navigation, avatar} = props;
-  const {user, updatePostComments} = useContext(AuthContext);
-
-  useEffect(() => {
-    fetctCommentArray();
-  }, [reply]);
+  const {user, postThisReplyToFirebase} =
+    useContext(AuthContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,11 +33,11 @@ const PostComment = props => {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            newReplyList(reply);
+            submitReply();
           }}
-          disabled={postFilledOrNot(reply).disabled}
+          disabled={replyOrCommentFilledOrNot(reply).disabled}
           icon={require('../assets/icons/tick.png')}
-          tintColor={postFilledOrNot(reply).color}
+          tintColor={replyOrCommentFilledOrNot(reply).color}
           height={20}
           width={20}
         />
@@ -48,7 +45,7 @@ const PostComment = props => {
     });
   });
 
-  const postFilledOrNot = reply => {
+  const replyOrCommentFilledOrNot = reply => {
     var buttonColor = 'blue';
     var disabled = false;
     if (reply === null) {
@@ -64,82 +61,30 @@ const PostComment = props => {
     };
   };
 
-  var commentList = [];
-  var replyArray = [];
-  var comment = [];
-  var comment_object = {};
-  const fetctCommentArray = async () => {
-    try {
-      await firestore()
-        .collection('posts')
-        .where('postTitle', '==', route.params.post_title)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            const {comments} = doc.data();
-            commentList = [...comments];
-          });
-        });
-      // console.log(commentList);
-      extractCommentObjectAndReplyArray(commentList, route.params.comment_id);
-    } catch (error) {
-      console.log('Error while fetching comments', error);
-    }
-  };
-
-  const extractCommentObjectAndReplyArray = (commentArray, id) => {
-    comment = commentArray.filter(comment => comment.comment_id === id);
-    commentList = commentArray.filter(comment => comment.comment_id != id);
-    replyArray = comment[0].replies;
-  };
-
-  const newReplyList = () => {
-    const new_replylist = [
-      ...replyArray,
-      {
-        reply_user_id: user.uid,
-        reply_id: user.uid + moment().format(),
-        reply: reply,
-        username: username,
-        reply_time: moment().format(),
-        parent_comment_id: 'awed',
-        avatar: avatar,
-      },
-    ];
-
-    setTimeout(test1, 2000);
-    function test1() {
-      // console.log('Our method of async await', comment[0]);
-      comment_object = comment[0];
-      // const [comment_object]=comment
-      // comment_object.replies = new_replylist.map(reply => reply);
-      for (var i of new_replylist) {
-        comment_object.replies.push(i);
-      }
-      console.log('Final Push', comment_object);
-      setTimeout(test2, 1000);
-      function test2() {
-        updatePostComments(
-          [...commentList, comment_object],
-          route.params.post_id,
-        );
-      }
-
-      navigation.goBack();
-    }
+  const submitReply = () => {
+    postThisReplyToFirebase(
+      user.uid,
+      reply,
+      username,
+      avatar,
+      route.params.no_of_replies + 1,
+      route.params.comment_id,
+      route.params.post_id,
+    );
+    navigation.goBack();
   };
 
   return (
     <>
-        <Comment
-          nameOfUser={route.params.nameOfUser}
-          comment={route.params.comment}
-          comment_time={moment(route.params.comment_time).fromNow(true)}
-          comment_replies={route.params.comment_replies}
-          avatar={route.params.avatar}
-          showValue={true}
-          style={{marginTop: 10}}
-        />
+      <Comment
+        nameOfUser={route.params.nameOfUser}
+        comment={route.params.comment}
+        comment_time={moment(route.params.comment_time).fromNow(true)}
+        comment_replies={route.params.comment_replies}
+        avatar={route.params.avatar}
+        showValue={true}
+        style={{marginTop: 10}}
+      />
 
       <View style={{backgroundColor: 'white', flex: 1, marginTop: 10}}>
         <TextInput

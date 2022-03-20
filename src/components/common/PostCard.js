@@ -33,20 +33,18 @@ const PostCard = ({
   deleteOnPress,
   style,
   navigation,
-  chatUserNameSet,
   myUsername,
-  comment_length,
+  no_of_comments,
   avatar,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
-  const getCurrentDate=()=>{
-
+  const getCurrentDate = () => {
     var date = new Date().getDate();
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
-    return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
-}
+    return date + '-' + month + '-' + year; //format: dd-mm-yyyy;
+  };
 
   const createPDF = async () => {
     let options = {
@@ -283,16 +281,12 @@ const PostCard = ({
             style={{
               width: 20,
               height: 20,
-              marginRight: 12,
+              marginRight: 5,
               tintColor: '#868686',
-              marginLeft: 25,
+              marginLeft: 15,
             }}
           />
-          {comment_length != 0 ? (
-            <CustomText textSize={15} textWeight={500} text={comment_length} />
-          ) : (
-            <></>
-          )}
+          <CustomText textSize={15} textWeight={500} text={no_of_comments} />
         </View>
       </View>
     </TouchableHighlight>

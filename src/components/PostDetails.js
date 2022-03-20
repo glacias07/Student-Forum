@@ -24,8 +24,10 @@ const PostDetails = props => {
   const [imageWidth, setImageWidth] = useState();
   const [postComment, setPostComment] = useState();
   const [postCommentList, setPostCommentList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const {updatePostComments} = useContext(AuthContext);
+  const {updatePostComments, postThisCommentToFirebase} =
+    useContext(AuthContext);
 
   const getImageSize = url => {
     Image.getSize(
@@ -56,16 +58,31 @@ const PostDetails = props => {
     try {
       await firestore()
         .collection('posts')
-        .where('postTitle', '==', route.params.post_title)
+        .doc(route.params.post_id)
+        .collection('comments')
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            const {comments} = doc.data();
-            // console.log('This is fetch ', comments);
-            // list=comments.map(item=>list.push(item))
-            list = [...comments];
+            const {
+              comment_user_id,
+              comment,
+              username,
+              comment_time,
+              avatar,
+              no_of_replies,
+            } = doc.data();
+            list.push({
+              comment_user_id,
+              comment_id: doc.id,
+              comment,
+              username,
+              comment_time,
+              avatar,
+              no_of_replies,
+            });
           });
         });
+      console.log(list);
       setPostCommentList(list);
     } catch (error) {
       console.log('Error while fetching comments', error);
@@ -89,34 +106,34 @@ const PostDetails = props => {
       {cancelable: false},
     );
   };
-  const removeByCommentId = value => {
-    const newArr = postCommentList.filter(obj => obj.comment_id != value);
-    setPostCommentList(newArr);
-    updatePostComments(newArr, route.params.post_id);
-  };
+
   const deleteComment = commentId => {
-    removeByCommentId(commentId);
+    firestore()
+      .collection('posts')
+      .doc(route.params.post_id)
+      .collection('comments')
+      .doc(commentId)
+      .delete()
+      .then(() => {
+        console.log('Comment deleted from firebase successfully'),
+          setLoading(true);
+      })
+      .catch(e =>
+        console.log('Error occured when deleting comment from firebase: ', e),
+      );
   };
   const submitComment = Comment => {
-    updatePostComments(
-      [
-        ...postCommentList,
-        {
-          comment_user_id: user.uid,
-          comment_id: user.uid + moment().format(),
-          comment: Comment,
-          username: username,
-          comment_time: moment().format(),
-          replies: [],
-          avatar: avatar,
-        },
-      ],
+    postThisCommentToFirebase(
+      user.uid,
+      Comment,
+      username,
+      avatar,
+      route.params.no_of_comments + 1,
       route.params.post_id,
     );
 
     setPostComment('');
-
-    // console.log(postComment);
+    setLoading(true);
   };
 
   useEffect(() => {
@@ -126,7 +143,8 @@ const PostDetails = props => {
         : null;
     }
     fetctCommentArray();
-  }, [postComment, list]);
+    setLoading(false);
+  }, [loading, navigation]);
 
   const headerComponent = () => {
     return (
@@ -304,14 +322,15 @@ const PostDetails = props => {
                   allCommentList: postCommentList,
                   comment_id: item.item.comment_id,
                   avatar: item.item.avatar,
+                  no_of_replies: item.item.no_of_replies,
                 })
               }
               comment_id={item.item.comment_id}
               nameOfUser={item.item.username}
               comment={item.item.comment}
-              comment_replies={item.item.replies}
-              comment_time={moment(item.item.comment_time).fromNow(true)}
+              comment_time={moment(item.item.comment_time.toDate()).fromNow()}
               avatar={item.item.avatar}
+              no_of_replies={item.item.no_of_replies}
             />
           </TouchableOpacity>
         )}
@@ -338,7 +357,9 @@ const PostDetails = props => {
         {postComment ? (
           <TouchableOpacity
             style={{justifyContent: 'center', alignItems: 'center'}}
-            onPress={() => submitComment(postComment)}>
+            onPress={() => {
+              submitComment(postComment);
+            }}>
             <Image
               style={{height: 25, width: 25, marginRight: 5}}
               source={require('../assets/icons/send.png')}

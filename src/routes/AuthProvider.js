@@ -59,6 +59,74 @@ export const AuthProvider = ({children}) => {
               );
             });
         },
+        postThisCommentToFirebase: async (
+          comment_user_id,
+          comment,
+          username,
+          avatar,
+          no_of_comments,
+          post_id,
+        ) => {
+          firestore()
+            .collection('posts')
+            .doc(post_id)
+            .collection('comments')
+            .add({
+              comment_user_id,
+              comment,
+              username,
+              avatar,
+              comment_time: firestore.Timestamp.fromDate(new Date()),
+              no_of_replies: 0,
+            })
+            .then(() => {
+              console.log('Comment added to the firebase succesfully'),
+                firestore()
+                  .collection('posts')
+                  .doc(post_id)
+                  .update({no_of_comments});
+            })
+            .catch(e => {
+              console.log('Error adding comment to firebase: ', e);
+            });
+        },
+        postThisReplyToFirebase: async (
+          reply_user_id,
+          reply,
+          username,
+          avatar,
+          no_of_replies,
+          parent_comment_id,
+          post_id,
+        ) => {
+          firestore()
+            .collection('posts')
+            .doc(post_id)
+            .collection('comments')
+            .doc(parent_comment_id)
+            .collection('replies')
+            .add({
+              reply_user_id,
+              reply,
+              username,
+              avatar,
+              reply_time: firestore.Timestamp.fromDate(new Date()),
+            })
+            .then(() => {
+              {
+                console.log('Reply added to the firebase succesfully'),
+                  firestore()
+                    .collection('posts')
+                    .doc(post_id)
+                    .collection('comments')
+                    .doc(parent_comment_id)
+                    .update({no_of_replies});
+              }
+            })
+            .catch(e => {
+              console.log('Error adding reply to firebase: ', e);
+            });
+        },
         updatePostComments: async (updatedComments, post_id) => {
           firestore()
             .collection('posts')
@@ -100,7 +168,7 @@ export const AuthProvider = ({children}) => {
               postTitle: postTitle,
               postContent: postContent,
               postTime: firestore.Timestamp.fromDate(new Date()),
-              comments: [],
+              no_of_comments: 0,
               avatar: avatar,
             })
             .then(() => {

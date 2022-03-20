@@ -42,58 +42,58 @@ const Comment = ({
     setRepliesButtonVisible(button);
   };
 
-  const renderReplies = replies => {
-    if (replies.length > 0) {
-      return (
-        <TouchableOpacity
-          onPress={() => changeState(true, false)}
-          >
-          {flatListVisible ? (
-            <>
-              <TouchableOpacity onPress={() => changeState(false, true)}>
-                <CustomText
-                  text={replies.length > 1 ? 'Hide Replies' : 'Hide Reply'}
-                  textColor={'blue'}
-                  style={{marginLeft: 10}}
-                />
-              </TouchableOpacity>
-              <FlatList
-                data={replies}
-                style={{
-                  marginLeft: 10,
-                  marginTop: 15,
-                  borderLeftWidth: 0.5,
-                  borderLeftColor: '#00000050',
-                }}
-                renderItem={item => (
-                  <Reply
-                    reply={item.item.reply}
-                    reply_id={item.item.reply_id}
-                    reply_time={moment(item.item.reply_time).fromNow(true)}
-                    reply_user_id={item.item.reply_user_id}
-                    nameOfUser={item.item.username}
-                    avatar={item.item.avatar}
-                  />
-                )}
-              />
-            </>
-          ) : showValue ? null : (
-            <CustomText
-              text={
-                replies.length > 1
-                  ? 'View Replies' + ' (' + replies.length + ')'
-                  : 'View Reply'
-              }
-              textColor={'blue'}
-              style={{marginLeft: 5, marginBottom: 5}}
-            />
-          )}
-        </TouchableOpacity>
-      );
-    } else {
-      return <></>;
-    }
-  };
+  // const renderReplies = replies => {
+  //   if (replies.length > 0) {
+  //     return (
+  //       <TouchableOpacity
+  //         onPress={() => changeState(true, false)}
+  //         >
+  //         {flatListVisible ? (
+  //           <>
+  //             <TouchableOpacity onPress={() => changeState(false, true)}>
+  //               <CustomText
+  //                 text={replies.length > 1 ? 'Hide Replies' : 'Hide Reply'}
+  //                 textColor={'blue'}
+  //                 style={{marginLeft: 10}}
+  //               />
+  //             </TouchableOpacity>
+  //             <FlatList
+  //               data={replies}
+  //               style={{
+  //                 marginLeft: 10,
+  //                 marginTop: 15,
+  //                 borderLeftWidth: 0.5,
+  //                 borderLeftColor: '#00000050',
+  //               }}
+  //               renderItem={item => (
+  //                 <Reply
+  //                   reply={item.item.reply}
+  //                   reply_id={item.item.reply_id}
+  //                   reply_time={moment(item.item.reply_time).fromNow(true)}
+  //                   reply_user_id={item.item.reply_user_id}
+  //                   nameOfUser={item.item.username}
+  //                   avatar={item.item.avatar}
+  //                 />
+  //               )}
+  //             />
+  //           </>
+  //         ) : showValue ? null : (
+  //           <CustomText
+  //             text={
+  //               replies.length > 1
+  //                 ? 'View Replies' + ' (' + replies.length + ')'
+  //                 : 'View Reply'
+  //             }
+  //             textColor={'blue'}
+  //             style={{marginLeft: 5, marginBottom: 5}}
+  //           />
+  //         )}
+  //       </TouchableOpacity>
+  //     );
+  //   } else {
+  //     return <></>;
+  //   }
+  // };
 
   return (
     <View style={[container,style]}>
@@ -262,7 +262,7 @@ const Comment = ({
         )}
       </View>
 
-      {renderReplies(comment_replies)}
+      {/* {renderReplies(comment_replies)} */}
     </View>
   );
 };
