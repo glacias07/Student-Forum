@@ -52,10 +52,10 @@ const TabStack = route => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/icons/chat.png')}
+              source={require('../assets/icons/messages.png')}
               style={{
-                height: 25,
-                width: 25,
+                height: 30,
+                width: 30,
                 tintColor: focused ? 'blue' : 'black',
               }}
             />
