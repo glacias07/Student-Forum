@@ -18,14 +18,14 @@ const MaterialBarStack = props => {
   const {avatar, navigation} = props;
   return (
     <>
-      <View style={{backgroundColor: '#C1F2FF'}}>
+      <View style={{backgroundColor: '#ffffff'}}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             padding: 20,
             alignItems: 'center',
-            // backgroundColor: '#C1F2FF',
+            // backgroundColor: '#ffffff',
           }}>
           <TouchableOpacity>
             <Image
@@ -33,16 +33,16 @@ const MaterialBarStack = props => {
               source={require('../assets/icons/bell.png')}
             />
           </TouchableOpacity>
-          {/* <CustomText
+          <CustomText
             text="Community"
             textSize={18}
             textWeight={700}
             textColor={'black'}
-          /> */}
-          <Image
+          />
+          {/* <Image
             style={{width: 100, height: 35}}
             source={require('../assets/images/splash.png')}
-          />
+          /> */}
           <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
             <Image
               style={{
@@ -51,14 +51,14 @@ const MaterialBarStack = props => {
                 // marginRight: 15,
                 borderRadius: 150 / 2,
                 borderWidth: 0.5,
-                backgroundColor: '#EFFFFD',
+                backgroundColor: '#E4EFF0',
                 // borderColor: 'black',
               }}
               source={{uri: avatar}}
             />
           </TouchableOpacity>
         </View>
-        <View style={{flexDirection: 'row', backgroundColor: '#C1F2FF'}}>
+        <View style={{flexDirection: 'row', backgroundColor: '#ffffff'}}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Create Screen')}
             style={{
@@ -66,7 +66,7 @@ const MaterialBarStack = props => {
               width: '60%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EFFFFD',
+              backgroundColor: '#E4EFF0',
               borderRadius: 20,
               paddingLeft: 20,
               marginLeft: 15,
@@ -89,7 +89,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EFFFFD',
+              backgroundColor: '#E4EFF0',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -106,7 +106,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EFFFFD',
+              backgroundColor: '#E4EFF0',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -135,7 +135,7 @@ const MaterialBarStack = props => {
           // tabBarItemStyle: {width: 100},
           // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
-          tabBarStyle: {backgroundColor: '#EFFFFD',},
+          tabBarStyle: {backgroundColor: '#ffffff',},
           // tabBarIndicatorStyle: {backgroundColor: 'red'}
 
           // tabBarLabelStyle: {
@@ -162,18 +162,19 @@ const MaterialBarStack = props => {
             // borderRadius: 30,
             // top: 9,
           },
+          tabBarShowLabel: false,
         }}>
         <MaterialTab.Screen
-          name="Home"
+          name="Feed"
           
           component={PostScreen}
           options={{
             tabBarIcon: ({focused}) => (
               <Image
-                source={require('../assets/icons/home.png')}
+                source={require('../assets/icons/feed.png')}
                 style={{
-                  height: 25,
-                  width: 25,
+                  height: 20,
+                  width: 20,
                   tintColor: focused ? 'blue' : undefined,
                 }}
               />
@@ -188,8 +189,8 @@ const MaterialBarStack = props => {
               <Image
                 source={require('../assets/icons/help.png')}
                 style={{
-                  height: 25,
-                  width: 25,
+                  height: 20,
+                  width: 20,
                   tintColor: focused ? 'blue' : undefined,
                 }}
               />

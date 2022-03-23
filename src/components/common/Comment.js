@@ -169,7 +169,7 @@ const Comment = ({
                   : 'View Reply'
               }
               textColor={'blue'}
-              style={{marginLeft: 5, marginBottom: 5}}
+              style={{marginLeft: 10, marginBottom: 5}}
             />
           )}
         </TouchableOpacity>

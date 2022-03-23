@@ -179,7 +179,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
   return (
     <View
       style={{
-        // backgroundColor: '#faf2e8',
+        backgroundColor: '#ffffff',
         flex: 1,
       }}>
       <FlatList
@@ -197,7 +197,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                 post_title: item.postTitle,
                 default_value: item.postContent,
                 title: 'Post',
-                placeholder: 'Post Content'
+                placeholder: 'Post Content',
               })
             }
             cardOnPress={() => {
@@ -225,49 +225,9 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
             avatar={item.avatar}
           />
         )}></FlatList>
-      {/* <TouchableOpacity
-        activeOpacity={0.65}
-        onPress={() => {
-          navigation.navigate('Create Screen');
-          // usernameSet(userDetails[0].username)
-          // console.log('redux usernamme', username);
-        }}
-        style={styles.postbtn}>
-        <Image
-          style={styles.iconStyle}
-          source={require('../assets/icons/plus.png')}
-        />
-      </TouchableOpacity> */}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  iconStyle: {
-    resizeMode: 'contain',
-    tintColor: '#ffffff',
-  },
-  postbtn: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    backgroundColor: '#5374ff',
-    height: 65,
-    width: 65,
-    borderRadius: 150 / 2,
-  },
-  flatListStyle: {
-    alignSelf: 'center',
-    width: '100%',
-    borderRadius: 13,
-    marginVertical: 10,
-    backgroundColor: '#000000',
-    elevation: 5,
-    padding: 20,
-  },
-});
 
 const mapStateToProps = state => {
   // console.log('Global State=', state);

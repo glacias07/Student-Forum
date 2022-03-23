@@ -22,7 +22,7 @@ const TabStack = route => {
   return (
     <TabStackNav.Navigator
       screenOptions={{
-        headerShown: false,
+        // headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {height: 70},
         tabBarHideOnKeyboard: true,
@@ -31,6 +31,7 @@ const TabStack = route => {
         name="Posts"
         component={MaterialBarStack}
         options={{
+          headerShown: false,
           tabBarIcon: ({focused}) => (
             <Image
               source={require('../assets/icons/home.png')}
@@ -41,7 +42,7 @@ const TabStack = route => {
               }}
             />
           ),
-          headerTitle:"Hello"
+          // headerTitle:"Hello"
           // tabBarStyle: { backgroundColor: 'powderblue' }
     
         }}
@@ -68,6 +69,7 @@ const TabStack = route => {
         name="Dashboard"
         component={Dashboard}
         options={{
+          headerShown: false,
           tabBarIcon: ({focused}) => (
             <Image
               source={require('../assets/icons/head.png')}

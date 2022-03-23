@@ -3,7 +3,6 @@ import {onAddFriend} from '../SetupProfileScreen';
 import {
   StyleSheet,
   View,
-  TouchableHighlight,
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -70,10 +69,9 @@ const PostCard = ({
   };
 
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={style}
       activeOpacity={0.6}
-      underlayColor={'transparent'}
       onPress={cardOnPress}>
       <View style={styles.flatListStyle}>
         <View style={{width: '100%'}}>
@@ -95,7 +93,7 @@ const PostCard = ({
                   width: 40,
                   marginRight: 15,
                   borderRadius: 150 / 2,
-                  backgroundColor: '#ffffff'
+                  backgroundColor: '#ffffff',
                 }}
                 source={{uri: avatar}}
               />
@@ -264,7 +262,7 @@ const PostCard = ({
             </Menu>
           </View>
         </View>
-        <View style={{width: '100%', marginTop: -10}}>
+        <View style={{width: '100%', marginLeft: 10}}>
           <CustomText
             textColor="#000000"
             textSize={22}
@@ -280,29 +278,20 @@ const PostCard = ({
               marginTop: 10,
               borderRadius: 10,
               marginBottom: 20,
-              resizeMode: 'cover',
               height: 200,
+              marginLeft: 10,
+              marginRight:20
             }}
             source={{uri: imageUrl}}
           />
         ) : null}
-        {/* <View style={{paddingHorizontal: 10, width: '100%'}}>
-          <CustomText
-            textColor="#000000"
-            textSize={22}
-            textWeight={600}
-            numberOfLines={3}
-            text={postTitle}
-            style={{marginBottom: 30}}
-          />
-        </View> */}
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 5,
           }}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10}}>
             <View style={{flexDirection: 'row'}}>
               <Image
                 source={require('../../assets/icons/comment.png')}
@@ -348,16 +337,23 @@ const PostCard = ({
           </TouchableOpacity>
         </View>
       </View>
-    </TouchableHighlight>
+      <View
+        style={{
+          height: 0.8,
+          // borderWidth: 0.5,
+          width: '80%',
+          backgroundColor: '#00000070',
+          alignSelf: 'center',
+          marginVertical: 10
+        }}></View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   flatListStyle: {
-    alignSelf: 'center',
     width: '100%',
-    marginVertical: 10,
-    backgroundColor: '#EFFFFD',
+    backgroundColor: '#ffffff',
     padding: 15,
   },
 });
