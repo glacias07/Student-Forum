@@ -131,7 +131,7 @@ const PostCard = ({
                   padding: 10,
                   marginTop: 5,
                   marginBottom: 20,
-                  marginLeft: 70,
+                  marginLeft: 100,
                 }}>
                 <CustomText
                   textColor="#00000080"
@@ -163,7 +163,6 @@ const PostCard = ({
                       style={{
                         width: 20,
                         height: 20,
-                        marginRight: 12,
                         tintColor: '#868686',
                       }}
                     />
