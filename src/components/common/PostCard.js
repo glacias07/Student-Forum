@@ -339,7 +339,7 @@ const PostCard = ({
       </View>
       <View
         style={{
-          height: 0.8,
+          height: 0.4,
           // borderWidth: 0.5,
           width: '80%',
           backgroundColor: '#00000070',

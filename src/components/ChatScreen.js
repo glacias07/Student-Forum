@@ -86,7 +86,7 @@ const ChatScreen = ({navigation, route, username}) => {
       }
       renderItem={({item}) => (
         <ChatItem
-          style={{marginBottom: 10}}
+          style={{borderBottomWidth:0.8,color:'black'}}
           chatOnPress={() => {
             navigation.navigate('Personal Message', {
               friendData: item,
