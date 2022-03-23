@@ -18,9 +18,6 @@ import { connect } from 'react-redux';
 const SetupProfileScreen = ({navigation,chatUsername}) => {
   const {user} = useContext(AuthContext);
   const [username, setUsername] = useState();
-  const [bio, setBio] = useState();
-  const [designation, setDesignation] = useState();
-  const [workplace, setWorkplace] = useState();
   const [myData, setMyData] = useState(null);
   const [users, setUsers] = useState([]);
 
