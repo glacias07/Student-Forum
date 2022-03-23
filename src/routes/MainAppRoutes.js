@@ -53,10 +53,10 @@ function MainAppRoutes() {
               component={TabStack}
               options={
                 {
-                  // // headerShown: false
+                  headerShown: false
                   // headerStyle: Styles.commonHeaderStyle,
                   // headerTitleStyle: Styles.commonHeaderTitleStyle,
-                  title:"Main App"
+                  // title:"Main App"
                 }
               }
             />
