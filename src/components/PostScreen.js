@@ -19,6 +19,7 @@ import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {usernameSet, useridSet, avatarSet} from '../actions/PostScreenActions';
 import {CustomText} from './common';
+import HomeScreenShimmer from './HomeScreenShimmer';
 
 const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
   const [posts, setPosts] = useState(null);
@@ -182,49 +183,53 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
         backgroundColor: '#ffffff',
         flex: 1,
       }}>
-      <FlatList
-        contentContainerStyle={{paddingBottom: 20}}
-        showsVerticalScrollIndicator={false}
-        data={posts}
-        removeClippedSubviews={true}
-        initialNumToRender={5}
-        renderItem={({item, index}) => (
-          <PostCard
-            deleteOnPress={handleDelete}
-            editOnPress={() =>
-              navigation.navigate('Edit Screen', {
-                post_id: item.id,
-                post_title: item.postTitle,
-                default_value: item.postContent,
-                title: 'Post',
-                placeholder: 'Post Content',
-              })
-            }
-            cardOnPress={() => {
-              navigation.navigate('Post Details', {
-                user_id: item.userId,
-                post_id: item.id,
-                post_title: item.postTitle,
-                post_content: item.postContent,
-                username: item.username,
-                post_time: item.postTime,
-                download_url: item.downloadUrl,
-                avatar: item.avatar,
-                no_of_comments: item.no_of_comments,
-              });
-            }}
-            postId={item.id}
-            postTitle={item.postTitle}
-            postContent={item.postContent}
-            postDate={item.postTime}
-            userId={item.userId}
-            username={item.username}
-            imageUrl={item.downloadUrl}
-            navigation={navigation}
-            no_of_comments={item.no_of_comments}
-            avatar={item.avatar}
-          />
-        )}></FlatList>
+      {posts == null ? (
+        <HomeScreenShimmer />
+      ) : (
+        <FlatList
+          contentContainerStyle={{paddingBottom: 20}}
+          showsVerticalScrollIndicator={false}
+          data={posts}
+          removeClippedSubviews={true}
+          initialNumToRender={5}
+          renderItem={({item, index}) => (
+            <PostCard
+              deleteOnPress={handleDelete}
+              editOnPress={() =>
+                navigation.navigate('Edit Screen', {
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  default_value: item.postContent,
+                  title: 'Post',
+                  placeholder: 'Post Content',
+                })
+              }
+              cardOnPress={() => {
+                navigation.navigate('Post Details', {
+                  user_id: item.userId,
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  post_content: item.postContent,
+                  username: item.username,
+                  post_time: item.postTime,
+                  download_url: item.downloadUrl,
+                  avatar: item.avatar,
+                  no_of_comments: item.no_of_comments,
+                });
+              }}
+              postId={item.id}
+              postTitle={item.postTitle}
+              postContent={item.postContent}
+              postDate={item.postTime}
+              userId={item.userId}
+              username={item.username}
+              imageUrl={item.downloadUrl}
+              navigation={navigation}
+              no_of_comments={item.no_of_comments}
+              avatar={item.avatar}
+            />
+          )}></FlatList>
+      )}
     </View>
   );
 };
