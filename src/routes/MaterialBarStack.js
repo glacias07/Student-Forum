@@ -107,7 +107,7 @@ const MaterialBarStack = props => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{borderWidth: 0.2, color: '#cfd3d4', margin: 10,opacity:0.3}}></View>
+        <View style={{borderWidth: 0.2, color: '#cfd3d4', marginTop: 10,opacity:0.6}}></View>
       </View>
       <MaterialTab.Navigator
         options={{
