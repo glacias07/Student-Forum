@@ -33,7 +33,7 @@ const MaterialBarStack = props => {
             textWeight={700}
             textColor={'black'}
           />
-          <TouchableOpacity onPress={()=>navigation.navigate('Dashboard')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
             <Image
               style={{
                 height: 35,
@@ -107,11 +107,42 @@ const MaterialBarStack = props => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{borderWidth: 0.2, color: '#cfd3d4', marginTop: 10,opacity:0.6}}></View>
+        <View
+          style={{
+            borderWidth: 0.2,
+            color: '#cfd3d4',
+            marginTop: 10,
+            opacity: 0.6,
+          }}></View>
       </View>
       <MaterialTab.Navigator
-        options={{
-          tabBarVisible: false,
+        // options={{
+        //   tabBarVisible: false
+        // }}
+        // tabBarPosition='bottom'
+        screenOptions={{
+          // tabBarLabelStyle: {fontSize: 12},
+          // tabBarItemStyle: {width: 100},
+          // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
+          // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
+          // tabBarStyle: {backgroundColor: 'powderblue',},
+          // tabBarIndicatorStyle: {backgroundColor: 'red'}
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontWeight: 'bold',
+          },
+          tabBarActiveTintColor: '#ffffff',
+          tabBarInactiveTintColor: '#000000',
+          tabBarPressOpacity: 1,
+          tabBarIndicatorStyle: {
+            backgroundColor: 'black',
+            height: 30,
+            borderRadius: 30,
+            top: 9,
+          },
+          tabBarStyle: {
+            width: 'auto',
+          },
         }}>
         <MaterialTab.Screen name="Home" component={PostScreen} />
         <MaterialTab.Screen name="Help Desk" component={HelpDesk} />
