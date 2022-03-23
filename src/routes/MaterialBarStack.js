@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 const MaterialTab = createMaterialTopTabNavigator();
 
 const MaterialBarStack = props => {
-  const {avatar,navigation} = props;
+  const {avatar, navigation} = props;
   return (
     <>
       <View style={{backgroundColor: 'white'}}>
@@ -22,10 +22,10 @@ const MaterialBarStack = props => {
             backgroundColor: 'white',
           }}>
           <TouchableOpacity>
-          <Image
-            style={{width: 25, height: 25}}
-            source={require('../assets/icons/bell.png')}
-          />
+            <Image
+              style={{width: 25, height: 25}}
+              source={require('../assets/icons/bell.png')}
+            />
           </TouchableOpacity>
           <CustomText
             text="Community"
@@ -49,7 +49,7 @@ const MaterialBarStack = props => {
         </View>
         <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
           <TouchableOpacity
-          onPress={()=>navigation.navigate('Create Screen')}
+            onPress={() => navigation.navigate('Create Screen')}
             style={{
               flexDirection: 'row',
               width: '60%',
@@ -107,6 +107,7 @@ const MaterialBarStack = props => {
             />
           </TouchableOpacity>
         </View>
+        <View style={{borderWidth: 0.2, color: '#cfd3d4', margin: 10,opacity:0.3}}></View>
       </View>
       <MaterialTab.Navigator
         options={{
