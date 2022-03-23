@@ -18,15 +18,14 @@ const MaterialBarStack = props => {
   const {avatar, navigation} = props;
   return (
     <>
-      <View style={{backgroundColor: 'white'}}>
+      <View style={{backgroundColor: '#C1F2FF'}}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 10,
-            margin: 10,
+            padding: 20,
             alignItems: 'center',
-            backgroundColor: 'white',
+            // backgroundColor: '#C1F2FF',
           }}>
           <TouchableOpacity>
             <Image
@@ -34,11 +33,15 @@ const MaterialBarStack = props => {
               source={require('../assets/icons/bell.png')}
             />
           </TouchableOpacity>
-          <CustomText
+          {/* <CustomText
             text="Community"
             textSize={18}
             textWeight={700}
             textColor={'black'}
+          /> */}
+          <Image
+            style={{width: 100, height: 35}}
+            source={require('../assets/images/splash.png')}
           />
           <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
             <Image
@@ -48,13 +51,14 @@ const MaterialBarStack = props => {
                 // marginRight: 15,
                 borderRadius: 150 / 2,
                 borderWidth: 0.5,
-                borderColor: 'black',
+                backgroundColor: '#EDFCFF',
+                // borderColor: 'black',
               }}
               source={{uri: avatar}}
             />
           </TouchableOpacity>
         </View>
-        <View style={{flexDirection: 'row', backgroundColor: 'white'}}>
+        <View style={{flexDirection: 'row', backgroundColor: '#C1F2FF'}}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Create Screen')}
             style={{
@@ -62,7 +66,7 @@ const MaterialBarStack = props => {
               width: '60%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#e9f0f2',
+              backgroundColor: '#EDFCFF',
               borderRadius: 20,
               paddingLeft: 20,
               marginLeft: 15,
@@ -85,7 +89,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#e9f0f2',
+              backgroundColor: '#EDFCFF',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -102,7 +106,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#e9f0f2',
+              backgroundColor: '#EDFCFF',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -117,9 +121,8 @@ const MaterialBarStack = props => {
         <View
           style={{
             borderWidth: 0.2,
-            color: '#cfd3d4',
+            color: '#F0F0F0',
             marginTop: 10,
-            opacity: 0.6,
           }}></View>
       </View>
       <MaterialTab.Navigator
@@ -128,7 +131,7 @@ const MaterialBarStack = props => {
         // }}
         // tabBarPosition='bottom'
         screenOptions={{
-          // tabBarLabelStyle: {fontSize: 12},
+          tabBarLabelStyle: {fontSize: 14, fontWeight: '700'},
           // tabBarItemStyle: {width: 100},
           // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
@@ -139,8 +142,8 @@ const MaterialBarStack = props => {
           //   fontSize: 14,
           //   fontWeight: 'bold',
           // },
-          tabBarActiveTintColor: '#ffffff',
-          tabBarInactiveTintColor: '#000000',
+          // tabBarActiveTintColor: '#ffffff',
+          // tabBarInactiveTintColor: '#000000',
           // tabBarPressOpacity: 1,
           // tabBarIndicatorStyle: {
           //   backgroundColor: 'black',
@@ -154,14 +157,45 @@ const MaterialBarStack = props => {
           tabBarIndicatorStyle: {
             width: 100,
             left: (Dimensions.get('window').width / 2 - 100) / 2,
-            backgroundColor: 'black',
-            height: 30,
-            borderRadius: 30,
-            top: 9,
+            // backgroundColor: 'black',
+            // height: 30,
+            // borderRadius: 30,
+            // top: 9,
           },
         }}>
-        <MaterialTab.Screen name="Home" component={PostScreen} />
-        <MaterialTab.Screen name="Help Desk" component={HelpDesk} />
+        <MaterialTab.Screen
+          name="Home"
+          
+          component={PostScreen}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <Image
+                source={require('../assets/icons/home.png')}
+                style={{
+                  height: 25,
+                  width: 25,
+                  tintColor: focused ? 'blue' : undefined,
+                }}
+              />
+            ),
+          }}
+        />
+        <MaterialTab.Screen
+          name="Help Desk"
+          component={HelpDesk}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <Image
+                source={require('../assets/icons/help.png')}
+                style={{
+                  height: 25,
+                  width: 25,
+                  tintColor: focused ? 'blue' : undefined,
+                }}
+              />
+            ),
+          }}
+        />
       </MaterialTab.Navigator>
     </>
   );
