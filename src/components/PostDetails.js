@@ -264,7 +264,6 @@ const PostDetails = props => {
 
   const emptyComponent = () => {
     return (
-      <View style={{backgroundColor: 'white', height: 200}}>
         <View
           style={{
             justifyContent: 'center',
@@ -286,7 +285,6 @@ const PostDetails = props => {
             textWeight={600}
           />
         </View>
-      </View>
     );
   };
 
@@ -296,9 +294,6 @@ const PostDetails = props => {
         ListHeaderComponent={headerComponent}
         ListEmptyComponent={emptyComponent}
         data={postCommentList}
-        contentContainerStyle={{
-          backgroundColor: '#00000005',
-        }}
         renderItem={item => (
           <TouchableOpacity
             onPress={() => {

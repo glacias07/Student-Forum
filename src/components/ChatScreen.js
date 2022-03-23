@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, FlatList,Image} from 'react-native';
+import {Text, View, TouchableOpacity, FlatList, Image} from 'react-native';
 import ChatItem from './common/ChatItem';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
-import { CustomText } from './common';
+import {CustomText} from './common';
 
 const data = [
   {
@@ -62,58 +62,49 @@ const ChatScreen = ({navigation, route, username}) => {
     fetchData();
   }, [myData]);
   return (
-    <>
-      {friendsList!=undefined ? (
-        <FlatList
-          data={friendsList}
-          contentContainerStyle={{marginTop: 10}}
-          renderItem={({item}) => (
-            <ChatItem
-              style={{marginBottom: 10}}
-              chatOnPress={() => {
-                navigation.navigate('Personal Message', {
-                  friendData: item,
-                  myData: myData,
-                  username: item.username,
-                });
-                // console.log("Username",item.username)
-                // console.log("MyData",myData)
-                // console.log("FirendData",item)
-              }}
-              navigation={navigation}
-              userImg={item.avatar}
-              userName={item.username}
-              messageText={item.messageText}
-              messageTime={item.messageTime}
-            />
-          )}
-        />
-      ) : (
-        <View style={{backgroundColor: 'white', height: 200,flex:1}}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 120,
-            }}>
-            <Image
-              style={{height: 80, width: 80, marginBottom: 10}}
-              source={require('../assets/images/confused.png')}
-            />
-            <CustomText
-              text="No Chats Yet !"
-              textSize={20}
-              textWeight={200}
-            />
-            <CustomText
-              text="Why don't you start one?"
-              textSize={15}
-              textWeight={600}
-            />
-          </View>
+    <FlatList
+      data={friendsList}
+      contentContainerStyle={{marginTop: 10}}
+      ListEmptyComponent={
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 120,
+          }}>
+          <Image
+            style={{height: 80, width: 80, marginBottom: 10}}
+            source={require('../assets/images/confused.png')}
+          />
+          <CustomText text="No Chats Yet !" textSize={20} textWeight={200} />
+          <CustomText
+            text="Why don't you start one?"
+            textSize={15}
+            textWeight={600}
+          />
         </View>
+      }
+      renderItem={({item}) => (
+        <ChatItem
+          style={{marginBottom: 10}}
+          chatOnPress={() => {
+            navigation.navigate('Personal Message', {
+              friendData: item,
+              myData: myData,
+              username: item.username,
+            });
+            // console.log("Username",item.username)
+            // console.log("MyData",myData)
+            // console.log("FirendData",item)
+          }}
+          navigation={navigation}
+          userImg={item.avatar}
+          userName={item.username}
+          messageText={item.messageText}
+          messageTime={item.messageTime}
+        />
       )}
-    </>
+    />
   );
 };
 
