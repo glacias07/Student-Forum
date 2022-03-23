@@ -223,7 +223,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
             avatar={item.avatar}
           />
         )}></FlatList>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={0.65}
         onPress={() => {
           navigation.navigate('Create Screen');
@@ -235,7 +235,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
           style={styles.iconStyle}
           source={require('../assets/icons/plus.png')}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
