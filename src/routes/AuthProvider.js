@@ -59,6 +59,17 @@ export const AuthProvider = ({children}) => {
               );
             });
         },
+        updatePostDetails: async (postContent, postId) => {
+          firestore()
+            .collection('posts')
+            .doc(postId)
+            .update({
+              postContent,
+            })
+            .then(() => {
+              console.log('Post Updated!');
+            });
+        },
         postThisCommentToFirebase: async (
           comment_user_id,
           comment,

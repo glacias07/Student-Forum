@@ -22,6 +22,7 @@ import {chatUserNameSet} from '../../actions/PostScreenActions';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 const PostCard = ({
+  editOnPress,
   cardOnPress,
   postTitle,
   postContent,
@@ -175,10 +176,7 @@ const PostCard = ({
                   </View>
                 </MenuOption>
                 {user.uid === userId ? (
-                  <MenuOption
-                    onSelect={() =>
-                      console.log('Edit function yet to be developed')
-                    }>
+                  <MenuOption onSelect={editOnPress}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -325,7 +323,8 @@ const PostCard = ({
                 text={no_of_comments}
               />
             </View>
-            <TouchableOpacity onPress={()=>onAddFriend(username, myUsername, navigation)}>
+            <TouchableOpacity
+              onPress={() => onAddFriend(username, myUsername, navigation)}>
               <Image
                 source={require('../../assets/icons/PostChat.png')}
                 style={{

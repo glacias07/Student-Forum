@@ -17,6 +17,7 @@ import PersonalMessage from '../components/PersonalMessage';
 import ViewAllUserPostsScreen from '../components/ViewAllUserPostsScreen';
 import EditProfile from '../components/EditProfileScreen';
 import SetupProfileScreen from '../components/SetupProfileScreen';
+import EditPostScreen from '../components/EditPostScreen';
 const Stack = createNativeStackNavigator();
 
 // const Splash = createNativeStackNavigator();
@@ -83,6 +84,16 @@ function MainAppRoutes() {
             <Stack.Screen
               name="Create Screen"
               component={CreateScreen}
+              options={{
+                headerShadowVisible: false,
+                headerStyle: Styles.commonHeaderStyle,
+                headerTitleStyle: Styles.commonHeaderTitleStyle,
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="Edit Post Screen"
+              component={EditPostScreen}
               options={{
                 headerShadowVisible: false,
                 headerStyle: Styles.commonHeaderStyle,

@@ -191,6 +191,13 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
         renderItem={({item, index}) => (
           <PostCard
             deleteOnPress={handleDelete}
+            editOnPress={() =>
+              navigation.navigate('Edit Post Screen', {
+                post_id: item.id,
+                post_title: item.postTitle,
+                post_content: item.postContent,
+              })
+            }
             cardOnPress={() => {
               navigation.navigate('Post Details', {
                 user_id: item.userId,
