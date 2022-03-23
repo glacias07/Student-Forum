@@ -190,6 +190,7 @@ const Comment = ({
             width: 25,
             borderRadius: 150 / 2,
             marginRight: 10,
+            backgroundColor: '#dde1e4',
           }}
         />
         <CustomText
@@ -292,8 +293,7 @@ const Comment = ({
                   </View>
                 </MenuOption>
                 {1 == 1 ? (
-                  <MenuOption
-                    onSelect={editOnPress}>
+                  <MenuOption onSelect={editOnPress}>
                     <View
                       style={{
                         flexDirection: 'row',

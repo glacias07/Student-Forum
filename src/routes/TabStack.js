@@ -70,10 +70,10 @@ const TabStack = route => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/icons/profile.png')}
+              source={require('../assets/icons/head.png')}
               style={{
-                height: 25,
-                width: 25,
+                height: 30,
+                width: 30,
                 tintColor: focused ? 'blue' : undefined,
               }}
             />

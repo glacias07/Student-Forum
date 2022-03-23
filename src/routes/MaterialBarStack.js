@@ -51,7 +51,7 @@ const MaterialBarStack = props => {
                 // marginRight: 15,
                 borderRadius: 150 / 2,
                 borderWidth: 0.5,
-                backgroundColor: '#EDFCFF',
+                backgroundColor: '#EFFFFD',
                 // borderColor: 'black',
               }}
               source={{uri: avatar}}
@@ -66,7 +66,7 @@ const MaterialBarStack = props => {
               width: '60%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EDFCFF',
+              backgroundColor: '#EFFFFD',
               borderRadius: 20,
               paddingLeft: 20,
               marginLeft: 15,
@@ -89,7 +89,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EDFCFF',
+              backgroundColor: '#EFFFFD',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -106,7 +106,7 @@ const MaterialBarStack = props => {
               width: '10%',
               padding: 10,
               alignItems: 'center',
-              backgroundColor: '#EDFCFF',
+              backgroundColor: '#EFFFFD',
               borderRadius: 10,
 
               marginLeft: 15,
@@ -135,7 +135,7 @@ const MaterialBarStack = props => {
           // tabBarItemStyle: {width: 100},
           // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
-          // tabBarStyle: {backgroundColor: 'powderblue',},
+          tabBarStyle: {backgroundColor: '#EFFFFD',},
           // tabBarIndicatorStyle: {backgroundColor: 'red'}
 
           // tabBarLabelStyle: {

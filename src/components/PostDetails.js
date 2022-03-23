@@ -154,7 +154,7 @@ const PostDetails = props => {
             backgroundColor: '#ffffff',
           }}>
           <Image
-            style={{height: 50, width: 50, borderRadius: 150 / 2}}
+            style={{height: 50, width: 50, borderRadius: 150 / 2, backgroundColor:'#dde1e4'}}
             source={{uri: route.params.avatar}}
           />
           <View
@@ -395,7 +395,7 @@ const PostDetails = props => {
             style={{
               height: 30,
               width: 30,
-              tintColor: 'grey',
+              tintColor: '#00000070',
               borderRadius: 150 / 2,
               marginRight: 12,
             }}

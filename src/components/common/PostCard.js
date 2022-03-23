@@ -95,8 +95,7 @@ const PostCard = ({
                   width: 40,
                   marginRight: 15,
                   borderRadius: 150 / 2,
-                  borderWidth: 0.5,
-                  borderColor: 'black',
+                  backgroundColor: '#ffffff'
                 }}
                 source={{uri: avatar}}
               />
@@ -358,8 +357,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '100%',
     marginVertical: 10,
-    backgroundColor: '#ffffff',
-    elevation: 5,
+    backgroundColor: '#EFFFFD',
     padding: 15,
   },
 });
