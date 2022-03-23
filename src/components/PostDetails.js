@@ -264,27 +264,27 @@ const PostDetails = props => {
 
   const emptyComponent = () => {
     return (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <Image
-            style={{height: 80, width: 80, marginBottom: 10}}
-            source={require('../assets/images/confused.png')}
-          />
-          <CustomText
-            text="No Conversations Yet !"
-            textSize={20}
-            textWeight={200}
-          />
-          <CustomText
-            text="Why don't you start one?"
-            textSize={15}
-            textWeight={600}
-          />
-        </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 20,
+        }}>
+        <Image
+          style={{height: 80, width: 80, marginBottom: 10}}
+          source={require('../assets/images/confused.png')}
+        />
+        <CustomText
+          text="No Conversations Yet !"
+          textSize={20}
+          textWeight={200}
+        />
+        <CustomText
+          text="Why don't you start one?"
+          textSize={15}
+          textWeight={600}
+        />
+      </View>
     );
   };
 
@@ -301,6 +301,15 @@ const PostDetails = props => {
             }}>
             <Comment
               comment_user_id={item.item.comment_user_id}
+              editOnPress={() =>
+                navigation.navigate('Edit Screen', {
+                  title: 'Comment',
+                  placeholder: 'Comment',
+                  default_value: item.item.comment,
+                  comment_id: item.item.comment_id,
+                  post_id: route.params.post_id,
+                })
+              }
               deleteOnPress={handleDelete}
               replyOnPress={() =>
                 navigation.navigate('Post Comment', {
@@ -324,7 +333,7 @@ const PostDetails = props => {
               comment_time={moment(item.item.comment_time.toDate()).fromNow()}
               avatar={item.item.avatar}
               no_of_replies={item.item.no_of_replies}
-              post_id = {route.params.post_id}
+              post_id={route.params.post_id}
             />
           </TouchableOpacity>
         )}

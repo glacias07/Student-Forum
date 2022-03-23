@@ -70,6 +70,19 @@ export const AuthProvider = ({children}) => {
               console.log('Post Updated!');
             });
         },
+        updateCommentDetails: async (comment, commentId, postId) => {
+          firestore()
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .update({
+              comment,
+            })
+            .then(() => {
+              console.log('Comment Updated!');
+            });
+        },
         postThisCommentToFirebase: async (
           comment_user_id,
           comment,

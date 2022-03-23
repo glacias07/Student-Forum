@@ -192,10 +192,12 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
           <PostCard
             deleteOnPress={handleDelete}
             editOnPress={() =>
-              navigation.navigate('Edit Post Screen', {
+              navigation.navigate('Edit Screen', {
                 post_id: item.id,
                 post_title: item.postTitle,
-                post_content: item.postContent,
+                default_value: item.postContent,
+                title: 'Post',
+                placeholder: 'Post Content'
               })
             }
             cardOnPress={() => {

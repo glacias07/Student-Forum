@@ -23,6 +23,7 @@ import moment from 'moment';
 import firestore from '@react-native-firebase/firestore';
 
 const Comment = ({
+  editOnPress,
   comment_user_id,
   comment_id,
   nameOfUser,
@@ -292,13 +293,7 @@ const Comment = ({
                 </MenuOption>
                 {1 == 1 ? (
                   <MenuOption
-                    onSelect={() =>
-                      console.log(
-                        'Edit function yet to be developed',
-                        comment_user_id,
-                        user.uid,
-                      )
-                    }>
+                    onSelect={editOnPress}>
                     <View
                       style={{
                         flexDirection: 'row',

@@ -129,14 +129,12 @@ const PostCard = ({
             <Menu style={{flex: 1}}>
               <MenuTrigger
                 style={{
-                  width: '200%',
                   alignSelf: 'center',
                   alignItems: 'center',
                   padding: 10,
                   marginTop: 5,
                   marginBottom: 20,
                   marginLeft: 70,
-                  // backgroundColor:'blue'
                 }}>
                 <CustomText
                   textColor="#00000080"

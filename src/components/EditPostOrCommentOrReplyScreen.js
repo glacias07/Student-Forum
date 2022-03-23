@@ -6,13 +6,13 @@ import {roundToNearestPixel} from 'react-native/Libraries/Utilities/PixelRatio';
 import {AuthContext} from '../routes/AuthProvider';
 
 export default function EditPostScreen({navigation, route}) {
-  const [postContent, setPostContent] = useState(null);
-  const {updatePostDetails} = useContext(AuthContext);
+  const [textFieldValue, setTextFieldValue] = useState(null);
+  const {updatePostDetails, updateCommentDetails} = useContext(AuthContext);
 
   const postFilledOrNot = () => {
     var buttonColor = 'blue';
     var disabled = false;
-    if (postContent === null) {
+    if (textFieldValue === null) {
       disabled = true;
       buttonColor = '#00000070';
     } else {
@@ -27,6 +27,7 @@ export default function EditPostScreen({navigation, route}) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: 'Edit ' + route.params.title,
       headerLeft: () => (
         <CustomHeaderButton
           onPress={() => navigation.goBack()}
@@ -36,12 +37,18 @@ export default function EditPostScreen({navigation, route}) {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            updatePostDetails(postContent, route.params.post_id),
+            route.params.title == 'Post'
+              ? updatePostDetails(textFieldValue, route.params.post_id)
+              : updateCommentDetails(
+                  textFieldValue,
+                  route.params.comment_id,
+                  route.params.post_id,
+                ),
               navigation.goBack();
           }}
-          disabled={postFilledOrNot(postContent).disabled}
+          disabled={postFilledOrNot(textFieldValue).disabled}
           icon={require('../assets/icons/tick.png')}
-          tintColor={postFilledOrNot(postContent).color}
+          tintColor={postFilledOrNot(textFieldValue).color}
           height={20}
           width={20}
         />
@@ -72,11 +79,11 @@ export default function EditPostScreen({navigation, route}) {
       /> */}
       <TextInput
         multiline={true}
-        defaultValue={route.params.post_content}
-        onChangeText={postContent => {
-          setPostContent(postContent.replace(/^\s+|\s+$/g, ''));
+        defaultValue={route.params.default_value}
+        onChangeText={textFieldValue => {
+          setTextFieldValue(textFieldValue.replace(/^\s+|\s+$/g, ''));
         }}
-        placeholder="Post Content"
+        placeholder={route.params.placeholder}
         style={{fontSize: 13}}
       />
     </View>

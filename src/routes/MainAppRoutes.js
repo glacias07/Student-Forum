@@ -17,7 +17,7 @@ import PersonalMessage from '../components/PersonalMessage';
 import ViewAllUserPostsScreen from '../components/ViewAllUserPostsScreen';
 import EditProfile from '../components/EditProfileScreen';
 import SetupProfileScreen from '../components/SetupProfileScreen';
-import EditPostScreen from '../components/EditPostScreen';
+import EditPostScreen from '../components/EditPostOrCommentOrReplyScreen';
 const Stack = createNativeStackNavigator();
 
 // const Splash = createNativeStackNavigator();
@@ -92,7 +92,7 @@ function MainAppRoutes() {
               }}
             />
             <Stack.Screen
-              name="Edit Post Screen"
+              name="Edit Screen"
               component={EditPostScreen}
               options={{
                 headerShadowVisible: false,
