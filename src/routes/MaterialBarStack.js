@@ -33,7 +33,7 @@ const MaterialBarStack = props => {
             textWeight={700}
             textColor={'black'}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('Dashboard')}>
             <Image
               style={{
                 height: 35,
