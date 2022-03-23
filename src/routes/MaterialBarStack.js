@@ -1,10 +1,17 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HelpDesk from '../components/HelpDesk';
 import React from 'react';
-import {View, Image, TouchableOpacity, TextInput} from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Dimensions,
+} from 'react-native';
 import PostScreen from '../components/PostScreen';
 import {CustomText} from '../components/common';
 import {connect} from 'react-redux';
+
 const MaterialTab = createMaterialTopTabNavigator();
 
 const MaterialBarStack = props => {
@@ -127,21 +134,30 @@ const MaterialBarStack = props => {
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
           // tabBarStyle: {backgroundColor: 'powderblue',},
           // tabBarIndicatorStyle: {backgroundColor: 'red'}
-          tabBarLabelStyle: {
-            fontSize: 14,
-            fontWeight: 'bold',
-          },
+
+          // tabBarLabelStyle: {
+          //   fontSize: 14,
+          //   fontWeight: 'bold',
+          // },
           tabBarActiveTintColor: '#ffffff',
           tabBarInactiveTintColor: '#000000',
-          tabBarPressOpacity: 1,
+          // tabBarPressOpacity: 1,
+          // tabBarIndicatorStyle: {
+          //   backgroundColor: 'black',
+          //   height: 30,
+          //   borderRadius: 30,
+          //   top: 9,
+          // },
+          // tabBarStyle: {
+          //   width: 'auto',
+          // },
           tabBarIndicatorStyle: {
+            width: 100,
+            left: (Dimensions.get('window').width / 2 - 100) / 2,
             backgroundColor: 'black',
             height: 30,
             borderRadius: 30,
             top: 9,
-          },
-          tabBarStyle: {
-            width: 'auto',
           },
         }}>
         <MaterialTab.Screen name="Home" component={PostScreen} />
