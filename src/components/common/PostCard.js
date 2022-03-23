@@ -75,27 +75,31 @@ const PostCard = ({
       underlayColor={'transparent'}
       onPress={cardOnPress}>
       <View style={styles.flatListStyle}>
-        <View style={{paddingHorizontal: 10, width: '100%'}}>
+        <View style={{width: '100%'}}>
           <View
             style={{
               flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 10,
-              flex: 1,
+              justifyContent: 'space-between',
             }}>
-            <Image
+            <View
               style={{
-                flex: 2,
-                height: 50,
-                width: 50,
-                marginRight: 15,
-                borderRadius: 150 / 2,
-                borderWidth: 0.5,
-                borderColor: 'black',
-              }}
-              source={{uri: avatar}}
-            />
-            <View style={{marginLeft: 10, flex: 7}}>
+                flexDirection: 'row',
+                alignItems: 'center',
+                // marginBottom: 10,
+                flex: 1,
+              }}>
+              <Image
+                style={{
+                  height: 40,
+                  width: 40,
+                  marginRight: 15,
+                  borderRadius: 150 / 2,
+                  borderWidth: 0.5,
+                  borderColor: 'black',
+                }}
+                source={{uri: avatar}}
+              />
+
               <CustomText
                 textColor="#00000080"
                 textSize={16}
@@ -103,15 +107,24 @@ const PostCard = ({
                 numberOfLines={2}
                 text={username}
               />
+              <View style={{marginBottom: 17, margin: 5}}>
+                <CustomText
+                  textColor="#00000080"
+                  text={'.'}
+                  textWeight={400}
+                  textSize={22}
+                />
+              </View>
               <CustomText
-                textColor="#000000"
-                textSize={14}
-                textWeight={400}
+                textColor="#00000080"
+                textSize={13}
+                textWeight={500}
                 numberOfLines={2}
                 text={moment(postDate.toDate()).fromNow()}
                 style={{marginTop: -1}}
               />
             </View>
+
             <Menu style={{flex: 1}}>
               <MenuTrigger
                 style={{
@@ -119,12 +132,15 @@ const PostCard = ({
                   alignSelf: 'center',
                   alignItems: 'center',
                   padding: 10,
-                  marginBottom: 30,
+                  marginTop: 5,
+                  marginBottom: 20,
+                  marginLeft: 70,
+                  // backgroundColor:'blue'
                 }}>
                 <CustomText
                   textColor="#00000080"
                   textSize={22}
-                  textWeight={700}
+                  textWeight={900}
                   text="..."
                 />
               </MenuTrigger>
@@ -253,6 +269,16 @@ const PostCard = ({
             </Menu>
           </View>
         </View>
+        <View style={{width: '100%', marginTop: -10}}>
+          <CustomText
+            textColor="#000000"
+            textSize={22}
+            textWeight={600}
+            numberOfLines={3}
+            text={postTitle}
+            style={{marginBottom: 10}}
+          />
+        </View>
         {imageUrl ? (
           <Image
             style={{
@@ -265,7 +291,7 @@ const PostCard = ({
             source={{uri: imageUrl}}
           />
         ) : null}
-        <View style={{paddingHorizontal: 10, width: '100%'}}>
+        {/* <View style={{paddingHorizontal: 10, width: '100%'}}>
           <CustomText
             textColor="#000000"
             textSize={22}
@@ -274,19 +300,56 @@ const PostCard = ({
             text={postTitle}
             style={{marginBottom: 30}}
           />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Image
-            source={require('../../assets/icons/comment.png')}
-            style={{
-              width: 20,
-              height: 20,
-              marginRight: 5,
-              tintColor: '#868686',
-              marginLeft: 15,
-            }}
-          />
-          <CustomText textSize={15} textWeight={500} text={no_of_comments} />
+        </View> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 5,
+          }}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={require('../../assets/icons/comment.png')}
+                style={{
+                  width: 20,
+                  height: 20,
+                  marginRight: 5,
+                  tintColor: '#524f4e',
+                  // marginLeft: 15,
+                }}
+              />
+              <CustomText
+                textSize={15}
+                textWeight={500}
+                text={no_of_comments}
+              />
+            </View>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/icons/PostChat.png')}
+                style={{
+                  width: 20,
+                  height: 20,
+                  marginRight: 5,
+                  tintColor: '#524f4e',
+                  marginLeft: 25,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity>
+            <Image
+              source={require('../../assets/icons/share.png')}
+              style={{
+                width: 20,
+                height: 20,
+                marginRight: 35,
+                tintColor: '#524f4e',
+                // marginLeft: 15,
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableHighlight>
