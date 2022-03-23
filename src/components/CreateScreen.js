@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState, useLayoutEffect} from 'react';
-import {View, TextInput, Image, ActivityIndicator, Modal} from 'react-native';
+import {View, TextInput, Image, TouchableOpacity, Modal} from 'react-native';
 import {CustomHeaderButton, ModalLoader, FormButton} from './common';
 import {AuthContext} from '../routes/AuthProvider';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -35,7 +35,7 @@ const CreateScreen = ({navigation}) => {
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       cropping: true,
-      compressImageQuality:0.1,
+      compressImageQuality: 0.1,
       // compressImageMaxWidth: 500,
       // compressImageMaxHeight:500
     }).then(image => {
@@ -48,7 +48,7 @@ const CreateScreen = ({navigation}) => {
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       cropping: true,
-      compressImageQuality:0.1,
+      compressImageQuality: 0.1,
       // compressImageMaxHeight:500
     }).then(image => {
       console.log(image);
@@ -116,7 +116,7 @@ const CreateScreen = ({navigation}) => {
             list.push({
               userId,
               username,
-              avatar
+              avatar,
             });
           });
         });
@@ -163,45 +163,64 @@ const CreateScreen = ({navigation}) => {
         backgroundColor: 'white',
         flex: 1,
         width: '100%',
-        paddingHorizontal: 20,
       }}>
-      {image != null ? (
-        <Image source={{uri: image}} style={{height: 100, aspectRatio: 1}} />
-      ) : null}
-      <TextInput
-        placeholder="Post Title"
-        multiline={true}
-        onChangeText={postTitle => {
-          setPostTitle(postTitle.replace(/^\s+|\s+$/g, ''));
-        }}
+      <View style={{paddingHorizontal: 20}}>
+        {image != null ? (
+          <Image source={{uri: image}} style={{height: 100, aspectRatio: 1}} />
+        ) : null}
+        <TextInput
+          placeholder="Post Title"
+          multiline={true}
+          onChangeText={postTitle => {
+            setPostTitle(postTitle.replace(/^\s+|\s+$/g, ''));
+          }}
+          style={{
+            borderBottomWidth: 0.8,
+            borderBottomColor: '#00000050',
+            fontSize: 15,
+            marginTop: 15,
+          }}
+        />
+        <TextInput
+          multiline={true}
+          onChangeText={postContent => {
+            setPostContent(postContent.replace(/^\s+|\s+$/g, ''));
+          }}
+          placeholder="Post Content"
+          style={{fontSize: 13}}
+        />
+      </View>
+
+      <View
         style={{
-          borderBottomWidth: 0.5,
-          borderBottomColor: '#00000020',
-          fontSize: 15,
-          marginTop: 15,
-        }}
-      />
-      <TextInput
-        multiline={true}
-        onChangeText={postContent => {
-          setPostContent(postContent.replace(/^\s+|\s+$/g, ''));
-        }}
-        placeholder="Post Content"
-        style={{fontSize: 13}}
-      />
-      <FormButton
-        buttonTitle={'choose from gallery'}
-        onPress={() => {
-          choosePhotoFromLibrary();
-        }}
-      />
-      <FormButton
-        buttonTitle={'take a photo'}
-        onPress={() => {
-          takePhotoFromCamera();
-          console.log('pressed');
-        }}
-      />
+          flexDirection: 'row',
+          backgroundColor: '#EEEFFF',
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          paddingVertical: 15,
+          borderTopColor: '#00000050',
+          borderTopWidth: 1
+        }}>
+        <TouchableOpacity
+          onPress={() => {
+            choosePhotoFromLibrary();
+          }}>
+          <Image
+            style={{height: 35, width: 35, marginHorizontal: 25}}
+            source={require('../assets/icons/gallery.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            takePhotoFromCamera();
+          }}>
+          <Image
+            style={{height: 35, width: 35}}
+            source={require('../assets/icons/camera.png')}
+          />
+        </TouchableOpacity>
+      </View>
       {uploading ? <ModalLoader /> : null}
     </View>
   );
