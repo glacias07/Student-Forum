@@ -325,7 +325,7 @@ const PostCard = ({
                 text={no_of_comments}
               />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>onAddFriend(username, myUsername, navigation)}>
               <Image
                 source={require('../../assets/icons/PostChat.png')}
                 style={{
