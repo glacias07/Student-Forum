@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   chatUsername: '',
   reply_list: [],
   modal_visible: true,
-  avatar: '',
+  avatar: 'https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png',
   comment_added: false,
 };
 
