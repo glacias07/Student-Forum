@@ -5,6 +5,8 @@ import MaterialBarStack from './MaterialBarStack';
 import PostScreen from '../components/PostScreen';
 import ChatScreen from '../components/ChatScreen';
 import Dashboard from '../components/Dashboard';
+import Tools from '../components/Tools';
+
 const TabStackNav = createBottomTabNavigator();
 
 const TabStack = route => {
@@ -44,7 +46,6 @@ const TabStack = route => {
           ),
           // headerTitle:"Hello"
           // tabBarStyle: { backgroundColor: 'powderblue' }
-    
         }}
       />
       <TabStackNav.Screen
@@ -61,13 +62,11 @@ const TabStack = route => {
               }}
             />
           ),
-          
         }}
-   
       />
       <TabStackNav.Screen
-        name="Dashboard"
-        component={Dashboard}
+        name="Tools"
+        component={Tools}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
