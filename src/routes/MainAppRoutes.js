@@ -16,7 +16,6 @@ import ChatScreen from '../components/ChatScreen';
 import PersonalMessage from '../components/PersonalMessage';
 import ViewAllUserPostsScreen from '../components/ViewAllUserPostsScreen';
 import EditProfile from '../components/EditProfileScreen';
-import SetupProfileScreen from '../components/SetupProfileScreen';
 import EditPostScreen from '../components/EditPostOrCommentOrReplyScreen';
 const Stack = createNativeStackNavigator();
 
@@ -43,23 +42,28 @@ function MainAppRoutes() {
       // initialRouteName="SplashScreen"
       // screenOptions={{headerShown: true}}
       >
-        {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
+        {/* <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{
+            headerShown: false,
+            // headerStyle: Styles.commonHeaderStyle,
+            // headerTitleStyle: Styles.commonHeaderTitleStyle,
+            // title:"Main App"
+          }}
+        /> */}
 
         {user ? (
           <>
-
-          <Stack.Screen name="Setup Screen" component={SetupProfileScreen} />
             <Stack.Screen
               name="Main App"
               component={TabStack}
-              options={
-                {
-                  headerShown: false
-                  // headerStyle: Styles.commonHeaderStyle,
-                  // headerTitleStyle: Styles.commonHeaderTitleStyle,
-                  // title:"Main App"
-                }
-              }
+              options={{
+                headerShown: false,
+                // headerStyle: Styles.commonHeaderStyle,
+                // headerTitleStyle: Styles.commonHeaderTitleStyle,
+                // title:"Main App"
+              }}
             />
             <Stack.Screen
               name="Post Details"

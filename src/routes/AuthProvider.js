@@ -11,10 +11,13 @@ import {
   push,
   update,
 } from 'firebase/database';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
+  const [myData, setMyData] = useState(null);
+  const [users, setUsers] = useState([]);
 
   return (
     <AuthContext.Provider
@@ -29,12 +32,77 @@ export const AuthProvider = ({children}) => {
             alert(e);
           }
         },
-        register: async (email, password) => {
+        register: async (email, password, username) => {
           try {
-            await auth().createUserWithEmailAndPassword(email, password);
+            const doLogin = await auth().createUserWithEmailAndPassword(
+              email,
+              password,
+            );
             console.log('User Registered Successfully');
+            if (doLogin.user) {
+              console.log('doLogin, doLogin.user: ', doLogin, doLogin.user);
+              firestore()
+                .collection('userDetails')
+                .doc(doLogin.user.uid)
+                .set({
+                  userId: doLogin.user.uid,
+                  username: username,
+                  avatar: 'https://robohash.org/' + username,
+                })
+                .then(() => {
+                  console.log('Details Added');
+                  onLogin();
+                })
+                .catch(e => {
+                  console.log('Error in the firestore: ', e);
+                });
+            }
+
+            const onLogin = async () => {
+              try {
+                const database = getDatabase();
+                //first check if the user registered before
+
+                const user = await findUser(username);
+
+                //create a new user if not registered
+                if (user) {
+                  setMyData(user);
+                } else {
+                  const newUserObj = {
+                    username: username,
+                    avatar: 'https://robohash.org/' + username,
+                  };
+
+                  set(ref(database, `users/${username}`), newUserObj);
+                  setMyData(newUserObj);
+                }
+
+                // set friends list change listener
+                const myUserRef = ref(database, `users/${username}`);
+                onValue(myUserRef, snapshot => {
+                  const data = snapshot.val();
+                  setUsers(data.friends);
+                  setMyData(prevData => ({
+                    ...prevData,
+                    friends: data.friends,
+                  }));
+                });
+                // setCurrentPage('users');
+              } catch (error) {
+                console.error(error);
+              }
+            };
+
+            const findUser = async name => {
+              const database = getDatabase();
+
+              const mySnapshot = await get(ref(database, `users/${name}`));
+
+              return mySnapshot.val();
+            };
           } catch (e) {
-            console.log(e);
+            console.log('Error uploading user details', e);
           }
         },
         logout: async () => {

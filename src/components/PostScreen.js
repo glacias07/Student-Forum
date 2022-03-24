@@ -1,5 +1,4 @@
 import React from 'react';
-import {} from './SetupProfileScreen';
 import {useEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {

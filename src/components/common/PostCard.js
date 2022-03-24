@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {onAddFriend} from '../SetupProfileScreen';
 import {
   StyleSheet,
   View,

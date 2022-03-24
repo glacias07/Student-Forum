@@ -27,10 +27,11 @@ const formValidation = (pass, cpass, email) => {
   }
 };
 
-const SignUp = ({navigation, usernameSet, username}) => {
+const SignUp = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [username, setUsername] = useState();
   const [myData, setMyData] = useState(null);
   const [users, setUsers] = useState([]);
   const {user} = useContext(AuthContext);
@@ -149,7 +150,7 @@ const SignUp = ({navigation, usernameSet, username}) => {
       />
       <FormInput
         maxLength={15}
-        onChangeText={username => usernameSet(username)}
+        onChangeText={username => setUsername(username)}
         placeHolderText="Username (max characters 15)"
         autoCapitalize="none"
         autoCorrect={false}
@@ -160,7 +161,7 @@ const SignUp = ({navigation, usernameSet, username}) => {
         buttonTitle="Sign Up"
         onPress={() => {
           if (formValidation(password, confirmPassword, email)) {
-            register(email.replace(/^\s+|\s+$/g, ''), password);
+            register(email.replace(/^\s+|\s+$/g, ''), password, username);
             // uploadUserDetails();
             // doWork();
           }
