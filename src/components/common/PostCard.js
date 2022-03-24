@@ -1,10 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import {CustomText} from '.';
 import moment from 'moment';
 import {AuthContext} from '../../routes/AuthProvider';
@@ -68,10 +63,7 @@ const PostCard = ({
   };
 
   return (
-    <TouchableOpacity
-      style={style}
-      activeOpacity={0.6}
-      onPress={cardOnPress}>
+    <TouchableOpacity style={style} activeOpacity={0.6} onPress={cardOnPress}>
       <View style={styles.flatListStyle}>
         <View style={{width: '100%'}}>
           <View
@@ -278,7 +270,7 @@ const PostCard = ({
               marginBottom: 20,
               height: 200,
               marginLeft: 10,
-              marginRight:20
+              marginRight: 20,
             }}
             source={{uri: imageUrl}}
           />
@@ -289,7 +281,12 @@ const PostCard = ({
             justifyContent: 'space-between',
             marginTop: 5,
           }}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              paddingLeft: 10,
+            }}>
             <View style={{flexDirection: 'row'}}>
               <Image
                 source={require('../../assets/icons/comment.png')}
@@ -307,19 +304,22 @@ const PostCard = ({
                 text={no_of_comments}
               />
             </View>
-            <TouchableOpacity
-              onPress={() => onAddFriend(username, myUsername, navigation)}>
-              <Image
-                source={require('../../assets/icons/PostChat.png')}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 5,
-                  tintColor: '#524f4e',
-                  marginLeft: 25,
-                }}
-              />
-            </TouchableOpacity>
+
+            {user.uid === userId ? null : (
+              <TouchableOpacity
+                onPress={() => onAddFriend(username, myUsername, navigation)}>
+                <Image
+                  source={require('../../assets/icons/PostChat.png')}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginRight: 5,
+                    tintColor: '#524f4e',
+                    marginLeft: 25,
+                  }}
+                />
+              </TouchableOpacity>
+            )}
           </View>
           <TouchableOpacity>
             <Image
@@ -342,7 +342,7 @@ const PostCard = ({
           width: '80%',
           backgroundColor: '#00000070',
           alignSelf: 'center',
-          marginVertical: 10
+          marginVertical: 10,
         }}></View>
     </TouchableOpacity>
   );
