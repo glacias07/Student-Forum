@@ -247,7 +247,7 @@ export const AuthProvider = ({children}) => {
           postTitle,
           postContent,
           imageUrl = null,
-          avatar = 'https://robohash.org/' + username,
+          avatar=null
         ) => {
           console.log(avatar);
           firestore()

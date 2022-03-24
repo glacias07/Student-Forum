@@ -5,8 +5,9 @@ import {AuthContext} from '../routes/AuthProvider';
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {connect} from 'react-redux';
 
-const CreateScreen = ({navigation}) => {
+const CreateScreen = ({navigation, avatar}) => {
   const [image, setImage] = useState(null);
   const [transferred, setTransferred] = useState(0);
   const [uploading, setUploading] = useState(false);
@@ -15,6 +16,7 @@ const CreateScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [postTitle, setPostTitle] = useState(null);
   const [postContent, setPostContent] = useState(null);
+ 
 
   const postFilledOrNot = (post_title, post_content) => {
     var buttonColor = 'blue';
@@ -59,7 +61,7 @@ const CreateScreen = ({navigation}) => {
 
   const uploadPost = async () => {
     if (image == null) {
-      submitPost(user.uid, userDetails[0].username, postTitle, postContent);
+      submitPost(user.uid, userDetails[0].username, postTitle, postContent,null,avatar);
       navigation.goBack();
       return null;
     }
@@ -94,6 +96,7 @@ const CreateScreen = ({navigation}) => {
         postTitle,
         postContent,
         url,
+        avatar,
       );
       setUploading(false);
       navigation.goBack();
@@ -200,7 +203,7 @@ const CreateScreen = ({navigation}) => {
           width: '100%',
           paddingVertical: 15,
           borderTopColor: '#00000050',
-          borderTopWidth: 1
+          borderTopWidth: 1,
         }}>
         <TouchableOpacity
           onPress={() => {
@@ -214,6 +217,7 @@ const CreateScreen = ({navigation}) => {
         <TouchableOpacity
           onPress={() => {
             takePhotoFromCamera();
+          
           }}>
           <Image
             style={{height: 35, width: 35}}
@@ -226,4 +230,10 @@ const CreateScreen = ({navigation}) => {
   );
 };
 
-export default CreateScreen;
+const mapStateToProps = state => {
+  return {
+    avatar: state.postListing.avatar,
+  };
+};
+
+export default connect(mapStateToProps, {})(CreateScreen);
