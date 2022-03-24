@@ -187,9 +187,6 @@ const Dashboard = ({navigation}) => {
                     style={{
         
                       width:150,
-                      borderWidth:0.6,
-                      borderColor:'black',
-                      borderRadius:150/2,
                       height: 150,
                       alignSelf: 'center',
                     }}

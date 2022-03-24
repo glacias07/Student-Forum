@@ -1,25 +1,22 @@
-import React, {useContext, useState, Component} from 'react';
-import {ScrollView, View, Alert, TouchableOpacity} from 'react-native';
-import {CustomText, FormButton, FormInput} from './common';
+import React, {useContext, useState, useRef} from 'react';
+import {
+  ScrollView,
+  View,
+  Alert,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+  Image,
+} from 'react-native';
+import {CustomHeaderButton, CustomText, FormButton, FormInput} from './common';
 import {AuthContext} from '../routes/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import {
-  getDatabase,
-  get,
-  ref,
-  set,
-  onValue,
-  push,
-  update,
-} from 'firebase/database';
 import {usernameSet, useridSet, avatarSet} from '../actions/PostScreenActions';
 import {connect} from 'react-redux';
 
-const formValidation = (pass, cpass, email) => {
-  if (email === undefined || pass === undefined || cpass === undefined) {
+const formValidation = (pass, email) => {
+  if (email === undefined || pass === undefined) {
     return Alert.alert('Fill all the fields');
-  } else if (pass !== cpass) {
-    Alert.alert('Passwords dont match');
   } else if (email.replace(/^\s+|\s+$/g, '') === '') {
     Alert.alert('Email cannot contain whitespace');
   } else {
@@ -30,93 +27,89 @@ const formValidation = (pass, cpass, email) => {
 const SignUp = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
   const [username, setUsername] = useState();
+  const [avatar, setAvatar] = useState();
   const [myData, setMyData] = useState(null);
   const [users, setUsers] = useState([]);
-  const {user} = useContext(AuthContext);
+  const [atTheEnd, setAtTheEnd] = useState(false);
 
-  const {register} = useContext(AuthContext);
-  const onLogin = async () => {
-    try {
-      const database = getDatabase();
-      //first check if the user registered before
-
-      const user = await findUser(username);
-
-      //create a new user if not registered
-      if (user) {
-        setMyData(user);
-      } else {
-        const newUserObj = {
-          username: username,
-          avatar: 'https://robohash.org/' + username,
-        };
-
-        set(ref(database, `users/${username}`), newUserObj);
-        setMyData(newUserObj);
-      }
-
-      // set friends list change listener
-      const myUserRef = ref(database, `users/${username}`);
-      onValue(myUserRef, snapshot => {
-        const data = snapshot.val();
-        setUsers(data.friends);
-        setMyData(prevData => ({
-          ...prevData,
-          friends: data.friends,
-        }));
-      });
-      // setCurrentPage('users');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const findUser = async name => {
-    const database = getDatabase();
-
-    const mySnapshot = await get(ref(database, `users/${name}`));
-
-    return mySnapshot.val();
-  };
-
-  const uploadUserDetails = async () => {
-    console.log('firestore connected(setupProfileScreen.js)');
-    firestore()
-      .collection('userDetails')
-      .doc(user.uid)
-      .set({
-        userId: user.uid,
-        username: username,
-        avatar: 'https://robohash.org/' + username,
-      })
-      .then(() => {
-        console.log('Details Added');
-        onLogin();
-      })
-      .catch(e => {
-        console.log('Error in the firestore: ', e);
-      });
-  };
-
-  const first = async () =>
-    await register(email.replace(/^\s+|\s+$/g, ''), password);
-  const second = () =>
-    new Promise((resolve, reject) => {
-      uploadUserDetails();
-      resolve('running second function over');
+  const {user, register} = useContext(AuthContext);
+  const scrollToAvatars = useRef(null);
+  const scrollToEndHorizontally = () => {
+    scrollToAvatars.current.scrollTo({
+      x: Dimensions.get('window').width,
+      y: 0,
+      animated: true,
     });
+    setAtTheEnd(true);
+  };
+  const scrollToStartHorizontally = () => {
+    scrollToAvatars.current.scrollTo({x: 0, y: 0, animated: true});
+    setAtTheEnd(false);
+  };
 
-  async function doWork() {
-    var res1 = undefined;
-    var res2 = undefined;
-    res1 = await first();
-    console.log('log for first', res1);
-    console.log('this is me logging something');
-    res2 = await second();
-    console.log('log for second', res2);
-  }
+  const Avatars = [
+    {
+      id: 1,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 2,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F2.png?alt=media&token=c97af191-e962-44cc-b0e4-abfa1bf8ffdb',
+    },
+    {
+      id: 3,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F3.png?alt=media&token=23bf9ab1-7e00-4bfc-b90e-d4d420f3e5be',
+    },
+    {
+      id: 4,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F4.png?alt=media&token=185b2fbf-0e7c-44e0-aae0-e631b2c09768',
+    },
+    {
+      id: 5,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F7.png?alt=media&token=75747cc8-ff46-4324-a8a8-a2eec4525557',
+    },
+    {
+      id: 6,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F6.png?alt=media&token=0b636e12-0cf7-48ec-8181-41c46eb815a2',
+    },
+    {
+      id: 7,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 8,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 9,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 10,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 11,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+    {
+      id: 12,
+      avatar:
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+    },
+  ];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -125,51 +118,103 @@ const SignUp = ({navigation}) => {
         textSize={40}
         textWeight={700}
         textColor="#3568a6"
-        style={{marginTop: -10, marginBottom: 100}}
+        style={{marginBottom: 80}}
       />
-      <FormInput
-        placeHolderText="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        icon={require('../assets/icons/email.png')}
-        onChangeText={userEmail => setEmail(userEmail)}
-      />
+      {atTheEnd ? (
+        <CustomHeaderButton
+          onPress={() => scrollToStartHorizontally()}
+          icon={require('../assets/icons/back.png')}
+          height={20}
+          width={20}
+          style={{
+            marginBottom: 15,
+            backgroundColor: '#00000040',
+            width: 35,
+            height: 35,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 150 / 2,
+          }}
+        />
+      ) : (
+        <View
+          style={{
+            height: 50,
+          }}></View>
+      )}
 
-      <FormInput
-        placeHolderText="Password"
-        secureTextEntry={true}
-        icon={require('../assets/icons/lock.png')}
-        onChangeText={pass => setPassword(pass)}
-      />
-      <FormInput
-        placeHolderText="Confirm Password"
-        secureTextEntry={true}
-        icon={require('../assets/icons/lock.png')}
-        onChangeText={cpass => setConfirmPassword(cpass)}
-      />
-      <FormInput
-        maxLength={15}
-        onChangeText={username => setUsername(username)}
-        placeHolderText="Username (max characters 15)"
-        autoCapitalize="none"
-        autoCorrect={false}
-        icon={require('../assets/icons/profile.png')}
-        style={{marginBottom: 12}}
-      />
-      <FormButton
-        buttonTitle="Sign Up"
-        onPress={() => {
-          if (formValidation(password, confirmPassword, email)) {
-            register(email.replace(/^\s+|\s+$/g, ''), password, username);
-            // uploadUserDetails();
-            // doWork();
+      <ScrollView
+        horizontal={true}
+        scrollEnabled={false}
+        showsHorizontalScrollIndicator={false}
+        ref={scrollToAvatars}>
+        <View style={{width: Dimensions.get('window').width / 1.11}}>
+          <FormInput
+            maxLength={15}
+            onChangeText={username => setUsername(username)}
+            placeHolderText="Username (max characters 15)"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon={require('../assets/icons/profile.png')}
+          />
+          <FormInput
+            placeHolderText="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon={require('../assets/icons/email.png')}
+            onChangeText={userEmail => setEmail(userEmail)}
+          />
+          <FormInput
+            placeHolderText="Password"
+            secureTextEntry={true}
+            icon={require('../assets/icons/lock.png')}
+            onChangeText={pass => setPassword(pass)}
+          />
+          <FormButton
+            buttonTitle="Next"
+            onPress={() => scrollToEndHorizontally()}
+          />
+        </View>
+        <FlatList
+          numColumns={4}
+          style={{
+            width: Dimensions.get('window').width / 1.11,
+            marginLeft: 10,
+          }}
+          ListFooterComponent={
+            <FormButton
+              buttonTitle="Sign Up"
+              onPress={() => {
+                if (formValidation(password, email)) {
+                  register(
+                    email.replace(/^\s+|\s+$/g, ''),
+                    password,
+                    username,
+                    avatar,
+                  );
+                }
+              }}
+            />
           }
-        }}
-        // onPress={() => {
-        //   doWork();
-        // }}
-      />
+          contentContainerStyle={{paddingBottom: 20}}
+          showsVerticalScrollIndicator={false}
+          data={Avatars}
+          removeClippedSubviews={true}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => setAvatar(item.avatar)}>
+              <Image
+                style={{
+                  height: Dimensions.get('window').width / 7,
+                  width: Dimensions.get('window').width / 7,
+                  margin: 10,
+                }}
+                source={{uri: item.avatar}}
+              />
+            </TouchableOpacity>
+          )}></FlatList>
+      </ScrollView>
+
       <View style={styles.haveAnAccount}>
         <CustomText
           text="Have an account?"

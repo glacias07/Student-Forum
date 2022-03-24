@@ -32,7 +32,7 @@ export const AuthProvider = ({children}) => {
             alert(e);
           }
         },
-        register: async (email, password, username) => {
+        register: async (email, password, username, avatar) => {
           try {
             const doLogin = await auth().createUserWithEmailAndPassword(
               email,
@@ -46,7 +46,7 @@ export const AuthProvider = ({children}) => {
                 .set({
                   userId: doLogin.user.uid,
                   username: username,
-                  avatar: 'https://robohash.org/' + username,
+                  avatar: avatar,
                 })
                 .then(() => {
                   console.log('Details Added');
@@ -70,7 +70,7 @@ export const AuthProvider = ({children}) => {
                 } else {
                   const newUserObj = {
                     username: username,
-                    avatar: 'https://robohash.org/' + username,
+                    avatar: avatar,
                   };
 
                   set(ref(database, `users/${username}`), newUserObj);
