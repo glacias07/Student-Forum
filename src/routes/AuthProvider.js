@@ -40,7 +40,6 @@ export const AuthProvider = ({children}) => {
             );
             console.log('User Registered Successfully');
             if (doLogin.user) {
-              console.log('doLogin, doLogin.user: ', doLogin, doLogin.user);
               firestore()
                 .collection('userDetails')
                 .doc(doLogin.user.uid)
