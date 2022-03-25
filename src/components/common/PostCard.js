@@ -97,7 +97,6 @@ const PostCard = ({
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                // marginBottom: 10,
                 flex: 1,
               }}>
               <Image
@@ -125,7 +124,7 @@ const PostCard = ({
                   textColor="#00000080"
                   textSize={12}
                   textWeight={400}
-                  numberOfLines={2}
+                  numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
               </View>
