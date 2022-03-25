@@ -49,9 +49,9 @@ const MaterialBarStack = props => {
                 height: 35,
                 width: 35,
                 // marginRight: 15,
-                borderRadius: 150 / 2,
-                borderWidth: 0.5,
-                backgroundColor: '#E4EFF0',
+                // borderRadius: 150 / 2,
+                // borderWidth: 0.5,
+                // backgroundColor: '#E4EFF0',
                 // borderColor: 'black',
               }}
               source={{uri: avatar}}

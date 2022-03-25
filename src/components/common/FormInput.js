@@ -12,7 +12,7 @@ const renderLabel = label => {
   if (label) {
     return (
       <CustomText
-        style={{marginLeft: 4, marginBottom: -5}}
+        style={{marginLeft: 4, marginBottom: 3}}
         text={label}
         textSize={15}
         textColor={'#656567'}
@@ -73,11 +73,13 @@ const styles = {
     marginBottom: 10,
     width: '100%',
     borderColor: '#ccc',
-    borderRadius: 3,
+    borderRadius:15,
     borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
+    paddingVertical: 7,
+    paddingHorizontal: 5
   },
   iconStyle: {
     height: 20,
@@ -86,6 +88,7 @@ const styles = {
     alignItems: 'center',
     width: 50,
     marginVertical: 13,
+    marginRight: -5
   },
   input: {
     fontSize: 16,

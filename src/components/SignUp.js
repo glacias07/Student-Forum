@@ -1,4 +1,4 @@
-import React, {useContext, useState, useRef} from 'react';
+import React, {useContext, useState, useRef, useEffect} from 'react';
 import {
   ScrollView,
   View,
@@ -7,46 +7,74 @@ import {
   FlatList,
   Dimensions,
   Image,
+  TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
-import {CustomHeaderButton, CustomText, FormButton, FormInput} from './common';
+import {
+  CustomHeaderButton,
+  CustomText,
+  FormButton,
+  FormInput,
+  TextField,
+} from './common';
 import {AuthContext} from '../routes/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import {usernameSet, useridSet, avatarSet} from '../actions/PostScreenActions';
 import {connect} from 'react-redux';
 
-const formValidation = (pass, email) => {
-  if (email === undefined || pass === undefined) {
-    return Alert.alert('Fill all the fields');
-  } else if (email.replace(/^\s+|\s+$/g, '') === '') {
-    Alert.alert('Email cannot contain whitespace');
-  } else {
-    return true;
-  }
-};
-
 const SignUp = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [username, setUsername] = useState();
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+  );
   const [myData, setMyData] = useState(null);
   const [users, setUsers] = useState([]);
   const [atTheEnd, setAtTheEnd] = useState(false);
+  const [marginTopForFlatList, setMarginTopForFlatList] = useState(0);
 
   const {user, register} = useContext(AuthContext);
+
   const scrollToAvatars = useRef(null);
+
+  const formValidation = (pass, email) => {
+    if (email === undefined || pass === undefined) {
+      return Alert.alert('Fill all the fields');
+    } else if (email.replace(/^\s+|\s+$/g, '') === '') {
+      Alert.alert('Email cannot contain whitespace');
+    } else {
+      return true;
+    }
+  };
+
   const scrollToEndHorizontally = () => {
-    scrollToAvatars.current.scrollTo({
-      x: Dimensions.get('window').width,
-      y: 0,
-      animated: true,
-    });
     setAtTheEnd(true);
   };
   const scrollToStartHorizontally = () => {
-    scrollToAvatars.current.scrollTo({x: 0, y: 0, animated: true});
     setAtTheEnd(false);
   };
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setMarginTopForFlatList(-Dimensions.get('window').height / 3.8);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setMarginTopForFlatList(0);
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const Avatars = [
     {
@@ -82,140 +110,302 @@ const SignUp = ({navigation}) => {
     {
       id: 7,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F1.png?alt=media&token=04e37404-9211-43ac-b491-996ecb594f1c',
     },
     {
       id: 8,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F2.png?alt=media&token=c3d1d833-fa9d-4239-ad86-345327b1489c',
     },
     {
       id: 9,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F3.png?alt=media&token=ad5c4f45-e6e5-46c0-a776-d65ebd6401ce',
     },
     {
       id: 10,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F4.png?alt=media&token=77cae0bc-1a5a-4959-8acb-44513818bac7',
     },
     {
       id: 11,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F5.png?alt=media&token=daab821f-3fa2-4a73-83d6-ff423e5d2f3b',
     },
     {
       id: 12,
       avatar:
-        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FBoys%2F1.png?alt=media&token=8c38050d-595f-4231-86e8-a47273028817',
+        'https://firebasestorage.googleapis.com/v0/b/student-forum-57d6b.appspot.com/o/Avatars%2FGirls%2F7.png?alt=media&token=39db3077-86ff-424a-8d09-9fa3be090fe1',
     },
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <CustomText
-        text="Create an account"
-        textSize={40}
-        textWeight={700}
-        textColor="#3568a6"
-        style={{marginBottom: 80}}
-      />
-      {atTheEnd ? (
-        <CustomHeaderButton
-          onPress={() => scrollToStartHorizontally()}
-          icon={require('../assets/icons/back.png')}
-          height={20}
-          width={20}
-          style={{
-            marginBottom: 15,
-            backgroundColor: '#00000040',
-            width: 35,
-            height: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 150 / 2,
-          }}
+    <View
+      style={{
+        marginTop: marginTopForFlatList,
+        flex: 1,
+        backgroundColor: '#0062cd',
+      }}>
+      <View
+        style={{
+          height: 250,
+          width: 250,
+          borderRadius: 150,
+          backgroundColor: '#025ab4',
+          position: 'absolute',
+          right: -125,
+          top: -125,
+        }}></View>
+      <View
+        style={{
+          height: 150,
+          width: 150,
+          borderRadius: 150,
+          backgroundColor: '#0062cd',
+          position: 'absolute',
+          right: -75,
+          top: -75,
+        }}></View>
+      <View style={{padding: 20, marginTop: 55}}>
+        <CustomText
+          text="Create your account"
+          textColor={'#ffffff'}
+          textSize={25}
+          textWeight={500}
         />
-      ) : (
         <View
-          style={{
-            height: 50,
-          }}></View>
-      )}
-
-      <ScrollView
-        horizontal={true}
-        scrollEnabled={false}
-        showsHorizontalScrollIndicator={false}
-        ref={scrollToAvatars}>
-        <View style={{width: Dimensions.get('window').width / 1.11}}>
-          <FormInput
-            maxLength={15}
-            onChangeText={username => setUsername(username)}
-            placeHolderText="Username (max characters 15)"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon={require('../assets/icons/profile.png')}
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+          <CustomText
+            text="Do you already have an account ?"
+            textColor={'#ffffff'}
+            textSize={18}
+            textWeight={400}
           />
-          <FormInput
-            placeHolderText="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon={require('../assets/icons/email.png')}
-            onChangeText={userEmail => setEmail(userEmail)}
-          />
-          <FormInput
-            placeHolderText="Password"
-            secureTextEntry={true}
-            icon={require('../assets/icons/lock.png')}
-            onChangeText={pass => setPassword(pass)}
-          />
-          <FormButton
-            buttonTitle="Next"
-            onPress={() => scrollToEndHorizontally()}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Login');
+            }}>
+            <CustomText
+              text=" Sign In"
+              textColor="#dab54e"
+              textWeight={700}
+              textSize={18}
+            />
+          </TouchableOpacity>
         </View>
-        <FlatList
-          numColumns={4}
-          style={{
-            width: Dimensions.get('window').width / 1.11,
-            marginLeft: 10,
-          }}
-          ListFooterComponent={
-            <FormButton
-              buttonTitle="Sign Up"
+      </View>
+      <View
+        ref={scrollToAvatars}
+        scrollEnabled={false}
+        style={{
+          backgroundColor: '#ffffff',
+          padding: 20,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          flex: 1,
+        }}>
+        {!atTheEnd ? (
+          <>
+            <CustomText
+              text="Username"
+              textColor="#949494"
+              textWeight={500}
+              textSize={16}
+              style={{marginBottom: 5}}
+            />
+            <FormInput
+              maxLength={15}
+              onChangeText={username => setUsername(username)}
+              placeHolderText="Username (max characters 15)"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon={require('../assets/icons/profile.png')}
+            />
+            <CustomText
+              text="E-mail"
+              textColor="#949494"
+              textWeight={500}
+              textSize={16}
+              style={{marginBottom: 5}}
+            />
+            <FormInput
+              placeHolderText="E-mail"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon={require('../assets/icons/email.png')}
+              onChangeText={userEmail => setEmail(userEmail)}
+            />
+            <CustomText
+              text="Password"
+              textColor="#949494"
+              textWeight={500}
+              textSize={16}
+              style={{marginBottom: 5}}
+            />
+            <FormInput
+              placeHolderText="Password"
+              secureTextEntry={true}
+              icon={require('../assets/icons/lock.png')}
+              onChangeText={pass => setPassword(pass)}
+            />
+            <TouchableOpacity
+              // onPress={() => {
+              //   if (formValidation(password, email)) {
+              //     scrollToEndHorizontally();
+              //   }
+              // }}
               onPress={() => {
-                if (formValidation(password, email)) {
-                  register(
-                    email.replace(/^\s+|\s+$/g, ''),
-                    password,
-                    username,
-                    avatar,
-                  );
+                if (1 == 1) {
+                  scrollToEndHorizontally();
                 }
               }}
-            />
-          }
-          contentContainerStyle={{paddingBottom: 20}}
-          showsVerticalScrollIndicator={false}
-          data={Avatars}
-          removeClippedSubviews={true}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => setAvatar(item.avatar)}>
-              <Image
-                style={{
-                  height: Dimensions.get('window').width / 7,
-                  width: Dimensions.get('window').width / 7,
-                  margin: 10,
-                }}
-                source={{uri: item.avatar}}
+              style={{
+                width: '100%',
+                backgroundColor: '#ffc33a',
+                paddingVertical: 14,
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                borderRadius: 10,
+                height: 60,
+                marginTop: '20%',
+              }}>
+              <CustomText
+                text="Next"
+                textSize={22}
+                textWeight={700}
+                textColor="#414b5a"
               />
             </TouchableOpacity>
-          )}></FlatList>
-      </ScrollView>
+          </>
+        ) : null}
+        {atTheEnd ? (
+          <>
+            <View style={{flexDirection: 'row', marginBottom: 20}}>
+              <CustomHeaderButton
+                onPress={() => scrollToStartHorizontally()}
+                icon={require('../assets/icons/back.png')}
+                height={20}
+                width={20}
+                style={{
+                  marginBottom: 15,
+                  backgroundColor: '#00000040',
+                  width: 35,
+                  height: 35,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 150 / 2,
+                }}
+              />
+              <View>
+                <CustomText
+                  textColor={'#000000'}
+                  textWeight={700}
+                  textSize={20}
+                  text="Choose an avatar"
+                  style={{marginLeft: 15, marginTop: 3}}
+                />
+                <CustomText
+                  textColor={'#807e7e'}
+                  textWeight={500}
+                  textSize={16}
+                  text="Choose an expressive avatar for your account profile"
+                  style={{marginLeft: 15, marginTop: 3, paddingRight: 25}}
+                />
+              </View>
+            </View>
 
-      <View style={styles.haveAnAccount}>
+            <View
+              style={{
+                // marginLeft: 10,
+                height: Dimensions.get('window').height / 2,
+                // marginBottom: 100,
+              }}>
+              <FlatList
+                numColumns={4}
+                style={{marginBottom: 20}}
+                contentContainerStyle={{
+                  paddingBottom: 20,
+                  alignSelf: 'center',
+                }}
+                showsVerticalScrollIndicator={false}
+                data={Avatars}
+                removeClippedSubviews={true}
+                renderItem={({item}) => (
+                  <>
+                    {avatar == item.avatar ? (
+                      <TouchableOpacity onPress={() => setAvatar(item.avatar)}>
+                        <Image
+                        blurRadius={15}
+                          style={{
+                            height: Dimensions.get('window').width / 7,
+                            width: Dimensions.get('window').width / 7,
+                            margin: 10,
+                          }}
+                          source={{uri: item.avatar}}
+                        />
+                        <Image
+                          style={{
+                            height: Dimensions.get('window').width / 15,
+                            width: Dimensions.get('window').width / 15,
+                            margin: 10,
+                            tintColor:'#ffffff',
+                            position: 'absolute',
+                            alignSelf: 'center',
+                            top: '25%'
+                          }}
+                          source={require('../assets/icons/fat-tick.png')}
+                        />
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity onPress={() => setAvatar(item.avatar)}>
+                        <Image
+                          style={{
+                            height: Dimensions.get('window').width / 7,
+                            width: Dimensions.get('window').width / 7,
+                            margin: 10,
+                          }}
+                          source={{uri: item.avatar}}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  </>
+                )}></FlatList>
+              <TouchableOpacity
+                onPress={() => {
+                  if (formValidation(password, email)) {
+                    register(
+                      email.replace(/^\s+|\s+$/g, ''),
+                      password,
+                      username,
+                      avatar,
+                    );
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  backgroundColor: '#ffc33a',
+                  paddingVertical: 14,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  borderRadius: 10,
+                  height: 60,
+                }}>
+                <CustomText
+                  text="Sign Up"
+                  textSize={22}
+                  textWeight={700}
+                  textColor="#414b5a"
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        ) : null}
+      </View>
+
+      {/* <View style={styles.haveAnAccount}>
         <CustomText
           text="Have an account?"
           textColor="#000000"
@@ -233,8 +423,8 @@ const SignUp = ({navigation}) => {
             textSize={18}
           />
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </View> */}
+    </View>
   );
 };
 
@@ -243,10 +433,10 @@ const styles = {
     justifyContent: 'center',
     padding: 20,
     flex: 1,
-    backgroundColor: '#f9fafd',
+    backgroundColor: '#0062cd',
+    marginTop: 0,
   },
   haveAnAccount: {
-    marginVertical: 35,
     flexDirection: 'row',
   },
 };
