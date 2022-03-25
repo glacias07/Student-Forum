@@ -250,16 +250,16 @@ const SignUp = ({navigation}) => {
               onChangeText={pass => setPassword(pass)}
             />
             <TouchableOpacity
-              // onPress={() => {
-              //   if (formValidation(password, email)) {
-              //     scrollToEndHorizontally();
-              //   }
-              // }}
               onPress={() => {
-                if (1 == 1) {
+                if (formValidation(password, email)) {
                   scrollToEndHorizontally();
                 }
               }}
+              // onPress={() => {
+              //   if (1 == 1) {
+              //     scrollToEndHorizontally();
+              //   }
+              // }}
               style={{
                 width: '100%',
                 backgroundColor: '#ffc33a',
