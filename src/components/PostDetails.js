@@ -157,8 +157,8 @@ const PostDetails = props => {
             style={{
               height: 50,
               width: 50,
-              borderRadius: 150 / 2,
-              backgroundColor: '#dde1e4',
+              // borderRadius: 150 / 2,
+              // backgroundColor: '#dde1e4',
             }}
             source={{uri: route.params.avatar}}
           />
@@ -362,7 +362,7 @@ const PostDetails = props => {
         }
         style={{
           backgroundColor: '#ffffff',
-          height: 65,
+          height: 50,
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'row',
@@ -373,11 +373,11 @@ const PostDetails = props => {
         }}>
         <Image
           style={{
-            height: 45,
+            height: '80%',
             marginRight: 5,
             flex: 2,
-            backgroundColor: '#dde1e4',
-            borderRadius: 150 / 2,
+            // backgroundColor: '#dde1e4',
+            // borderRadius: 150 / 2,
           }}
           source={{uri: route.params.avatar}}
         />

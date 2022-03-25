@@ -97,43 +97,37 @@ const PostCard = ({
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                // marginBottom: 10,
                 flex: 1,
               }}>
               <Image
                 style={{
-                  height: 40,
-                  width: 40,
-                  marginRight: 15,
+                  height: 45,
+                  width: 45,
+                  marginRight: 10,
                   borderRadius: 150 / 2,
                   backgroundColor: '#ffffff',
                 }}
                 source={{uri: avatar}}
               />
 
-              <CustomText
-                textColor="#00000080"
-                textSize={16}
-                textWeight={500}
-                numberOfLines={2}
-                text={username}
-              />
-              <View style={{marginBottom: 17, margin: 5}}>
+              <View>
+                <CustomText
+                  textColor="#000000"
+                  textSize={16}
+                  textWeight={500}
+                  numberOfLines={2}
+                  text={username}
+                  style={{marginBottom: 3}}
+                />
+
                 <CustomText
                   textColor="#00000080"
-                  text={'.'}
+                  textSize={12}
                   textWeight={400}
-                  textSize={22}
+                  numberOfLines={1}
+                  text={moment(postDate.toDate()).fromNow()}
                 />
               </View>
-              <CustomText
-                textColor="#00000080"
-                textSize={13}
-                textWeight={500}
-                numberOfLines={2}
-                text={moment(postDate.toDate()).fromNow()}
-                style={{marginTop: -1}}
-              />
             </View>
 
             <Menu style={{flex: 1}}>
@@ -354,15 +348,6 @@ const PostCard = ({
           </TouchableOpacity>
         </View>
       </View>
-      <View
-        style={{
-          height: 0.4,
-          // borderWidth: 0.5,
-          width: '80%',
-          backgroundColor: '#00000070',
-          alignSelf: 'center',
-          marginVertical: 10,
-        }}></View>
     </TouchableOpacity>
   );
 };

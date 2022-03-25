@@ -1,10 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Image,
   View,
   Alert,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  Keyboard,
+  Dimensions,
 } from 'react-native';
 import {CustomText, FormButton, FormInput} from './common';
 import {AuthContext} from '../routes/AuthProvider';
@@ -21,11 +22,32 @@ const formValidation = (email, pass) => {
   }
 };
 
-const LoginScreen = (props) => {
-  const {navigation,modalVisible}=props
+const LoginScreen = props => {
+  const {navigation, modalVisible} = props;
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [marginTopForView, setMarginTopForView] = useState(0);
   // const [modalVisible,setModalVisible]=useState(False)
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setMarginTopForView(-Dimensions.get('window').height / 3.8);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setMarginTopForView(0);
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const {login} = useContext(AuthContext);
   return (
@@ -33,42 +55,149 @@ const LoginScreen = (props) => {
       {modalVisible ? (
         <SplashScreen />
       ) : (
-        <KeyboardAvoidingView behavior="position" style={styles.container}>
-          <View style={{alignSelf: 'center'}}>
-            <Image
-              source={require('../assets/images/splash.png')}
-              style={styles.logo}
+        <View style={{backgroundColor: '#0062cd', flex: 1}}>
+          <View
+            style={{
+              height: 250,
+              width: 250,
+              borderRadius: 150,
+              backgroundColor: '#025ab4',
+              position: 'absolute',
+              right: -125,
+              top: -125,
+            }}></View>
+          <View
+            style={{
+              height: 150,
+              width: 150,
+              borderRadius: 150,
+              backgroundColor: '#0062cd',
+              position: 'absolute',
+              right: -75,
+              top: -75,
+            }}></View>
+          <View style={{padding: 20, marginTop: 55}}>
+            <View style={{flexDirection: 'row'}}>
+              <CustomText
+                text="Welcome to"
+                textColor={'#ffffff'}
+                textSize={25}
+                textWeight={500}
+              />
+              <CustomText
+                text=" Sinomine"
+                textColor={'#dab54e'}
+                textSize={25}
+                textWeight={700}
+              />
+            </View>
+            <View >
+              <CustomText
+                style={{marginTop: 10}}
+                text="Please fill E-mail and password to login into your account."
+                textColor={'#ffffff'}
+                textSize={16}
+                textWeight={400}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Sign Up');
+                }}>
+                <CustomText
+                  text="Sign Up"
+                  textColor="#dab54e"
+                  textWeight={700}
+                  textSize={18}
+                  style={{marginTop: 5, textDecorationLine: 'underline'}}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              backgroundColor: '#ffffff',
+              padding: 20,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              flex: 1,
+              marginTop: marginTopForView,
+            }}>
+            <CustomText
+              text="E-mail"
+              textColor="#949494"
+              textWeight={500}
+              textSize={16}
+              style={{marginBottom: 5}}
+            />
+            <FormInput
+              onChangeText={email => setEmail(email)}
+              placeHolderText="E-mail"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon={require('../assets/icons/profile.png')}
             />
             <CustomText
-              text="Connect.Share.Discuss"
+              text="Sign Up"
+              textColor="#949494"
+              textWeight={500}
               textSize={16}
-              textWeight={400}
-              style={{marginTop: -35, marginBottom: 120}}
+              style={{marginVertical: 5}}
             />
+            <FormInput
+              placeHolderText="Password"
+              secureTextEntry={true}
+              icon={require('../assets/icons/lock.png')}
+              onChangeText={pass => setPassword(pass)}
+            />
+            <TouchableOpacity
+              onPress={() => console.log('Forgot Password ?')}
+              style={
+                {
+                  // width: '97%',
+                  // backgroundColor: '#ffc33a',
+                  // paddingVertical: 14,
+                  // alignItems: 'center',
+                  // justifyContent: 'center',
+                  // alignSelf: 'center',
+                  // borderRadius: 10,
+                }
+              }>
+              <CustomText
+                text="Forgot Password ?"
+                textSize={14}
+                textWeight={600}
+                textColor="#707bc4"
+                style={{position: 'absolute', right: 10, top: 10}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                if (formValidation(email, password)) {
+                  login(email.replace(/^\s+|\s+$/g, ''), password);
+                }
+              }}
+              style={{
+                width: '97%',
+                backgroundColor: '#ffc33a',
+                paddingVertical: 14,
+                alignItems: 'center',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                borderRadius: 10,
+                height: 60,
+                position: 'absolute',
+                bottom: 20,
+              }}>
+              <CustomText
+                text="Login Now"
+                textSize={22}
+                textWeight={700}
+                textColor="#414b5a"
+              />
+            </TouchableOpacity>
           </View>
-          <FormInput
-            onChangeText={email => setEmail(email)}
-            placeHolderText="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon={require('../assets/icons/profile.png')}
-          />
-          <FormInput
-            placeHolderText="Password"
-            secureTextEntry={true}
-            icon={require('../assets/icons/lock.png')}
-            onChangeText={pass => setPassword(pass)}
-          />
-          <FormButton
-            buttonTitle="Sign In"
-            onPress={() => {
-              if (formValidation(email, password)) {
-                login(email.replace(/^\s+|\s+$/g, ''), password);
-              }
-            }}
-          />
-          <View style={styles.noAccount}>
+          {/* <View style={styles.noAccount}>
             <CustomText
               text="Don't have an account?"
               textColor="#000000"
@@ -86,8 +215,8 @@ const LoginScreen = (props) => {
                 textSize={18}
               />
             </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+          </View> */}
+        </View>
       )}
     </>
   );
@@ -111,8 +240,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return{
-    modalVisible:state.postListing.modal_visible
+  return {
+    modalVisible: state.postListing.modal_visible,
   };
 };
 

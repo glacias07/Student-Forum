@@ -24,9 +24,9 @@ const Reply = props => {
           style={{
             height: 25,
             width: 25,
-            borderRadius: 150 / 2,
+            // borderRadius: 150 / 2,
             marginRight: 10,
-            backgroundColor:'#dde1e4'
+            // backgroundColor:'#dde1e4'
           }}
         />
         <CustomText

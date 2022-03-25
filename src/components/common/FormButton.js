@@ -19,7 +19,7 @@ const styles = {
   buttonContainer: {
     marginTop: 10,
     width: '100%',
-    backgroundColor: '#000000',
+    backgroundColor: 'darkblue',
     padding: 13,
     alignItems: 'center',
     justifyContent: 'center',
