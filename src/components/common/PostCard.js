@@ -3,6 +3,7 @@ import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import {CustomText} from '.';
 import moment from 'moment';
 import {AuthContext} from '../../routes/AuthProvider';
+import Share from 'react-native-share';
 import {
   Menu,
   MenuOptions,
@@ -38,6 +39,27 @@ const PostCard = ({
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
     return date + '-' + month + '-' + year; //format: dd-mm-yyyy;
+  };
+
+  const myPostShare = async () => {
+    const shareOptions = {
+      message:postTitle,
+      url:imageUrl,
+      subject:postContent
+      // backgroundImage: 'http://urlto.png',
+      // stickerImage: 'data:image/png;base64,<imageInBase64>', //or you can use "data:" link
+      // backgroundBottomColor: '#fefefe',
+      // backgroundTopColor: '#906df4',
+      // attributionURL: 'http://deep-link-to-app', //in beta
+      // social: Share.Social.INSTAGRAM_STORIES,
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch (err) {
+      console.log('Error', err);
+    }
   };
 
   const createPDF = async () => {
@@ -134,10 +156,7 @@ const PostCard = ({
                 style={{
                   padding: 15,
                 }}>
-                <MenuOption
-                  onSelect={() =>
-                    console.log('Share function yet to be developed')
-                  }>
+                <MenuOption onSelect={() => myPostShare()}>
                   <View
                     style={{
                       flexDirection: 'row',
