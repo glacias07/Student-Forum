@@ -154,7 +154,12 @@ const PostDetails = props => {
             backgroundColor: '#ffffff',
           }}>
           <Image
-            style={{height: 50, width: 50, borderRadius: 150 / 2, backgroundColor:'#dde1e4'}}
+            style={{
+              height: 50,
+              width: 50,
+              borderRadius: 150 / 2,
+              backgroundColor: '#dde1e4',
+            }}
             source={{uri: route.params.avatar}}
           />
           <View
@@ -166,15 +171,15 @@ const PostDetails = props => {
               textWeight={500}
               textSize={16}
             />
-            <CustomText
+            {/* <CustomText
               text={
-                route.params.post_time.toDate().toLocaleDateString() +
+                route.params.post_te().toLocaleDateString() +
                 ' ' +
                 route.params.post_time.toDate().toLocaleTimeString()
               }
               textWeight={400}
               textSize={12}
-            />
+            /> */}
           </View>
         </View>
         <View style={{paddingHorizontal: 10, backgroundColor: '#ffffff'}}>

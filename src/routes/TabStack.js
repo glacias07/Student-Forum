@@ -15,7 +15,7 @@ const TabStack = route => {
       ? route.state.routes[route.state.index].name
       : '';
 
-    if (routeName === 'Post Details') {
+    if (routeName === 'PostDetails') {
       return false;
     }
 

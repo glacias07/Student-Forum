@@ -204,7 +204,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                 })
               }
               cardOnPress={() => {
-                navigation.navigate('Post Details', {
+                navigation.navigate('PostDetails', {
                   user_id: item.userId,
                   post_id: item.id,
                   post_title: item.postTitle,

@@ -19,6 +19,7 @@ import ViewAllUserPostsScreen from '../components/ViewAllUserPostsScreen';
 import EditProfile from '../components/EditProfileScreen';
 import EditPostScreen from '../components/EditPostOrCommentOrReplyScreen';
 import Dashboard from '../components/Dashboard';
+import linking from './linking';
 const Stack = createNativeStackNavigator();
 
 // const Splash = createNativeStackNavigator();
@@ -40,7 +41,7 @@ function MainAppRoutes(props) {
 
   if (initializing) return null;
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator
       // initialRouteName="SplashScreen"
       // screenOptions={{headerShown: true}}
@@ -61,7 +62,7 @@ function MainAppRoutes(props) {
             {user ? (
               <>
                 <Stack.Screen
-                  name="Main App"
+                  name="MainApp"
                   component={TabStack}
                   options={{
                     headerShown: false,
@@ -71,7 +72,7 @@ function MainAppRoutes(props) {
                   }}
                 />
                 <Stack.Screen
-                  name="Post Details"
+                  name="PostDetails"
                   component={PostDetails}
                   options={{
                     headerShadowVisible: false,

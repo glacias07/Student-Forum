@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Alert, FlatList} from 'react-native';
-import PostCard from './common/PostCard'
+import PostCard from './common/PostCard';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
@@ -34,11 +34,14 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
       .doc(postId)
       .delete()
       .then(() => {
-        console.log('Deleted post details');
+        console.log('Deleted ');
         // setDeleted(true);
       })
       .catch(e => {
-        console.log('error deleting the post details(viewAllUserPostsScreen): ', e);
+        console.log(
+          'error deleting the post details(viewAllUserPostsScreen): ',
+          e,
+        );
       });
   };
 
@@ -66,7 +69,7 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
                 );
               });
           } else {
-            deletePostDetails(postId)
+            deletePostDetails(postId);
           }
         }
       });
@@ -79,26 +82,26 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
       data={route.params.posts}
       renderItem={({item, index}) => (
         <PostCard
-            deleteOnPress={handleDelete}
-            cardOnPress={() => {
-              navigation.navigate('Post Details', {
-                user_id: item.userId,
-                post_id: item.id,
-                post_title: item.postTitle,
-                post_content: item.postContent,
-                username: item.username,
-                post_time: item.postTime,
-                download_url: item.downloadUrl,
-              });
-            }}
-            postId={item.id}
-            postTitle={item.postTitle}
-            postContent={item.postContent}
-            postDate={item.postTime}
-            userId={item.userId}
-            username={item.username}
-            imageUrl={item.downloadUrl}
-          />
+          deleteOnPress={handleDelete}
+          cardOnPress={() => {
+            navigation.navigate('Post Details', {
+              user_id: item.userId,
+              post_id: item.id,
+              post_title: item.postTitle,
+              post_content: item.postContent,
+              username: item.username,
+              post_time: item.postTime,
+              download_url: item.downloadUrl,
+            });
+          }}
+          postId={item.id}
+          postTitle={item.postTitle}
+          postContent={item.postContent}
+          postDate={item.postTime}
+          userId={item.userId}
+          username={item.username}
+          imageUrl={item.downloadUrl}
+        />
       )}></FlatList>
   );
 };
