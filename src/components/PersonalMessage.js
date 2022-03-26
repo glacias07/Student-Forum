@@ -3,13 +3,15 @@ import {
   Image,
   Pressable,
   StyleSheet,
-  Text,
+  View,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
-import {GiftedChat} from 'react-native-gifted-chat';
+import {GiftedChat, Day} from 'react-native-gifted-chat';
 import {getDatabase, get, ref, onValue, off, update} from 'firebase/database';
+import {CustomText} from './common';
 
-const PersonalMessage = ({route}) => {
+const PersonalMessage = ({route, navigation}) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -36,6 +38,10 @@ const PersonalMessage = ({route}) => {
       off(chatroomRef);
     };
   }, [fetchMessages, renderMessages, route.params.friendData.chatroomId]);
+
+  const renderDay = props => {
+    return <Day {...props} textStyle={{color: '#000000'}} />;
+  };
 
   const renderMessages = useCallback(
     msgs => {
@@ -110,21 +116,51 @@ const PersonalMessage = ({route}) => {
 
   return (
     <>
-      <ImageBackground
-        style={{flex: 1, height: 1100, resizeMode: 'cover'}}
-        source={require('../assets/images/background.jpg')}
-        resizeMode="cover"
-        imageStyle={{opacity: 0.75, backgroundColor: '#025ab4'}}
-        >
-        <GiftedChat
-          style={{zIndex: 2}}
-          messages={messages}
-          onSend={newMessage => onSend(newMessage)}
-          user={{
-            _id: route.params.myData.username,
-          }}
-        />
-      </ImageBackground>
+      <View style={{backgroundColor: '#025ab4', flex: 1}}>
+        <View style={{flexDirection: 'row', padding: 20, alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                marginRight: 10,
+                tintColor: '#ffffff',
+              }}
+              source={require('../assets/icons/back.png')}
+            />
+          </TouchableOpacity>
+          <Image
+            style={{height: 40, width: 40, marginRight: 10}}
+            source={{uri: route.params.friendData.avatar}}
+          />
+          <CustomText
+            text={route.params.friendData.username}
+            textColor="#ffffff"
+            textSize={22}
+            textWeight={500}
+          />
+        </View>
+        <ImageBackground
+          style={{flex: 1, height: 1100, resizeMode: 'cover'}}
+          source={require('../assets/images/background.jpg')}
+          resizeMode="cover"
+          imageStyle={{
+            opacity: 0.7,
+            backgroundColor: '#000000',
+            borderRadius: 25,
+          }}>
+          <GiftedChat
+            style={{zIndex: 2}}
+            messages={messages}
+            onSend={newMessage => onSend(newMessage)}
+            user={{
+              _id: route.params.myData.username,
+            }}
+            renderDay={renderDay}
+          />
+        </ImageBackground>
+      </View>
+
       {/* <Image
         source={require('../assets/images/background.jpg')}
         style={{backfaceVisibility:'visible'}}
