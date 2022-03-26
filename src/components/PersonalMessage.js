@@ -117,7 +117,7 @@ const PersonalMessage = ({route, navigation}) => {
   return (
     <>
       <View style={{backgroundColor: '#025ab4', flex: 1}}>
-        <View style={{flexDirection: 'row', padding: 20, alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', padding: 10, alignItems: 'center'}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
@@ -147,7 +147,7 @@ const PersonalMessage = ({route, navigation}) => {
           imageStyle={{
             opacity: 0.7,
             backgroundColor: '#000000',
-            borderRadius: 25,
+      
           }}>
           <GiftedChat
             style={{zIndex: 2}}
