@@ -82,7 +82,7 @@ export const searchBoxValueChanged = (friend_list, search) => dispatch => {
   var filtered_friendList = friend_list.filter(item =>
     item.username.includes(search, 0),
   );
-  console.log('Filtered friend', filtered_friendList);
+  // console.log('Filtered friend', filtered_friendList);
   dispatch({
     type: FILTER_FRIEND_LIST,
     payload: filtered_friendList,
