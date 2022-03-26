@@ -31,6 +31,7 @@ const PostCard = ({
   myUsername,
   no_of_comments,
   avatar,
+  flair,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
@@ -43,9 +44,9 @@ const PostCard = ({
 
   const myPostShare = async () => {
     const shareOptions = {
-      message:postTitle,
-      url:imageUrl,
-      subject:postContent
+      message: postTitle,
+      url: imageUrl,
+      subject: postContent,
       // backgroundImage: 'http://urlto.png',
       // stickerImage: 'data:image/png;base64,<imageInBase64>', //or you can use "data:" link
       // backgroundBottomColor: '#fefefe',
@@ -82,6 +83,27 @@ const PostCard = ({
     let file = await RNHTMLtoPDF.convert(options);
     // console.log(file.filePath);
     alert(file.filePath);
+  };
+
+  const checkColor = flair => {
+    if (flair == 'general') {
+      return 'orange';
+    }
+    if (flair == 'ask') {
+      return 'red';
+    }
+    if (flair == 'help') {
+      return 'darkgreen';
+    }
+    if (flair == 'harrasment') {
+      return 'black';
+    }
+    if (flair == 'bullying') {
+      return 'purple';
+    }
+    if (flair == 'happy') {
+      return '#ffc20a';
+    }
   };
 
   return (
@@ -127,6 +149,35 @@ const PostCard = ({
                   numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    backgroundColor: 'red',
+                    // marginRight: 3,
+                    // marginTop: 10,
+                    // padding: 2,
+                    // paddingLeft: 4,
+                    // paddingRight: 5,
+                    // borderRadius: 4,
+                    // paddingBottom:2,
+                  }}>
+                  <CustomText
+                    style={{marginRight: 3}}
+                    textSize={10}
+                    textWeight={400}
+                    text={'•'}
+                    textColor="white"
+                  />
+                  <CustomText
+                    text={flair}
+                    textSize={12}
+                    textWeight={500}
+                    textColor={'white'}
+                  />
+                </View>
               </View>
             </View>
 
