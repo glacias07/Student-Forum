@@ -22,6 +22,15 @@ import {AuthContext} from '../routes/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import {usernameSet, useridSet, avatarSet} from '../actions/PostScreenActions';
 import {connect} from 'react-redux';
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
 
 const SignUp = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -34,8 +43,11 @@ const SignUp = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const [atTheEnd, setAtTheEnd] = useState(false);
   const [marginTopForFlatList, setMarginTopForFlatList] = useState(0);
-
-  const {user, register} = useContext(AuthContext);
+  const [usernameNotAvailable, setUsernameNotAvailable] = useState(false);
+  const [emailIsInvalid, setEmailIsInvalid] = useState(false);
+  const [passwordIsWeak, setPasswordIsWeak] = useState(false);
+  const [usernameIsInvalid, setUsernameIsInvalid] = useState(false);
+  const {user, register, findUser} = useContext(AuthContext);
 
   const scrollToAvatars = useRef(null);
 
@@ -139,6 +151,68 @@ const SignUp = ({navigation}) => {
     },
   ];
 
+  const checkIfUsernameAvailable = async checkingUsername => {
+    try {
+      // console.log(usernameIsInvalid);
+      if (!usernameIsInvalid) {
+        const database = getDatabase();
+        const user = await findUser(checkingUsername);
+        if (checkingUsername == '') {
+          // console.log(checkingUsername, 'empty');
+          setUsernameNotAvailable(false);
+        } else if (user) {
+          // console.log(checkingUsername, 'exists');
+          setUsernameNotAvailable(true);
+        } else {
+          // console.log(checkingUsername, 'not exists');
+          setUsernameNotAvailable(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error in firebase', error);
+    }
+  };
+
+  const validateUsername = checkUsername => {
+    if (
+      String(checkUsername)
+        .toLowerCase()
+        .match(/^[a-zA-Z0-9_]+$/)
+    ) {
+      // console.log('good');
+      setUsernameIsInvalid(false);
+    } else {
+      // console.log('bad');
+      setUsernameIsInvalid(true);
+    }
+  };
+
+  const validateEmail = email => {
+    if (
+      String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )
+    ) {
+      setEmailIsInvalid(false);
+    } else {
+      setEmailIsInvalid(true);
+    }
+  };
+
+  const validatePassword = password => {
+    if (
+      String(password).match(/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/)
+    ) {
+      setPasswordIsWeak(false);
+      // console.log('good pass');
+    } else {
+      setPasswordIsWeak(true);
+      // console.log('bad pass');
+    }
+  };
+
   return (
     <View
       style={{
@@ -207,48 +281,98 @@ const SignUp = ({navigation}) => {
         {!atTheEnd ? (
           <>
             <CustomText
-              text="Username"
-              textColor="#949494"
-              textWeight={500}
-              textSize={16}
-              style={{marginBottom: 5}}
-            />
-            <FormInput
-              maxLength={15}
-              onChangeText={username => setUsername(username)}
-              placeHolderText="Username (max characters 15)"
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon={require('../assets/icons/profile.png')}
-            />
-            <CustomText
               text="E-mail"
               textColor="#949494"
               textWeight={500}
               textSize={16}
-              style={{marginBottom: 5}}
+              style={{marginBottom: 2}}
             />
             <FormInput
               placeHolderText="E-mail"
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
+              value={email}
               icon={require('../assets/icons/email.png')}
-              onChangeText={userEmail => setEmail(userEmail)}
+              onChangeText={userEmail => {
+                setEmail(userEmail);
+                validateEmail(userEmail);
+              }}
             />
+            {emailIsInvalid ? (
+              <CustomText
+                textColor={'red'}
+                text="Oops, fix your email."
+                textSize={14}
+                textWeight={400}
+                style={{marginLeft: 8, marginBottom: 5}}
+              />
+            ) : null}
+            <CustomText
+              text="Username"
+              textColor="#949494"
+              textWeight={500}
+              textSize={16}
+              style={{marginBottom: 2}}
+            />
+            <FormInput
+              maxLength={15}
+              onChangeText={username => {
+                setUsername(username.toLowerCase());
+                checkIfUsernameAvailable(username.toLowerCase());
+                validateUsername(username);
+              }}
+              value={username}
+              placeHolderText="Username (max characters 15)"
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon={require('../assets/icons/profile.png')}
+            />
+            {usernameNotAvailable ? (
+              <CustomText
+                textColor={'red'}
+                text="That username is already taken."
+                textSize={14}
+                textWeight={400}
+                style={{marginLeft: 8, marginBottom: 5}}
+              />
+            ) : null}
+            {usernameIsInvalid ? (
+              <CustomText
+                textColor={'red'}
+                text="Letters, numbers and underscores only. Please try again without symbols"
+                textSize={14}
+                textWeight={400}
+                style={{marginLeft: 8, marginBottom: 5}}
+              />
+            ) : null}
+
             <CustomText
               text="Password"
               textColor="#949494"
               textWeight={500}
               textSize={16}
-              style={{marginBottom: 5}}
+              style={{marginBottom: 2}}
             />
             <FormInput
               placeHolderText="Password"
               secureTextEntry={true}
               icon={require('../assets/icons/lock.png')}
-              onChangeText={pass => setPassword(pass)}
+              onChangeText={pass => {
+                setPassword(pass);
+                validatePassword(pass);
+              }}
+              value={password}
             />
+            {passwordIsWeak ? (
+              <CustomText
+                textColor={'red'}
+                text="Choose a password that includes an alphabet, number a special character and has a length of 16-20."
+                textSize={14}
+                textWeight={400}
+                style={{marginLeft: 8, marginBottom: 5}}
+              />
+            ) : null}
             <TouchableOpacity
               onPress={() => {
                 if (formValidation(password, email)) {
@@ -269,7 +393,7 @@ const SignUp = ({navigation}) => {
                 alignSelf: 'center',
                 borderRadius: 10,
                 height: 60,
-                marginTop: '20%',
+                marginTop: '3%',
               }}>
               <CustomText
                 text="Next"
@@ -337,7 +461,7 @@ const SignUp = ({navigation}) => {
                     {avatar == item.avatar ? (
                       <TouchableOpacity onPress={() => setAvatar(item.avatar)}>
                         <Image
-                        blurRadius={15}
+                          blurRadius={15}
                           style={{
                             height: Dimensions.get('window').width / 7,
                             width: Dimensions.get('window').width / 7,
@@ -350,10 +474,10 @@ const SignUp = ({navigation}) => {
                             height: Dimensions.get('window').width / 15,
                             width: Dimensions.get('window').width / 15,
                             margin: 10,
-                            tintColor:'#ffffff',
+                            tintColor: '#ffffff',
                             position: 'absolute',
                             alignSelf: 'center',
-                            top: '25%'
+                            top: '25%',
                           }}
                           source={require('../assets/icons/fat-tick.png')}
                         />
