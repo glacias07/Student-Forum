@@ -191,7 +191,7 @@ const PostScreen = ({
             });
           });
         });
-      console.log('User details ', list);
+      // console.log('User details ', list);
       useridSet(list[0].userId);
       usernameSet(list[0].username);
       avatarSet(list[0].avatar);

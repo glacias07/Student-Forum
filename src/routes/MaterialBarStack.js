@@ -202,7 +202,7 @@ const MaterialBarStack = props => {
   );
 };
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     avatar: state.postListing.avatar,
     filter_modal_visible: state.postListing.filter_modal_visible,
