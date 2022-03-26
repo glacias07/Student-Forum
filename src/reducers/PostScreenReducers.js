@@ -6,6 +6,7 @@ import {
   MODAL_VISIBLE,
   AVATAR_SET,
   COMMENT_ADDED,
+  POST_SCREEN_FILTER_MODAL,
   FRIEND_LIST,
   FILTER_FRIEND_LIST,
   SEARCH_BOX_VALUE,
@@ -18,8 +19,10 @@ const INITIAL_STATE = {
   chatUsername: '',
   reply_list: [],
   modal_visible: true,
-  avatar: 'https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png',
+  avatar:
+    'https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png',
   comment_added: false,
+  filter_modal_visible: false,
   friend_list:null,
   filtered_friend_list:null,
   search:'',
@@ -43,6 +46,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, avatar: action.payload};
     case COMMENT_ADDED:
       return {...state, comment_added: action.payload};
+    case POST_SCREEN_FILTER_MODAL:
+      return {...state, filter_modal_visible: action.payload};
     case FRIEND_LIST:
       return{...state,friend_list:action.payload}
     case FILTER_FRIEND_LIST:

@@ -121,7 +121,6 @@ const PostCard = ({
                   text={username}
                   style={{marginBottom: 3}}
                 />
-
                 <CustomText
                   textColor="#00000080"
                   textSize={12}

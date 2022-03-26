@@ -8,107 +8,95 @@ import {
   COMMENT_ADDED,
   FRIEND_LIST,
   FILTER_FRIEND_LIST,
+<<<<<<< HEAD
  SEARCH_BOX_VALUE,
  COUNT
+=======
+  SEARCH_BOX_VALUE,
+  POST_SCREEN_FILTER_MODAL,
+>>>>>>> f83a23fe79308a77b13b6d003f130dce637a3b0d
 } from './ActionTypes';
 
-
-
-export const usernameSet = (text) => dispatch => {
+export const usernameSet = text => dispatch => {
   // console.log("Action  ",text)
   dispatch({
     type: USERNAME_SET,
     payload: text,
   });
-  
 };
-export const useridSet = (text) => dispatch => {
+export const useridSet = text => dispatch => {
   // console.log("Action ",text)
   dispatch({
     type: USERID_SET,
     payload: text,
   });
-  
 };
 
-export const chatUserNameSet = (text) => dispatch => {
+export const chatUserNameSet = text => dispatch => {
   // console.log("Action ",text)
   dispatch({
     type: CHATUSERNAME_SET,
     payload: text,
   });
-  
 };
 
-export const replyListSet = (text) => dispatch => {
+export const replyListSet = text => dispatch => {
   // console.log("Action ",text)
   dispatch({
     type: REPLY_LIST,
     payload: text,
   });
-  
 };
 
-export const modalVisibleSet=bool=>dispatch=>{
+export const modalVisibleSet = bool => dispatch => {
   dispatch({
-    type:MODAL_VISIBLE,
-    payload:bool
-  })
-}
+    type: MODAL_VISIBLE,
+    payload: bool,
+  });
+};
 
-export const setCommentAdded=bool=>dispatch=>{
+export const filterModalVisibleSet = bool => dispatch => {
   dispatch({
-    type:COMMENT_ADDED,
-    payload:bool
-  })
-}
+    type: POST_SCREEN_FILTER_MODAL,
+    payload: bool,
+  });
+};
 
-export const avatarSet=link=>dispatch=>{
+export const setCommentAdded = bool => dispatch => {
   dispatch({
-    type:AVATAR_SET,
-    payload:link
-  })
-}
+    type: COMMENT_ADDED,
+    payload: bool,
+  });
+};
 
-export const setFriendList=(list)=>dispatch=>{
+export const avatarSet = link => dispatch => {
   dispatch({
-    type:FRIEND_LIST,
-    payload:list
-  })
-}
+    type: AVATAR_SET,
+    payload: link,
+  });
+};
 
-
-
-export const setFilteredFriendList=(list)=>dispatch=>{
+export const setFriendList = list => dispatch => {
   dispatch({
-    type:FILTER_FRIEND_LIST,
-    payload:list
-  })
-}
+    type: FRIEND_LIST,
+    payload: list,
+  });
+};
 
-export const searchBoxValueChanged=(friend_list,search)=>dispatch=>{
-
-      var filtered_friendList=friend_list.filter(item=>item.username.includes(search,0))
-      console.log("Filtered friend",filtered_friendList)
-      var count=1
-      dispatch({
-          type:FILTER_FRIEND_LIST,
-          payload:filtered_friendList,
-      })
-      dispatch({
-          type:SEARCH_BOX_VALUE,
-          payload:search
-      })
-      dispatch({
-        type:COUNT,
-        payload:count
-      })
-      
-  
-}
-
-
-
+export const searchBoxValueChanged = (friend_list, search) => dispatch => {
+  var filtered_friendList = friend_list.filter(item =>
+    item.username.includes(search, 0),
+  );
+  console.log('Filtered friend', filtered_friendList);
+  dispatch({
+    type: FILTER_FRIEND_LIST,
+    payload: filtered_friendList,
+  });
+  dispatch({
+    type: SEARCH_BOX_VALUE,
+    payload: search,
+  });
+};
 // export const usernameSet = text => {
 //   return {
 //     type: USERNAME_SET,

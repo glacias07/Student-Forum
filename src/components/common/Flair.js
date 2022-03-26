@@ -39,7 +39,7 @@ const Flair = props => {
           textSize={20}
           textWeight={400}
           text={'•'}
-          textColor='white'
+          textColor={textColor}
         />
         <CustomText
           text={flair}
