@@ -8,13 +8,8 @@ import {
   COMMENT_ADDED,
   FRIEND_LIST,
   FILTER_FRIEND_LIST,
-<<<<<<< HEAD
- SEARCH_BOX_VALUE,
- COUNT
-=======
   SEARCH_BOX_VALUE,
   POST_SCREEN_FILTER_MODAL,
->>>>>>> f83a23fe79308a77b13b6d003f130dce637a3b0d
 } from './ActionTypes';
 
 export const usernameSet = text => dispatch => {
