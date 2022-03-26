@@ -330,6 +330,7 @@ const Dashboard = ({navigation, username, avatar}) => {
           paddingBottom: 10,
           backgroundColor: '#e5e5e5',
         }}
+        ListEmptyComponent={<View></View>}
         showsVerticalScrollIndicator={false}
         scrollEnabled={false}
         data={posts.slice(0, 3)}
