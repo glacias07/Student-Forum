@@ -174,7 +174,8 @@ const Dashboard = ({navigation, username, avatar}) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Edit Profile', {
-                  userDetails: item,
+                  username: username,
+                  avatar: avatar,
                   // posts: posts,
                 });
               }}>
