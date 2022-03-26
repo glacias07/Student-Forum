@@ -8,7 +8,8 @@ import {
   COMMENT_ADDED,
   FRIEND_LIST,
   FILTER_FRIEND_LIST,
- SEARCH_BOX_VALUE
+ SEARCH_BOX_VALUE,
+ COUNT
 } from './ActionTypes';
 
 
@@ -76,10 +77,20 @@ export const setFriendList=(list)=>dispatch=>{
   })
 }
 
+
+
+export const setFilteredFriendList=(list)=>dispatch=>{
+  dispatch({
+    type:FILTER_FRIEND_LIST,
+    payload:list
+  })
+}
+
 export const searchBoxValueChanged=(friend_list,search)=>dispatch=>{
 
       var filtered_friendList=friend_list.filter(item=>item.username.includes(search,0))
       console.log("Filtered friend",filtered_friendList)
+      var count=1
       dispatch({
           type:FILTER_FRIEND_LIST,
           payload:filtered_friendList,
@@ -88,8 +99,16 @@ export const searchBoxValueChanged=(friend_list,search)=>dispatch=>{
           type:SEARCH_BOX_VALUE,
           payload:search
       })
+      dispatch({
+        type:COUNT,
+        payload:count
+      })
+      
   
 }
+
+
+
 // export const usernameSet = text => {
 //   return {
 //     type: USERNAME_SET,
