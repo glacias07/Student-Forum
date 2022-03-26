@@ -136,7 +136,7 @@ const Dashboard = ({navigation, username, avatar}) => {
   }, [navigation, loading, deleted]);
 
   return (
-    <ScrollView>
+    <ScrollView >
       <View style={{backgroundColor: '#025ab4', zIndex: 1}}>
         <View
           style={{
@@ -209,7 +209,7 @@ const Dashboard = ({navigation, username, avatar}) => {
         </View>
         <View
           style={{
-            height: 500,
+            height: 530,
             width: 600,
             borderRadius: 250,
             backgroundColor: '#0063c6',

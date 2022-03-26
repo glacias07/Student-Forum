@@ -379,7 +379,7 @@ const PostDetails = props => {
             // backgroundColor: '#dde1e4',
             // borderRadius: 150 / 2,
           }}
-          source={{uri: route.params.avatar}}
+          source={{uri: avatar}}
         />
         <View
           style={{
