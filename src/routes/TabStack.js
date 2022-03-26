@@ -63,6 +63,7 @@ const TabStack = route => {
               }}
             />
           ),
+          headerShown: false
         }}
       />
       <TabStackNav.Screen
