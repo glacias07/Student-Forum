@@ -100,7 +100,7 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
                 })
               }
               cardOnPress={() => {
-                navigation.navigate('Post Details', {
+                navigation.navigate('PostDetails', {
                   user_id: item.userId,
                   post_id: item.id,
                   post_title: item.postTitle,
@@ -110,6 +110,8 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
                   download_url: item.downloadUrl,
                   avatar: item.avatar,
                   no_of_comments: item.no_of_comments,
+                  flair: item.flair,
+                  flairColor: item.flairColor,
                 });
               }}
               postId={item.id}
@@ -122,6 +124,8 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
               navigation={navigation}
               no_of_comments={item.no_of_comments}
               avatar={item.avatar}
+              flair={item.flair}
+              flairColor={item.flairColor}
             />
           ) : (
             <PostCard
@@ -136,7 +140,7 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
                 })
               }
               cardOnPress={() => {
-                navigation.navigate('Post Details', {
+                navigation.navigate('PostDetails', {
                   user_id: item.userId,
                   post_id: item.id,
                   post_title: item.postTitle,
@@ -146,6 +150,8 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
                   download_url: item.downloadUrl,
                   avatar: item.avatar,
                   no_of_comments: item.no_of_comments,
+                  flair:item.flair,
+                    flairColor:item.flairColor
                 });
               }}
               postId={item.id}
@@ -158,6 +164,8 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
               navigation={navigation}
               no_of_comments={item.no_of_comments}
               avatar={item.avatar}
+              flair={item.flair}
+              flairColor={item.flairColor}
             />
           )}
         </>

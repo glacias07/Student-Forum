@@ -32,6 +32,7 @@ const PostCard = ({
   no_of_comments,
   avatar,
   flair,
+  flairColor,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
@@ -153,19 +154,14 @@ const PostCard = ({
                 <View
                   style={{
                     flexDirection: 'row',
-                    // justifyContent: 'center',
-                    // alignItems: 'center',
-                    backgroundColor: 'red',
-                    // marginRight: 3,
-                    // marginTop: 10,
-                    // padding: 2,
-                    // paddingLeft: 4,
-                    // paddingRight: 5,
-                    // borderRadius: 4,
-                    // paddingBottom:2,
+                    backgroundColor: flairColor,
+                    padding:2,
+                  alignItems:'center',
+                    borderRadius:5,
+                    marginTop:3,
                   }}>
                   <CustomText
-                    style={{marginRight: 3}}
+                    style={{marginRight: 8,marginLeft:3}}
                     textSize={10}
                     textWeight={400}
                     text={'•'}
@@ -219,7 +215,7 @@ const PostCard = ({
                         width: 20,
                         height: 20,
                         tintColor: '#868686',
-                        marginRight: 12
+                        marginRight: 12,
                       }}
                     />
                     <CustomText text="Share" textColor="#000000" />

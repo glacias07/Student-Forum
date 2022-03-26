@@ -40,6 +40,7 @@ const CreateScreen = ({navigation, avatar}) => {
   const [postContent, setPostContent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [flair, setFlair] = useState('');
+  const[flairColor,setFlairColor]=useState('')
 
   const postFilledOrNot = (post_title, post_content) => {
     var buttonColor = 'blue';
@@ -91,7 +92,8 @@ const CreateScreen = ({navigation, avatar}) => {
         postContent,
         null,
         avatar,
-        flair
+        flair,
+        flairColor
       );
       navigation.goBack();
       return null;
@@ -128,7 +130,8 @@ const CreateScreen = ({navigation, avatar}) => {
         postContent,
         url,
         avatar,
-        flair
+        flair,
+        flairColor
       );
       setUploading(false);
       navigation.goBack();
@@ -296,7 +299,7 @@ const CreateScreen = ({navigation, avatar}) => {
                   numColumns={2}
                   renderItem={({item}) => (
                     <Flair
-                      flairOnPress={() => setFlair(item.flair)}
+                      flairOnPress={() => {setFlair(item.flair),setFlairColor(item.color)}}
                       flair={item.flair}
                       color={flair == item.flair ? 'lightgrey' : item.color}
                       textColor={item.textColor}
