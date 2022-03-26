@@ -5,7 +5,10 @@ import {
   REPLY_LIST,
   MODAL_VISIBLE,
   AVATAR_SET,
-  COMMENT_ADDED
+  COMMENT_ADDED,
+  FRIEND_LIST,
+  FILTER_FRIEND_LIST,
+ SEARCH_BOX_VALUE
 } from './ActionTypes';
 
 
@@ -64,6 +67,28 @@ export const avatarSet=link=>dispatch=>{
     type:AVATAR_SET,
     payload:link
   })
+}
+
+export const setFriendList=(list)=>dispatch=>{
+  dispatch({
+    type:FRIEND_LIST,
+    payload:list
+  })
+}
+
+export const searchBoxValueChanged=(friend_list,search)=>dispatch=>{
+
+      var filtered_friendList=friend_list.filter(item=>item.username.includes(search,0))
+      console.log("Filtered friend",filtered_friendList)
+      dispatch({
+          type:FILTER_FRIEND_LIST,
+          payload:filtered_friendList,
+      })
+      dispatch({
+          type:SEARCH_BOX_VALUE,
+          payload:search
+      })
+  
 }
 // export const usernameSet = text => {
 //   return {
