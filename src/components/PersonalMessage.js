@@ -1,5 +1,11 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {Image, Pressable, StyleSheet, Text} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  ImageBackground,
+} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {getDatabase, get, ref, onValue, off, update} from 'firebase/database';
 
@@ -104,16 +110,25 @@ const PersonalMessage = ({route}) => {
 
   return (
     <>
-      <Pressable>
-        <Text>{route.params.friendData?.name}</Text>
-      </Pressable>
-      <GiftedChat
-        messages={messages}
-        onSend={newMessage => onSend(newMessage)}
-        user={{
-          _id: route.params.myData.username,
-        }}
-      />
+      <ImageBackground
+        style={{flex: 1, height: 1100, resizeMode: 'cover'}}
+        source={require('../assets/images/background.jpg')}
+        resizeMode="cover"
+        imageStyle={{opacity: 0.75, backgroundColor: '#025ab4'}}
+        >
+        <GiftedChat
+          style={{zIndex: 2}}
+          messages={messages}
+          onSend={newMessage => onSend(newMessage)}
+          user={{
+            _id: route.params.myData.username,
+          }}
+        />
+      </ImageBackground>
+      {/* <Image
+        source={require('../assets/images/background.jpg')}
+        style={{backfaceVisibility:'visible'}}
+      /> */}
     </>
   );
 };
