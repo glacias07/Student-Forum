@@ -135,7 +135,7 @@ const ChatScreen = ({
             backgroundColor: '#ffffff',
           }}
           contentContainerStyle={{marginTop: 0}}
-          data={filtered_friend_list}
+          data={search ==  '' ? friendsList:filtered_friend_list}
           ListEmptyComponent={
             <View
               style={{
