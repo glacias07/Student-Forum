@@ -24,7 +24,7 @@ const Tools = () => {
     <>
       <FlatList
         data={data}
-        style={{margin:10,backgroundColor:'white',flex:1}}
+        style={{padding:10,backgroundColor:'white',flex:1}}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <ToolCard

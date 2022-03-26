@@ -53,7 +53,6 @@ const data = [
 
 const ChatScreen = ({
   navigation,
-  route,
   username,
   friend_list,
   setFriendList,
@@ -70,6 +69,8 @@ const ChatScreen = ({
     // console.log(user.friends)
     setFriendsList(user.friends);
     setFriendList(friendsList);
+
+    // searchBoxValueChange(friendsList,'')
     setMyData(user);
     // console.log(user);
   };
@@ -171,7 +172,7 @@ const ChatScreen = ({
                 // console.log("Username",item.username)
                 // console.log("MyData",myData)
                 // console.log("FirendData",item)
-                console.log('Firends', friend_list);
+                console.log('Friends', friend_list);
               }}
               navigation={navigation}
               userImg={item.avatar}
@@ -195,6 +196,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {setFriendList, searchBoxValueChanged})(
-  ChatScreen,
-);
+export default connect(mapStateToProps, {
+  setFriendList,
+  searchBoxValueChanged,
+
+})(ChatScreen);

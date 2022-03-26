@@ -9,4 +9,5 @@ export const POST_SCREEN_FILTER_MODAL = 'post_screen_filter_modal'
 export const FRIEND_LIST='friend_list'
 export const FILTER_FRIEND_LIST='search_friend_list'
 export const SEARCH_BOX_VALUE='search_box_value'
+export const COUNT='count'
 

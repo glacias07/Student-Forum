@@ -10,6 +10,7 @@ import {
   FRIEND_LIST,
   FILTER_FRIEND_LIST,
   SEARCH_BOX_VALUE,
+  COUNT
 } from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
@@ -24,7 +25,8 @@ const INITIAL_STATE = {
   filter_modal_visible: false,
   friend_list:null,
   filtered_friend_list:null,
-  search:''
+  search:'',
+  count:0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -52,6 +54,8 @@ export default (state = INITIAL_STATE, action) => {
       return{...state,filtered_friend_list:action.payload}
     case SEARCH_BOX_VALUE:
       return{...state,search:action.payload}
+    case COUNT:
+      return{...state,count:action.payload}
 
     default:
       return state;

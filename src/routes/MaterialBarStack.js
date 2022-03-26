@@ -28,7 +28,7 @@ const MaterialBarStack = props => {
             alignItems: 'center',
             // backgroundColor: '#ffffff',
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('Notification')}>
             <Image
               style={{width: 25, height: 25}}
               source={require('../assets/icons/bell.png')}

@@ -20,6 +20,7 @@ import EditProfile from '../components/EditProfileScreen';
 import EditPostScreen from '../components/EditPostOrCommentOrReplyScreen';
 import Dashboard from '../components/Dashboard';
 import linking from './linking';
+import Notifications from '../components/Notifications';
 const Stack = createNativeStackNavigator();
 
 // const Splash = createNativeStackNavigator();
@@ -159,6 +160,17 @@ function MainAppRoutes(props) {
                   component={Dashboard}
                   options={{
                     headerShadowVisible: false,
+                    headerStyle: Styles.commonHeaderStyle,
+                    headerTitleStyle: Styles.commonHeaderTitleStyle,
+                    headerTitleAlign: 'center',
+                    headerShown: false
+                  }}
+                />
+                    <Stack.Screen
+                  name="Notification"
+                  component={Notifications}
+                  options={{
+                    // headerShadowVisible: false,
                     headerStyle: Styles.commonHeaderStyle,
                     headerTitleStyle: Styles.commonHeaderTitleStyle,
                     headerTitleAlign: 'center',
