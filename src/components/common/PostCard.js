@@ -168,6 +168,7 @@ const PostCard = ({
                         width: 20,
                         height: 20,
                         tintColor: '#868686',
+                        marginRight: 12
                       }}
                     />
                     <CustomText text="Share" textColor="#000000" />
@@ -342,7 +343,7 @@ const PostCard = ({
                 height: 20,
                 marginRight: 35,
                 tintColor: '#524f4e',
-                // marginLeft: 15,
+                marginLeft: 15,
               }}
             />
           </TouchableOpacity>

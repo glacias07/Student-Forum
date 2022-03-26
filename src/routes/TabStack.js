@@ -26,8 +26,9 @@ const TabStack = route => {
       screenOptions={{
         // headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {height: 70},
+        tabBarStyle: { backgroundColor: '#ffffff',},
         tabBarHideOnKeyboard: true,
+        tabBarActiveBackgroundColor: '#0063c6'
       }}>
       <TabStackNav.Screen
         name="Posts"
@@ -40,7 +41,7 @@ const TabStack = route => {
               style={{
                 height: 25,
                 width: 25,
-                tintColor: focused ? 'blue' : undefined,
+                tintColor: focused ? '#ffffff' : '#8c8c8c',
               }}
             />
           ),
@@ -54,11 +55,11 @@ const TabStack = route => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/icons/messages.png')}
+              source={require('../assets/icons/messenger.png')}
               style={{
-                height: 30,
-                width: 30,
-                tintColor: focused ? 'blue' : 'black',
+                height: 25,
+                width: 25,
+                tintColor: focused ? '#ffffff' : '#8c8c8c',
               }}
             />
           ),
@@ -73,9 +74,9 @@ const TabStack = route => {
             <Image
               source={require('../assets/icons/head.png')}
               style={{
-                height: 30,
-                width: 30,
-                tintColor: focused ? 'blue' : undefined,
+                height: 25,
+                width: 25,
+                tintColor: focused ? '#ffffff' : '#8c8c8c',
               }}
             />
           ),
