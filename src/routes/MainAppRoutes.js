@@ -130,6 +130,7 @@ function MainAppRoutes(props) {
                     headerStyle: Styles.commonHeaderStyle,
                     headerTitleStyle: Styles.commonHeaderTitleStyle,
                     headerTitleAlign: 'center',
+                    // headerShown: false
                   })}
                 />
                 <Stack.Screen
