@@ -247,7 +247,9 @@ export const AuthProvider = ({children}) => {
           postTitle,
           postContent,
           imageUrl = null,
-          avatar=null
+          avatar=null,
+          flair,
+          flairColor
         ) => {
           console.log(avatar);
           firestore()
@@ -260,7 +262,9 @@ export const AuthProvider = ({children}) => {
               postContent: postContent,
               postTime: firestore.Timestamp.fromDate(new Date()),
               no_of_comments: 0,
-              avatar: avatar,
+              avatar,
+              flair,
+              flairColor
             })
             .then(() => {
               console.log('Post Added');

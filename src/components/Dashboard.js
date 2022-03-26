@@ -43,6 +43,8 @@ const Dashboard = ({navigation, username, avatar}) => {
               likes,
               comments,
               avatar,
+              flair,
+              flairColor,
             } = doc.data();
             list.push({
               userId,
@@ -56,6 +58,8 @@ const Dashboard = ({navigation, username, avatar}) => {
               postContent,
               postTime,
               avatar,
+              flair,
+              flairColor,
             });
           });
         });
@@ -351,7 +355,7 @@ const Dashboard = ({navigation, username, avatar}) => {
                   })
                 }
                 cardOnPress={() => {
-                  navigation.navigate('Post Details', {
+                  navigation.navigate('PostDetails', {
                     user_id: item.userId,
                     post_id: item.id,
                     post_title: item.postTitle,
@@ -361,6 +365,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                     download_url: item.downloadUrl,
                     avatar: item.avatar,
                     no_of_comments: item.no_of_comments,
+                    flair:item.flair,
+                    flairColor:item.flairColor
                   });
                 }}
                 postId={item.id}
@@ -373,6 +379,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                 navigation={navigation}
                 no_of_comments={item.no_of_comments}
                 avatar={item.avatar}
+                flair={item.flair}
+                flairColor={item.flairColor}
               />
             ) : (
               <PostCard
@@ -387,7 +395,7 @@ const Dashboard = ({navigation, username, avatar}) => {
                   })
                 }
                 cardOnPress={() => {
-                  navigation.navigate('Post Details', {
+                  navigation.navigate('PostDetails', {
                     user_id: item.userId,
                     post_id: item.id,
                     post_title: item.postTitle,
@@ -397,6 +405,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                     download_url: item.downloadUrl,
                     avatar: item.avatar,
                     no_of_comments: item.no_of_comments,
+                    flair:item.flair,
+                    flairColor:item.flairColor
                   });
                 }}
                 postId={item.id}
@@ -409,6 +419,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                 navigation={navigation}
                 no_of_comments={item.no_of_comments}
                 avatar={item.avatar}
+                flair={item.flair}
+                flairColor={item.flairColor}
               />
             )}
           </>

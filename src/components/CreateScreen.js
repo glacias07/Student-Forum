@@ -1,11 +1,33 @@
 import React, {useEffect, useContext, useState, useLayoutEffect} from 'react';
-import {View, TextInput, Image, TouchableOpacity, Modal} from 'react-native';
-import {CustomHeaderButton, ModalLoader, FormButton} from './common';
+import {
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+} from 'react-native';
+import {
+  CustomHeaderButton,
+  ModalLoader,
+  FormButton,
+  CustomText,
+} from './common';
 import {AuthContext} from '../routes/AuthProvider';
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {connect} from 'react-redux';
+import Flair from './common/Flair';
+
+const data = [
+  {id: '1', flair: 'general', color: 'orange'},
+  {id: '2', flair: 'ask', color: 'red'},
+  {id: '3', flair: 'help', color: 'darkgreen'},
+  {id: '4', flair: 'harrasment', color: 'black'},
+  {id: '5', flair: 'bullying', color: 'purple'},
+  {id: '6', flair: 'happy', color: '#ffc20a'},
+];
 
 const CreateScreen = ({navigation, avatar}) => {
   const [image, setImage] = useState(null);
@@ -16,7 +38,9 @@ const CreateScreen = ({navigation, avatar}) => {
   const [loading, setLoading] = useState(true);
   const [postTitle, setPostTitle] = useState(null);
   const [postContent, setPostContent] = useState(null);
- 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [flair, setFlair] = useState('');
+  const[flairColor,setFlairColor]=useState('')
 
   const postFilledOrNot = (post_title, post_content) => {
     var buttonColor = 'blue';
@@ -61,7 +85,16 @@ const CreateScreen = ({navigation, avatar}) => {
 
   const uploadPost = async () => {
     if (image == null) {
-      submitPost(user.uid, userDetails[0].username, postTitle, postContent,null,avatar);
+      submitPost(
+        user.uid,
+        userDetails[0].username,
+        postTitle,
+        postContent,
+        null,
+        avatar,
+        flair,
+        flairColor
+      );
       navigation.goBack();
       return null;
     }
@@ -97,6 +130,8 @@ const CreateScreen = ({navigation, avatar}) => {
         postContent,
         url,
         avatar,
+        flair,
+        flairColor
       );
       setUploading(false);
       navigation.goBack();
@@ -148,7 +183,8 @@ const CreateScreen = ({navigation, avatar}) => {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            uploadPost();
+            setModalVisible(true);
+            // uploadPost();
           }}
           disabled={postFilledOrNot(postTitle, postContent).disabled}
           icon={require('../assets/icons/tick.png')}
@@ -159,6 +195,7 @@ const CreateScreen = ({navigation, avatar}) => {
       ),
     });
   });
+
 
   return (
     <View
@@ -187,44 +224,127 @@ const CreateScreen = ({navigation, avatar}) => {
         <TextInput
           multiline={true}
           onChangeText={postContent => {
-            setPostContent(postContent.replace(/^\s+|\s+$/g, ''));
+            setPostContent(postContent.trim());
           }}
           placeholder="Post Content"
           style={{fontSize: 13}}
         />
       </View>
+      {modalVisible ? (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#00000040',
+            }}>
+            <View
+              style={{
+                height: 350,
+                backgroundColor: '#EEEFFF',
+                // flexDirection: 'row',
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                // alignSelf: 'center',
+                borderTopLeftRadius: 30,
+                borderTopRightRadius: 30,
+                // justifyContent:'center',
+                // alignItems:'center'
+                paddingTop: 20,
+                // paddingLeft: 30,
+              }}>
+              <TouchableOpacity
+                onPress={() => uploadPost()}
+                disabled={flair ? false : true}
+                style={{
+                  top: 0,
+                  position: 'absolute',
+                  width: '100%',
+                  backgroundColor: flair ? '#0063c6' : 'grey',
+                  height: 50,
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  // elevation: 1,
+                }}>
+                <CustomText
+                  text="Share"
+                  textSize={25}
+                  textWeight={700}
+                  textColor={'white'}
+                />
+              </TouchableOpacity>
+              <View style={{paddingTop: 40, paddingLeft: 30}}>
+                <CustomText
+                  text={'Please Choose a Flair'}
+                  textSize={25}
+                  textWeight={600}
+                />
+                <CustomText
+                  text={'Adding a flair will in getting relevant replies'}
+                  textSize={17}
+                  textWeight={400}
+                />
+                <FlatList
+                  data={data}
+                  numColumns={2}
+                  renderItem={({item}) => (
+                    <Flair
+                      flairOnPress={() => {setFlair(item.flair),setFlairColor(item.color)}}
+                      flair={item.flair}
+                      color={flair == item.flair ? 'lightgrey' : item.color}
+                      textColor={item.textColor}
+                      style={flair==item.flair? {elevation:3,}:null }
+                    />
+                  )}
+                  keyExtractor={item => item.id}
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: '#EEEFFF',
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            paddingVertical: 15,
+            borderTopColor: '#00000050',
+            borderTopWidth: 1,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              choosePhotoFromLibrary();
+            }}>
+            <Image
+              style={{height: 35, width: 35, marginHorizontal: 25}}
+              source={require('../assets/icons/gallery.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              takePhotoFromCamera();
+            }}>
+            <Image
+              style={{height: 35, width: 35}}
+              source={require('../assets/icons/camera.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
 
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: '#EEEFFF',
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          paddingVertical: 15,
-          borderTopColor: '#00000050',
-          borderTopWidth: 1,
-        }}>
-        <TouchableOpacity
-          onPress={() => {
-            choosePhotoFromLibrary();
-          }}>
-          <Image
-            style={{height: 35, width: 35, marginHorizontal: 25}}
-            source={require('../assets/icons/gallery.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            takePhotoFromCamera();
-          
-          }}>
-          <Image
-            style={{height: 35, width: 35}}
-            source={require('../assets/icons/camera.png')}
-          />
-        </TouchableOpacity>
-      </View>
       {uploading ? <ModalLoader /> : null}
     </View>
   );

@@ -171,15 +171,15 @@ const PostDetails = props => {
               textWeight={500}
               textSize={16}
             />
-            <CustomText
+            {/* <CustomText
               text={
-                route.params.post_time.toDate().toLocaleDateString() +
+                route.params.post_te().toLocaleDateString() +
                 ' ' +
                 route.params.post_time.toDate().toLocaleTimeString()
               }
               textWeight={400}
               textSize={12}
-            />
+            /> */}
           </View>
         </View>
         <View style={{paddingHorizontal: 10, backgroundColor: '#ffffff'}}>

@@ -31,6 +31,8 @@ const PostCard = ({
   myUsername,
   no_of_comments,
   avatar,
+  flair,
+  flairColor,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
@@ -43,9 +45,9 @@ const PostCard = ({
 
   const myPostShare = async () => {
     const shareOptions = {
-      message:postTitle,
-      url:imageUrl,
-      subject:postContent
+      message: postTitle,
+      url: imageUrl,
+      subject: postContent,
       // backgroundImage: 'http://urlto.png',
       // stickerImage: 'data:image/png;base64,<imageInBase64>', //or you can use "data:" link
       // backgroundBottomColor: '#fefefe',
@@ -82,6 +84,27 @@ const PostCard = ({
     let file = await RNHTMLtoPDF.convert(options);
     // console.log(file.filePath);
     alert(file.filePath);
+  };
+
+  const checkColor = flair => {
+    if (flair == 'general') {
+      return 'orange';
+    }
+    if (flair == 'ask') {
+      return 'red';
+    }
+    if (flair == 'help') {
+      return 'darkgreen';
+    }
+    if (flair == 'harrasment') {
+      return 'black';
+    }
+    if (flair == 'bullying') {
+      return 'purple';
+    }
+    if (flair == 'happy') {
+      return '#ffc20a';
+    }
   };
 
   return (
@@ -127,6 +150,30 @@ const PostCard = ({
                   numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: flairColor,
+                    padding:2,
+                  alignItems:'center',
+                    borderRadius:5,
+                    marginTop:3,
+                  }}>
+                  <CustomText
+                    style={{marginRight: 8,marginLeft:3}}
+                    textSize={10}
+                    textWeight={400}
+                    text={'•'}
+                    textColor="white"
+                  />
+                  <CustomText
+                    text={flair}
+                    textSize={12}
+                    textWeight={500}
+                    textColor={'white'}
+                  />
+                </View>
               </View>
             </View>
 
@@ -168,7 +215,7 @@ const PostCard = ({
                         width: 20,
                         height: 20,
                         tintColor: '#868686',
-                        marginRight: 12
+                        marginRight: 12,
                       }}
                     />
                     <CustomText text="Share" textColor="#000000" />

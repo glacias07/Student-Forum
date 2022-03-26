@@ -47,6 +47,8 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
               postTime,
               no_of_comments,
               avatar,
+              flair,
+              flairColor,
             } = doc.data();
             list.push({
               userId,
@@ -59,10 +61,13 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
               postContent,
               postTime,
               avatar,
+              flair,
+              flairColor,
             });
           });
         });
       setPosts(list);
+      // console.log("List",list)
 
       if (loading) {
         setLoading(false);
@@ -210,7 +215,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                     })
                   }
                   cardOnPress={() => {
-                    navigation.navigate('Post Details', {
+                    navigation.navigate('PostDetails', {
                       user_id: item.userId,
                       post_id: item.id,
                       post_title: item.postTitle,
@@ -220,6 +225,8 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                       download_url: item.downloadUrl,
                       avatar: item.avatar,
                       no_of_comments: item.no_of_comments,
+                      flair: item.flair,
+                      flairColor: item.flairColor,
                     });
                   }}
                   postId={item.id}
@@ -232,6 +239,8 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                   navigation={navigation}
                   no_of_comments={item.no_of_comments}
                   avatar={item.avatar}
+                  flair={item.flair}
+                  flairColor={item.flairColor}
                 />
               ) : (
                 <PostCard
@@ -246,7 +255,7 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                     })
                   }
                   cardOnPress={() => {
-                    navigation.navigate('Post Details', {
+                    navigation.navigate('PostDetails', {
                       user_id: item.userId,
                       post_id: item.id,
                       post_title: item.postTitle,
@@ -256,6 +265,8 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                       download_url: item.downloadUrl,
                       avatar: item.avatar,
                       no_of_comments: item.no_of_comments,
+                      flair: item.flair,
+                      flairColor: item.flairColor,
                     });
                   }}
                   postId={item.id}
@@ -268,6 +279,8 @@ const PostScreen = ({navigation, usernameSet, useridSet, avatarSet}) => {
                   navigation={navigation}
                   no_of_comments={item.no_of_comments}
                   avatar={item.avatar}
+                  flair={item.flair}
+                  flairColor={item.flairColor}
                 />
               )}
             </>
