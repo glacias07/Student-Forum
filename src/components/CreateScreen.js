@@ -247,7 +247,6 @@ const CreateScreen = ({navigation, avatar}) => {
             }}
             style={{
               backgroundColor: '#00000040',
-              // height: 110,
               width: '100%',
               flex: 1,
             }}></TouchableOpacity>

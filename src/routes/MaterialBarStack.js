@@ -11,11 +11,12 @@ import {
 import PostScreen from '../components/PostScreen';
 import {CustomText} from '../components/common';
 import {connect} from 'react-redux';
+import {filterModalVisibleSet} from '../actions';
 
 const MaterialTab = createMaterialTopTabNavigator();
 
 const MaterialBarStack = props => {
-  const {avatar, navigation} = props;
+  const {avatar, navigation, filterModalVisibleSet} = props;
   return (
     <>
       <View style={{backgroundColor: '#ffffff'}}>
@@ -84,6 +85,7 @@ const MaterialBarStack = props => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            onPress={() => filterModalVisibleSet(true)}
             style={{
               flexDirection: 'row',
               width: '10%',
@@ -91,7 +93,6 @@ const MaterialBarStack = props => {
               alignItems: 'center',
               backgroundColor: '#E4EFF0',
               borderRadius: 10,
-
               marginLeft: 15,
               marginBottom: 5,
             }}>
@@ -135,7 +136,7 @@ const MaterialBarStack = props => {
           // tabBarItemStyle: {width: 100},
           // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
-          tabBarStyle: {backgroundColor: '#eaecef',},
+          tabBarStyle: {backgroundColor: '#eaecef'},
           // tabBarIndicatorStyle: {backgroundColor: 'red'}
 
           // tabBarLabelStyle: {
@@ -158,7 +159,7 @@ const MaterialBarStack = props => {
             width: '50%',
             // left: (Dimensions.get('window').width / 2 - 100) / 2,
             backgroundColor: '#0063c6',
-            height: "100%",
+            height: '100%',
             // borderRadius: 30,
             // top: 9,
           },
@@ -166,7 +167,6 @@ const MaterialBarStack = props => {
         }}>
         <MaterialTab.Screen
           name="Feed"
-          
           component={PostScreen}
           options={{
             tabBarIcon: ({focused}) => (
@@ -202,8 +202,12 @@ const MaterialBarStack = props => {
   );
 };
 const mapStateToProps = state => {
+  console.log(state);
   return {
     avatar: state.postListing.avatar,
+    filter_modal_visible: state.postListing.filter_modal_visible,
   };
 };
-export default connect(mapStateToProps, {})(MaterialBarStack);
+export default connect(mapStateToProps, {filterModalVisibleSet})(
+  MaterialBarStack,
+);

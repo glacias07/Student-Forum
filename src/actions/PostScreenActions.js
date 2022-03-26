@@ -5,7 +5,8 @@ import {
   REPLY_LIST,
   MODAL_VISIBLE,
   AVATAR_SET,
-  COMMENT_ADDED
+  COMMENT_ADDED,
+  POST_SCREEN_FILTER_MODAL
 } from './ActionTypes';
 
 
@@ -51,6 +52,14 @@ export const modalVisibleSet=bool=>dispatch=>{
     payload:bool
   })
 }
+
+export const filterModalVisibleSet=bool=>dispatch=>{
+  dispatch({
+    type:POST_SCREEN_FILTER_MODAL,
+    payload:bool
+  })
+}
+
 
 export const setCommentAdded=bool=>dispatch=>{
   dispatch({
