@@ -170,6 +170,41 @@ const Dashboard = ({navigation, username, avatar}) => {
               textWeight={500}
             />
           </View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Edit Profile', {
+                  userDetails: item,
+                  // posts: posts,
+                });
+              }}>
+              <Image
+                style={{
+                  height: 20,
+                  width: 20,
+                  tintColor: '#ffffff',
+                  marginRight: 15,
+                  marginLeft: 15,
+                }}
+                source={require('../assets/icons/edit.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                logout();
+              }}>
+              <Image
+                style={{
+                  height: 20,
+                  width: 20,
+                  tintColor: '#ffffff',
+                  marginRight: 15,
+                  marginLeft: 15,
+                }}
+                source={require('../assets/icons/logout.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{
