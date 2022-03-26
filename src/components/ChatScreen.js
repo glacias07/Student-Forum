@@ -4,7 +4,10 @@ import ChatItem from './common/ChatItem';
 import {AuthContext} from '../routes/AuthProvider';
 import {connect} from 'react-redux';
 import {CustomText} from './common';
-
+import {
+  setFriendList,
+  searchBoxValueChanged,
+} from '../actions/PostScreenActions';
 const data = [
   {
     id: '1',
@@ -48,13 +51,25 @@ const data = [
   },
 ];
 
-const ChatScreen = ({navigation, route, username}) => {
+const ChatScreen = ({
+  navigation,
+  route,
+  username,
+  friend_list,
+  setFriendList,
+  searchBoxValueChanged,
+  search,
+  filtered_friend_list,
+}) => {
   const {findUser} = useContext(AuthContext);
+
   const [friendsList, setFriendsList] = useState();
   const [myData, setMyData] = useState();
   const fetchData = async () => {
     const user = await findUser(username);
+    // console.log(user.friends)
     setFriendsList(user.friends);
+    setFriendList(friendsList);
     setMyData(user);
     // console.log(user);
   };
@@ -85,7 +100,7 @@ const ChatScreen = ({navigation, route, username}) => {
               textWeight={700}
             />
           </View>
-          <View style={{marginTop: 10}}> 
+          <View style={{marginTop: 10}}>
             <TextInput
               style={{
                 backgroundColor: '#ffffff70',
@@ -93,19 +108,23 @@ const ChatScreen = ({navigation, route, username}) => {
                 paddingLeft: 45,
               }}
               placeholder="Search"
+              onChangeText={search =>
+                searchBoxValueChanged(friend_list, search)
+              }
+              value={search}
             />
             <Image
-                style={{
-                  height: 20,
-                  width: 20,
-                  tintColor: '#ffffff',
-                  marginRight: 15,
-                  marginLeft: 15,
-                  position: 'absolute',
-                  top: '25%',
-                }}
-                source={require('../assets/icons/search.png')}
-              />
+              style={{
+                height: 20,
+                width: 20,
+                tintColor: '#ffffff',
+                marginRight: 15,
+                marginLeft: 15,
+                position: 'absolute',
+                top: '25%',
+              }}
+              source={require('../assets/icons/search.png')}
+            />
           </View>
         </View>
         <FlatList
@@ -116,7 +135,7 @@ const ChatScreen = ({navigation, route, username}) => {
             backgroundColor: '#ffffff',
           }}
           contentContainerStyle={{marginTop: 0}}
-          data={friendsList}
+          data={filtered_friend_list}
           ListEmptyComponent={
             <View
               style={{
@@ -152,6 +171,7 @@ const ChatScreen = ({navigation, route, username}) => {
                 // console.log("Username",item.username)
                 // console.log("MyData",myData)
                 // console.log("FirendData",item)
+                console.log('Firends', friend_list);
               }}
               navigation={navigation}
               userImg={item.avatar}
@@ -169,7 +189,12 @@ const ChatScreen = ({navigation, route, username}) => {
 const mapStateToProps = state => {
   return {
     username: state.postListing.username,
+    friend_list: state.postListing.friend_list,
+    search: state.postListing.search,
+    filtered_friend_list: state.postListing.filtered_friend_list,
   };
 };
 
-export default connect(mapStateToProps, {})(ChatScreen);
+export default connect(mapStateToProps, {setFriendList, searchBoxValueChanged})(
+  ChatScreen,
+);
