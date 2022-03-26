@@ -86,31 +86,10 @@ const PostCard = ({
     alert(file.filePath);
   };
 
-  const checkColor = flair => {
-    if (flair == 'general') {
-      return 'orange';
-    }
-    if (flair == 'ask') {
-      return 'red';
-    }
-    if (flair == 'help') {
-      return 'darkgreen';
-    }
-    if (flair == 'harrasment') {
-      return 'black';
-    }
-    if (flair == 'bullying') {
-      return 'purple';
-    }
-    if (flair == 'happy') {
-      return '#ffc20a';
-    }
-  };
-
   return (
     <TouchableOpacity style={style} activeOpacity={0.6} onPress={cardOnPress}>
       <View style={styles.flatListStyle}>
-        <View style={{width: '100%'}}>
+        <View>
           <View
             style={{
               flexDirection: 'row',
@@ -150,23 +129,16 @@ const PostCard = ({
                   numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
-
                 <View
                   style={{
-                    flexDirection: 'row',
                     backgroundColor: flairColor,
-                    padding:2,
-                  alignItems:'center',
-                    borderRadius:5,
-                    marginTop:3,
+                    paddingHorizontal: 5,
+                    alignItems: 'center',
+                    borderRadius: 5,
+                    marginTop: 3,
+                    alignSelf: 'baseline',
+                    paddingVertical: 3,
                   }}>
-                  <CustomText
-                    style={{marginRight: 8,marginLeft:3}}
-                    textSize={10}
-                    textWeight={400}
-                    text={'•'}
-                    textColor="white"
-                  />
                   <CustomText
                     text={flair}
                     textSize={12}
@@ -197,7 +169,6 @@ const PostCard = ({
               <MenuOptions
                 optionsContainerStyle={{
                   borderRadius: 10,
-                  // flex: 1,
                 }}
                 style={{
                   padding: 15,
@@ -402,7 +373,7 @@ const PostCard = ({
 
 const styles = StyleSheet.create({
   flatListStyle: {
-    width: '100%',
+    // width: '100%',
     backgroundColor: '#ffffff',
     padding: 15,
   },
