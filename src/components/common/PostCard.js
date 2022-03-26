@@ -129,7 +129,7 @@ const PostCard = ({
                   numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
-                <View
+                {/* <View
                   style={{
                     backgroundColor: flairColor,
                     paddingHorizontal: 5,
@@ -145,7 +145,7 @@ const PostCard = ({
                     textWeight={500}
                     textColor={'white'}
                   />
-                </View>
+                </View> */}
               </View>
             </View>
 
