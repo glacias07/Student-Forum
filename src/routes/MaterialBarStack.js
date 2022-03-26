@@ -135,15 +135,15 @@ const MaterialBarStack = props => {
           // tabBarItemStyle: {width: 100},
           // tabBarContentContainerStyle: {paddingHorizontal: '25%'},
           // tabBarIndicatorContainerStyle: {marginHorizontal: '30%',width: 100},
-          tabBarStyle: {backgroundColor: '#ffffff',},
+          tabBarStyle: {backgroundColor: '#eaecef',},
           // tabBarIndicatorStyle: {backgroundColor: 'red'}
 
           // tabBarLabelStyle: {
           //   fontSize: 14,
           //   fontWeight: 'bold',
           // },
-          // tabBarActiveTintColor: '#ffffff',
-          // tabBarInactiveTintColor: '#000000',
+          // tabBarActiveTintColor: 'yellow',
+          // tabBarInactiveTintColor: 'red',
           // tabBarPressOpacity: 1,
           // tabBarIndicatorStyle: {
           //   backgroundColor: 'black',
@@ -155,10 +155,10 @@ const MaterialBarStack = props => {
           //   width: 'auto',
           // },
           tabBarIndicatorStyle: {
-            width: 100,
-            left: (Dimensions.get('window').width / 2 - 100) / 2,
-            // backgroundColor: 'black',
-            // height: 30,
+            width: '50%',
+            // left: (Dimensions.get('window').width / 2 - 100) / 2,
+            backgroundColor: '#0063c6',
+            height: "100%",
             // borderRadius: 30,
             // top: 9,
           },
@@ -175,7 +175,7 @@ const MaterialBarStack = props => {
                 style={{
                   height: 20,
                   width: 20,
-                  tintColor: focused ? 'blue' : undefined,
+                  tintColor: focused ? '#ffffff' : '#949494',
                 }}
               />
             ),
@@ -191,7 +191,7 @@ const MaterialBarStack = props => {
                 style={{
                   height: 20,
                   width: 20,
-                  tintColor: focused ? 'blue' : undefined,
+                  tintColor: focused ? '#ffffff' : '#949494',
                 }}
               />
             ),

@@ -64,7 +64,7 @@ const ChatScreen = ({navigation, route, username}) => {
   return (
     <FlatList
       data={friendsList}
-      contentContainerStyle={{marginTop: 10}}
+      // contentContainerStyle={{marginTop: 10}}
       ListEmptyComponent={
         <View
           style={{
@@ -86,7 +86,6 @@ const ChatScreen = ({navigation, route, username}) => {
       }
       renderItem={({item}) => (
         <ChatItem
-          style={{borderBottomWidth:0.8,color:'black'}}
           chatOnPress={() => {
             navigation.navigate('Personal Message', {
               friendData: item,

@@ -11,21 +11,14 @@ import {CustomHeaderButton, FormInput} from './common';
 const EditProfile = ({navigation, route}) => {
   const {updateUserDetails, updateUserPostsDetails} = useContext(AuthContext);
 
-  const [username, setUsername] = useState(route.params.userDetails.username);
-  const [postsIdsArray, setPostsIdsArray] = useState(() => {
-    const list = [];
-    route.params.posts.forEach((item, index, array) => {
-      list.push(route.params.posts[index].id);
-    });
-    return list;
-  });
-  const [bio, setBio] = useState(route.params.userDetails.bio);
-  const [designation, setDesignation] = useState(
-    route.params.userDetails.designation,
-  );
-  const [workplace, setWorkplace] = useState(
-    route.params.userDetails.workplace,
-  );
+  const [username, setUsername] = useState(route.params.username);
+  // const [postsIdsArray, setPostsIdsArray] = useState(() => {
+  //   const list = [];
+  //   route.params.posts.forEach((item, index, array) => {
+  //     list.push(route.params.posts[index].id);
+  //   });
+  //   return list;
+  // });
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -37,11 +30,7 @@ const EditProfile = ({navigation, route}) => {
       headerRight: () => (
         <CustomHeaderButton
           onPress={() => {
-            navigation.goBack(),
-              updateUserDetails(username, bio, workplace, designation);
-            postsIdsArray.forEach((item, index, array) => {
-              updateUserPostsDetails(postsIdsArray[index], username);
-            });
+            navigation.goBack(), updateUserDetails(username);
           }}
           icon={require('../assets/icons/tick.png')}
           tintColor="blue"
@@ -64,7 +53,7 @@ const EditProfile = ({navigation, route}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableOpacity onPress={() => console.log('image was clicked')}>
           <Image
-            source={require('../assets/images/profile.png')}
+            source={{uri: route.params.avatar}}
             style={{
               borderBottomRightRadius: 10,
               borderBottomLeftRadius: 10,

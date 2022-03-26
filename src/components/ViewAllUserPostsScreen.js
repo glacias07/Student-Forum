@@ -77,31 +77,90 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
 
   return (
     <FlatList
-      contentContainerStyle={{paddingBottom: 80}}
-      showsVerticalScrollIndicator={false}
       data={route.params.posts}
+      contentContainerStyle={{
+        paddingBottom: 10,
+        backgroundColor: '#e5e5e5',
+      }}
+      showsVerticalScrollIndicator={false}
+      initialNumToRender={5}
       renderItem={({item, index}) => (
-        <PostCard
-          deleteOnPress={handleDelete}
-          cardOnPress={() => {
-            navigation.navigate('PostDetails', {
-              user_id: item.userId,
-              post_id: item.id,
-              post_title: item.postTitle,
-              post_content: item.postContent,
-              username: item.username,
-              post_time: item.postTime,
-              download_url: item.downloadUrl,
-            });
-          }}
-          postId={item.id}
-          postTitle={item.postTitle}
-          postContent={item.postContent}
-          postDate={item.postTime}
-          userId={item.userId}
-          username={item.username}
-          imageUrl={item.downloadUrl}
-        />
+        <>
+          {index > 0 ? (
+            <PostCard
+              style={{marginTop: 10}}
+              deleteOnPress={handleDelete}
+              editOnPress={() =>
+                navigation.navigate('Edit Screen', {
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  default_value: item.postContent,
+                  title: 'Post',
+                  placeholder: 'Post Content',
+                })
+              }
+              cardOnPress={() => {
+                navigation.navigate('Post Details', {
+                  user_id: item.userId,
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  post_content: item.postContent,
+                  username: item.username,
+                  post_time: item.postTime,
+                  download_url: item.downloadUrl,
+                  avatar: item.avatar,
+                  no_of_comments: item.no_of_comments,
+                });
+              }}
+              postId={item.id}
+              postTitle={item.postTitle}
+              postContent={item.postContent}
+              postDate={item.postTime}
+              userId={item.userId}
+              username={item.username}
+              imageUrl={item.downloadUrl}
+              navigation={navigation}
+              no_of_comments={item.no_of_comments}
+              avatar={item.avatar}
+            />
+          ) : (
+            <PostCard
+              deleteOnPress={handleDelete}
+              editOnPress={() =>
+                navigation.navigate('Edit Screen', {
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  default_value: item.postContent,
+                  title: 'Post',
+                  placeholder: 'Post Content',
+                })
+              }
+              cardOnPress={() => {
+                navigation.navigate('Post Details', {
+                  user_id: item.userId,
+                  post_id: item.id,
+                  post_title: item.postTitle,
+                  post_content: item.postContent,
+                  username: item.username,
+                  post_time: item.postTime,
+                  download_url: item.downloadUrl,
+                  avatar: item.avatar,
+                  no_of_comments: item.no_of_comments,
+                });
+              }}
+              postId={item.id}
+              postTitle={item.postTitle}
+              postContent={item.postContent}
+              postDate={item.postTime}
+              userId={item.userId}
+              username={item.username}
+              imageUrl={item.downloadUrl}
+              navigation={navigation}
+              no_of_comments={item.no_of_comments}
+              avatar={item.avatar}
+            />
+          )}
+        </>
       )}></FlatList>
   );
 };
