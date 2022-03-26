@@ -40,7 +40,7 @@ const CreateScreen = ({navigation, avatar}) => {
   const [postContent, setPostContent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [flair, setFlair] = useState('');
-  const[flairColor,setFlairColor]=useState('')
+  const [flairColor, setFlairColor] = useState('');
 
   const postFilledOrNot = (post_title, post_content) => {
     var buttonColor = 'blue';
@@ -93,7 +93,7 @@ const CreateScreen = ({navigation, avatar}) => {
         null,
         avatar,
         flair,
-        flairColor
+        flairColor,
       );
       navigation.goBack();
       return null;
@@ -131,7 +131,7 @@ const CreateScreen = ({navigation, avatar}) => {
         url,
         avatar,
         flair,
-        flairColor
+        flairColor,
       );
       setUploading(false);
       navigation.goBack();
@@ -196,7 +196,6 @@ const CreateScreen = ({navigation, avatar}) => {
     });
   });
 
-
   return (
     <View
       style={{
@@ -230,120 +229,128 @@ const CreateScreen = ({navigation, avatar}) => {
           style={{fontSize: 13}}
         />
       </View>
-      {modalVisible ? (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#00000040',
-            }}>
-            <View
-              style={{
-                height: 350,
-                backgroundColor: '#EEEFFF',
-                // flexDirection: 'row',
-                position: 'absolute',
-                bottom: 0,
-                width: '100%',
-                // alignSelf: 'center',
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-                // justifyContent:'center',
-                // alignItems:'center'
-                paddingTop: 20,
-                // paddingLeft: 30,
-              }}>
-              <TouchableOpacity
-                onPress={() => uploadPost()}
-                disabled={flair ? false : true}
-                style={{
-                  top: 0,
-                  position: 'absolute',
-                  width: '100%',
-                  backgroundColor: flair ? '#0063c6' : 'grey',
-                  height: 50,
-                  borderTopLeftRadius: 30,
-                  borderTopRightRadius: 30,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  // elevation: 1,
-                }}>
-                <CustomText
-                  text="Share"
-                  textSize={25}
-                  textWeight={700}
-                  textColor={'white'}
-                />
-              </TouchableOpacity>
-              <View style={{paddingTop: 40, paddingLeft: 30}}>
-                <CustomText
-                  text={'Please Choose a Flair'}
-                  textSize={25}
-                  textWeight={600}
-                />
-                <CustomText
-                  text={'Adding a flair will in getting relevant replies'}
-                  textSize={17}
-                  textWeight={400}
-                />
-                <FlatList
-                  data={data}
-                  numColumns={2}
-                  renderItem={({item}) => (
-                    <Flair
-                      flairOnPress={() => {setFlair(item.flair),setFlairColor(item.color)}}
-                      flair={item.flair}
-                      color={flair == item.flair ? 'lightgrey' : item.color}
-                      textColor={item.textColor}
-                      style={flair==item.flair? {elevation:3,}:null }
-                    />
-                  )}
-                  keyExtractor={item => item.id}
-                />
-              </View>
-            </View>
-          </View>
-        </Modal>
-      ) : (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
         <View
           style={{
-            flexDirection: 'row',
-            backgroundColor: '#EEEFFF',
-            position: 'absolute',
-            bottom: 0,
-            width: '100%',
-            paddingVertical: 15,
-            borderTopColor: '#00000050',
-            borderTopWidth: 1,
+            flex: 1,
           }}>
           <TouchableOpacity
+            activeOpacity={1}
             onPress={() => {
-              choosePhotoFromLibrary();
+              setModalVisible(!modalVisible);
+            }}
+            style={{
+              backgroundColor: '#00000040',
+              // height: 110,
+              width: '100%',
+              flex: 1,
+            }}></TouchableOpacity>
+          <View
+            style={{
+              height: 350,
+              backgroundColor: '#EEEFFF',
+              // flexDirection: 'row',
+              position: 'absolute',
+              bottom: 0,
+              width: '100%',
+              // alignSelf: 'center',
+              borderTopLeftRadius: 30,
+              borderTopRightRadius: 30,
+              // justifyContent:'center',
+              // alignItems:'center'
+              paddingTop: 20,
+              // paddingLeft: 30,
             }}>
-            <Image
-              style={{height: 35, width: 35, marginHorizontal: 25}}
-              source={require('../assets/icons/gallery.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              takePhotoFromCamera();
-            }}>
-            <Image
-              style={{height: 35, width: 35}}
-              source={require('../assets/icons/camera.png')}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => uploadPost()}
+              disabled={flair ? false : true}
+              style={{
+                top: 0,
+                position: 'absolute',
+                width: '100%',
+                backgroundColor: flair ? '#0063c6' : 'grey',
+                height: 50,
+                borderTopLeftRadius: 30,
+                borderTopRightRadius: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                // elevation: 1,
+              }}>
+              <CustomText
+                text="Share"
+                textSize={25}
+                textWeight={700}
+                textColor={'white'}
+              />
+            </TouchableOpacity>
+            <View style={{paddingTop: 40, paddingLeft: 30}}>
+              <CustomText
+                text={'Please Choose a Flair'}
+                textSize={25}
+                textWeight={600}
+              />
+              <CustomText
+                text={'Adding a flair will in getting relevant replies'}
+                textSize={17}
+                textWeight={400}
+              />
+              <FlatList
+                data={data}
+                numColumns={2}
+                renderItem={({item}) => (
+                  <Flair
+                    flairOnPress={() => {
+                      setFlair(item.flair), setFlairColor(item.color);
+                    }}
+                    flair={item.flair}
+                    color={flair == item.flair ? 'lightgrey' : item.color}
+                    textColor={item.textColor}
+                    style={flair == item.flair ? {elevation: 3} : null}
+                  />
+                )}
+                keyExtractor={item => item.id}
+              />
+            </View>
+          </View>
         </View>
-      )}
+      </Modal>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          backgroundColor: '#EEEFFF',
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          paddingVertical: 15,
+          borderTopColor: '#00000050',
+          borderTopWidth: 1,
+        }}>
+        <TouchableOpacity
+          onPress={() => {
+            choosePhotoFromLibrary();
+          }}>
+          <Image
+            style={{height: 35, width: 35, marginHorizontal: 25}}
+            source={require('../assets/icons/gallery.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            takePhotoFromCamera();
+          }}>
+          <Image
+            style={{height: 35, width: 35}}
+            source={require('../assets/icons/camera.png')}
+          />
+        </TouchableOpacity>
+      </View>
 
       {uploading ? <ModalLoader /> : null}
     </View>
