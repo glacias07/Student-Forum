@@ -14,7 +14,7 @@ import SettingsItem from './common/SettingsItem';
 const data = [
   {id: 1, icon: require('../assets/icons/bell.png'), name: 'Notifications'},
   {id: 2, icon: require('../assets/icons/call.png'), name: 'Contact Us'},
-  {id: 3, icon: require('../assets/icons/user.png'), name: 'About Us'},
+  {id: 3, icon: require('../assets/icons/profile.png'), name: 'About Us'},
   {id: 4, icon: require('../assets/icons/feedback.png'), name: 'Feedback'},
 ];
 const Settings = ({navigation}) => {
@@ -31,8 +31,8 @@ const Settings = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
-                height: 25,
-                width: 25,
+                height: 22,
+                width: 22,
                 marginRight: 10,
                 tintColor: '#ffffff',
               }}
@@ -43,7 +43,7 @@ const Settings = ({navigation}) => {
           <CustomText
             text="Settings"
             textColor="#f6bf3e"
-            textSize={25}
+            textSize={22}
             textWeight={700}
             style={{marginLeft: 10}}
           />
@@ -55,7 +55,7 @@ const Settings = ({navigation}) => {
           flex: 1,
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
-          marginTop: 30,
+          // marginTop: 30,
           //   justifyContent: 'center',
           //   alignItems: 'center',
           paddingLeft: 20,
