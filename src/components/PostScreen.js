@@ -345,6 +345,13 @@ const PostScreen = ({
                   <PostCard
                     style={{marginBottom: 10}}
                     deleteOnPress={handleDelete}
+                    usernameOnPress={() =>
+                      navigation.navigate('Dashboard', {
+                        userId: item.userId,
+                        username: item.username,
+                        avatar: item.avatar,
+                      })
+                    }
                     editOnPress={() =>
                       navigation.navigate('Edit Screen', {
                         post_id: item.id,
@@ -384,6 +391,7 @@ const PostScreen = ({
                   />
                 ) : flair == item.flair ? (
                   <PostCard
+                    usernameOnPress={() => console.log(item.userId)}
                     style={{marginBottom: 10}}
                     deleteOnPress={handleDelete}
                     editOnPress={() =>

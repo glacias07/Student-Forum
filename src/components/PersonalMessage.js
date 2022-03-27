@@ -121,8 +121,8 @@ const PersonalMessage = ({route, navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
                 marginRight: 10,
                 tintColor: '#ffffff',
               }}
