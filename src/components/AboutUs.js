@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {CustomText} from './common';
 
-const Notifications = ({navigation}) => {
+const AboutUs = ({navigation}) => {
   return (
     <View style={{backgroundColor: '#025ab4', flex: 1}}>
       <View
@@ -27,7 +27,7 @@ const Notifications = ({navigation}) => {
           </TouchableOpacity>
 
           <CustomText
-            text="Notifications"
+            text="About Us"
             textColor="#f6bf3e"
             textSize={25}
             textWeight={700}
@@ -45,23 +45,7 @@ const Notifications = ({navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Image
-          style={{height: 150, width: 150, marginBottom: 10, marginTop: -100}}
-          source={require('../assets/icons/owl.png')}
-        />
-
-        <CustomText
-          text="You are all caught up!"
-          textSize={25}
-          textWeight={800}
-          textColor={'#0a0e59'}
-        />
-        <CustomText
-          text="This has been a real hoot"
-          textSize={25}
-          textWeight={800}
-          textColor={'#0a0e59'}
-        />
+       
       </View>
     </View>
   );
@@ -69,4 +53,5 @@ const Notifications = ({navigation}) => {
 
 const styles = StyleSheet.create({});
 
-export default Notifications;
+export default AboutUs;
+

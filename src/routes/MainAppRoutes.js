@@ -21,6 +21,10 @@ import EditPostScreen from '../components/EditPostOrCommentOrReplyScreen';
 import Dashboard from '../components/Dashboard';
 import linking from './linking';
 import Notifications from '../components/Notifications';
+import Settings from '../components/Settings';
+import AboutUs from '../components/AboutUs';
+import ContactUs from '../components/ContactUs';
+import Feedback from '../components/Feedback';
 const Stack = createNativeStackNavigator();
 
 // const Splash = createNativeStackNavigator();
@@ -131,7 +135,7 @@ function MainAppRoutes(props) {
                     headerStyle: Styles.commonHeaderStyle,
                     headerTitleStyle: Styles.commonHeaderTitleStyle,
                     headerTitleAlign: 'center',
-                    headerShown: false
+                    headerShown: false,
                   })}
                 />
                 <Stack.Screen
@@ -163,18 +167,63 @@ function MainAppRoutes(props) {
                     headerStyle: Styles.commonHeaderStyle,
                     headerTitleStyle: Styles.commonHeaderTitleStyle,
                     headerTitleAlign: 'center',
-                    headerShown: false
+                    headerShown: false,
                   }}
                 />
-                    <Stack.Screen
-                  name="Notification"
+
+                <Stack.Screen
+                  name="Settings"
+                  component={Settings}
+                  options={{
+                    // headerShadowVisible: false,
+                    headerStyle: Styles.commonHeaderStyle,
+                    headerTitleStyle: Styles.commonHeaderTitleStyle,
+                    headerTitleAlign: 'center',
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Notifications"
                   component={Notifications}
                   options={{
                     // headerShadowVisible: false,
                     headerStyle: Styles.commonHeaderStyle,
                     headerTitleStyle: Styles.commonHeaderTitleStyle,
                     headerTitleAlign: 'center',
-                    headerShown: false
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="About Us"
+                  component={AboutUs}
+                  options={{
+                    // headerShadowVisible: false,
+                    headerStyle: Styles.commonHeaderStyle,
+                    headerTitleStyle: Styles.commonHeaderTitleStyle,
+                    headerTitleAlign: 'center',
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Contact Us"
+                  component={ContactUs}
+                  options={{
+                    // headerShadowVisible: false,
+                    headerStyle: Styles.commonHeaderStyle,
+                    headerTitleStyle: Styles.commonHeaderTitleStyle,
+                    headerTitleAlign: 'center',
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Feedback"
+                  component={Feedback}
+                  options={{
+                    // headerShadowVisible: false,
+                    headerStyle: Styles.commonHeaderStyle,
+                    headerTitleStyle: Styles.commonHeaderTitleStyle,
+                    headerTitleAlign: 'center',
+                    headerShown: false,
                   }}
                 />
               </>

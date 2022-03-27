@@ -85,7 +85,7 @@ const LoginScreen = props => {
                 textWeight={500}
               />
               <CustomText
-                text=" Sinomine"
+                text=" ReachOut"
                 textColor={'#dab54e'}
                 textSize={25}
                 textWeight={700}
