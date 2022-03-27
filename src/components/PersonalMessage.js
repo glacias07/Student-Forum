@@ -135,7 +135,7 @@ const PersonalMessage = ({route, navigation}) => {
           />
           <CustomText
             text={route.params.friendData.username}
-            textColor="#ffffff"
+            textColor="#ffc33a"
             textSize={22}
             textWeight={500}
           />

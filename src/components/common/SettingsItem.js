@@ -9,12 +9,16 @@ const SettingsItem = props => {
       onPress={onPress}
       style={{
         width: '100%',
-        padding: 20,
-        borderBottomWidth: 0.5,
+        // padding: 20,
+        // paddingHorizontal: 10,
+        padding: 15,
+        borderBottomWidth: 0.8,
+        borderBottomColor: '#E4EFF0',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingRight: 30,
+        // elevation: 1
+        // paddingRight: 30,
       }}>
       <View
         style={{
@@ -22,17 +26,17 @@ const SettingsItem = props => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Image style={{height: 25, width: 25, marginRight: 15}} source={icon}  />
+        <Image style={{height: 20, width: 20, marginRight: 15}} source={icon}  />
         <CustomText
           text={name}
-          textSize={25}
+          textSize={18}
           textWeight={600}
           textColor="black"
         />
       </View>
 
       <Image
-        style={{height: 30, width: 30}}
+        style={{height: 25, width: 25}}
         source={require('../../assets/icons/next.png')}
       />
     </TouchableOpacity>

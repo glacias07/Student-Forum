@@ -51,7 +51,7 @@ const Settings = ({navigation}) => {
       </View>
       <View
         style={{
-          backgroundColor: 'white',
+          backgroundColor: '#ffffff',
           flex: 1,
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,

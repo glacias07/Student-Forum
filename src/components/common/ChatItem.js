@@ -33,7 +33,7 @@ const ChatItem = props => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderBottomColor: '#c9ced5',
+    borderBottomColor: '#E4EFF0',
     // width: '70%',
     // justifyContent: 'space-between',
     // alignSelf: 'center',
