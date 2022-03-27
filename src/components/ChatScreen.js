@@ -130,9 +130,7 @@ const ChatScreen = ({
             />
           </View>
         </View>
-        {friendsList == null ? (
-          <HomeScreenShimmer />
-        ) : (
+       
           <FlatList
             style={{
               borderTopLeftRadius: 25,
@@ -188,7 +186,7 @@ const ChatScreen = ({
               />
             )}
           />
-        )}
+    
       </View>
     </>
   );

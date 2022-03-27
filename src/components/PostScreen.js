@@ -272,7 +272,7 @@ const PostScreen = ({
             <View style={{padding: 10}}>
               <FlatList
                 data={flairData}
-                numColumns={3}
+                numColumns={2}
                 renderItem={({item}) => (
                   <Flair
                     flairOnPress={() => {
@@ -339,6 +339,29 @@ const PostScreen = ({
             data={posts}
             removeClippedSubviews={true}
             initialNumToRender={5}
+            ListEmptyComponent={
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 120,
+                }}>
+                <Image
+                  style={{height: 80, width: 80, marginBottom: 10}}
+                  source={require('../assets/images/confused.png')}
+                />
+                <CustomText
+                  text="No Chats Yet !"
+                  textSize={20}
+                  textWeight={200}
+                />
+                <CustomText
+                  text="Why don't you start one?"
+                  textSize={15}
+                  textWeight={600}
+                />
+              </View>
+            }
             renderItem={({item, index}) => (
               <>
                 {flair == null ? (

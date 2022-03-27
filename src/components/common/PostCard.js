@@ -282,7 +282,7 @@ const PostCard = ({
                         tintColor: '#868686',
                       }}
                     />
-                    <CustomText text="Download PDF" textColor="black" />
+                    <CustomText text="Generate Report" textColor="black" />
                   </View>
                 </MenuOption>
               </MenuOptions>
