@@ -213,6 +213,19 @@ const SignUp = ({navigation}) => {
     }
   };
 
+  const userCanRegister = () => {
+    if (
+      !passwordIsWeak &&
+      !emailIsInvalid &&
+      !usernameIsInvalid &&
+      !usernameNotAvailable
+    ) {
+      return true;
+    } else {
+      return Alert.alert('nope');
+    }
+  };
+
   return (
     <View
       style={{
@@ -375,15 +388,10 @@ const SignUp = ({navigation}) => {
             ) : null}
             <TouchableOpacity
               onPress={() => {
-                if (formValidation(password, email)) {
+                if (userCanRegister()) {
                   scrollToEndHorizontally();
                 }
               }}
-              // onPress={() => {
-              //   if (1 == 1) {
-              //     scrollToEndHorizontally();
-              //   }
-              // }}
               style={{
                 width: '100%',
                 backgroundColor: '#ffc33a',
