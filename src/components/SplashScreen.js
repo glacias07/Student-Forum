@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Modal,
+  ImageBackground,
+} from 'react-native';
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../routes/AuthProvider';
@@ -8,7 +15,6 @@ import {connect} from 'react-redux';
 import {modalVisibleSet} from '../actions/PostScreenActions';
 
 const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
-  const {main} = styles;
   useEffect(() => {
     showModal();
   }, []);
@@ -21,47 +27,23 @@ const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
   };
   return (
     <>
-      <Modal
-      style={{main}}
-        animation="fade"
-        visibile={modal_visible}
-        onAnimationFinish={() => modalVisibleSet(false)}>
-        <View style={main}>
-          <View
-            style={{
-              height: 400,
-              width: 400,
-              backgroundColor: '#025ab4',
-              position: 'absolute',
-              top:-220,
-              right: -220,
-              borderRadius: 75
-            }}></View>
-          <View
-            style={{
-              height: 400,
-              width: 400,
-              backgroundColor: '#025ab4',
-              position: 'absolute',
-              bottom:-220,
-              left: -220,
-              borderRadius: 75
-            }}></View>
-          <Image style={{height: 80, width: (80*3.5)}} source={require('../assets/images/splash.png')} />
-        </View>
-      </Modal>
+      <ImageBackground
+        style={{
+          flex: 1,
+          // height: 1100,
+          resizeMode: 'cover',
+        }}
+        resizeMode="cover"
+        source={require('../assets/images/splash_bg.jpeg')}>
+        <Modal
+          transparent={true}
+          animation="fade"
+          visibile={modal_visible}
+          onAnimationFinish={() => modalVisibleSet(false)}></Modal>
+      </ImageBackground>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: '#0063c6',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const mapStateToProps = state => {
   return {
