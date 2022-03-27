@@ -33,7 +33,7 @@ const PostCard = ({
   avatar,
   flair,
   flairColor,
-  usernameOnPress
+  usernameOnPress,
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
@@ -102,16 +102,18 @@ const PostCard = ({
                 alignItems: 'center',
                 flex: 1,
               }}>
-              <Image
-                style={{
-                  height: 45,
-                  width: 45,
-                  marginRight: 10,
-                  borderRadius: 150 / 2,
-                  backgroundColor: '#ffffff',
-                }}
-                source={{uri: avatar}}
-              />
+              <TouchableOpacity onPress={usernameOnPress}>
+                <Image
+                  style={{
+                    height: 45,
+                    width: 45,
+                    marginRight: 10,
+                    borderRadius: 150 / 2,
+                    backgroundColor: '#ffffff',
+                  }}
+                  source={{uri: avatar}}
+                />
+              </TouchableOpacity>
 
               <View>
                 <TouchableOpacity onPress={usernameOnPress}>

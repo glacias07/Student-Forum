@@ -79,95 +79,60 @@ const ViewAllUserPostsScreen = ({route, navigation}) => {
     <FlatList
       data={route.params.posts}
       contentContainerStyle={{
-        paddingBottom: 10,
+        // paddingBottom: 10,
         backgroundColor: '#e5e5e5',
       }}
       showsVerticalScrollIndicator={false}
       initialNumToRender={5}
       renderItem={({item, index}) => (
         <>
-          {index > 0 ? (
-            <PostCard
-              style={{marginTop: 10}}
-              deleteOnPress={handleDelete}
-              editOnPress={() =>
-                navigation.navigate('Edit Screen', {
-                  post_id: item.id,
-                  post_title: item.postTitle,
-                  default_value: item.postContent,
-                  title: 'Post',
-                  placeholder: 'Post Content',
-                })
-              }
-              cardOnPress={() => {
-                navigation.navigate('PostDetails', {
-                  user_id: item.userId,
-                  post_id: item.id,
-                  post_title: item.postTitle,
-                  post_content: item.postContent,
-                  username: item.username,
-                  post_time: item.postTime,
-                  download_url: item.downloadUrl,
-                  avatar: item.avatar,
-                  no_of_comments: item.no_of_comments,
-                  flair: item.flair,
-                  flairColor: item.flairColor,
-                });
-              }}
-              postId={item.id}
-              postTitle={item.postTitle}
-              postContent={item.postContent}
-              postDate={item.postTime}
-              userId={item.userId}
-              username={item.username}
-              imageUrl={item.downloadUrl}
-              navigation={navigation}
-              no_of_comments={item.no_of_comments}
-              avatar={item.avatar}
-              flair={item.flair}
-              flairColor={item.flairColor}
-            />
-          ) : (
-            <PostCard
-              deleteOnPress={handleDelete}
-              editOnPress={() =>
-                navigation.navigate('Edit Screen', {
-                  post_id: item.id,
-                  post_title: item.postTitle,
-                  default_value: item.postContent,
-                  title: 'Post',
-                  placeholder: 'Post Content',
-                })
-              }
-              cardOnPress={() => {
-                navigation.navigate('PostDetails', {
-                  user_id: item.userId,
-                  post_id: item.id,
-                  post_title: item.postTitle,
-                  post_content: item.postContent,
-                  username: item.username,
-                  post_time: item.postTime,
-                  download_url: item.downloadUrl,
-                  avatar: item.avatar,
-                  no_of_comments: item.no_of_comments,
-                  flair:item.flair,
-                    flairColor:item.flairColor
-                });
-              }}
-              postId={item.id}
-              postTitle={item.postTitle}
-              postContent={item.postContent}
-              postDate={item.postTime}
-              userId={item.userId}
-              username={item.username}
-              imageUrl={item.downloadUrl}
-              navigation={navigation}
-              no_of_comments={item.no_of_comments}
-              avatar={item.avatar}
-              flair={item.flair}
-              flairColor={item.flairColor}
-            />
-          )}
+          <PostCard
+            usernameOnPress={() =>
+              navigation.navigate('Dashboard', {
+                userId: item.userId,
+                username: item.username,
+                avatar: item.avatar,
+              })
+            }
+            style={{marginBottom: 10}}
+            deleteOnPress={handleDelete}
+            editOnPress={() =>
+              navigation.navigate('Edit Screen', {
+                post_id: item.id,
+                post_title: item.postTitle,
+                default_value: item.postContent,
+                title: 'Post',
+                placeholder: 'Post Content',
+              })
+            }
+            cardOnPress={() => {
+              navigation.navigate('PostDetails', {
+                user_id: item.userId,
+                post_id: item.id,
+                post_title: item.postTitle,
+                post_content: item.postContent,
+                username: item.username,
+                post_time: item.postTime,
+                download_url: item.downloadUrl,
+                avatar: item.avatar,
+                no_of_comments: item.no_of_comments,
+                flair: item.flair,
+                flairColor: item.flairColor,
+              });
+            }}
+            postId={item.id}
+            postTitle={item.postTitle}
+            postContent={item.postContent}
+            postDate={item.postTime}
+            userId={item.userId}
+            username={item.username}
+            imageUrl={item.downloadUrl}
+            navigation={navigation}
+            no_of_comments={item.no_of_comments}
+            avatar={item.avatar}
+            flair={item.flair}
+            flairColor={item.flairColor}
+          />
         </>
       )}></FlatList>
   );
