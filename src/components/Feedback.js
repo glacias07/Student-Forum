@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert
 } from 'react-native';
 import {CustomText} from './common';
 
@@ -81,6 +82,7 @@ const Feedback = ({navigation}) => {
           placeholder="Ex-What we can do to improve our app?"
         />
         <TouchableOpacity
+        onPress={()=>Alert.alert("Thankyou for your valuable feedback!")}
          disabled={feedback? false:true}
           style={{
             width: '20%',
