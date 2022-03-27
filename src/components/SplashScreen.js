@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet,Image,Modal} from 'react-native';
+import {View, Text, StyleSheet, Image, Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../routes/AuthProvider';
@@ -35,7 +35,27 @@ const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
         visibile={modal_visible}
         onAnimationFinish={() => modalVisibleSet(false)}>
         <View style={main}>
-        <Image   source={require('../assets/images/splash.png')}/>
+          <View
+            style={{
+              height: 400,
+              width: 400,
+              backgroundColor: '#025ab4',
+              position: 'absolute',
+              top:-220,
+              right: -220,
+              borderRadius: 75
+            }}></View>
+          <View
+            style={{
+              height: 400,
+              width: 400,
+              backgroundColor: '#025ab4',
+              position: 'absolute',
+              bottom:-220,
+              left: -220,
+              borderRadius: 75
+            }}></View>
+          <Image style={{height: 80, width: (80*3.5)}} source={require('../assets/images/splash.png')} />
         </View>
       </Modal>
     </>
@@ -44,10 +64,10 @@ const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#0063c6',
     height: '100%',
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
