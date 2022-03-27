@@ -9,7 +9,7 @@ const ContactUs = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 10,
+          // padding: 10,
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
@@ -29,7 +29,7 @@ const ContactUs = ({navigation}) => {
           <CustomText
             text="Contact Us"
             textColor="#f6bf3e"
-            textSize={25}
+            textSize={22}
             textWeight={700}
             style={{marginLeft: 10}}
           />
@@ -39,14 +39,37 @@ const ContactUs = ({navigation}) => {
         style={{
           backgroundColor: 'white',
           flex: 1,
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-          marginTop: 30,
-          justifyContent: 'center',
-          alignItems: 'center',
+          // borderTopLeftRadius: 25,
+          // borderTopRightRadius: 25,
+          // marginTop: 10,
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          paddingLeft:20,
+          paddingTop:10
         }}>
-       
+          <CustomText text='Contact Address :-' textSize={24} textWeight={600} textColor={'black'} />
+          <CustomText text='Amodh Pandey -'  textSize={20} textWeight={500} textColor="black" style={{marginTop:20}}/>
+          <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <CustomText text='Phone-' textSize={20} textWeight={500} />
+            <CustomText text='9769388613' textSize={20} textWeight={500} />
+          </View>
+          <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <CustomText text='Email Id-' textSize={20} textWeight={500} />
+            <CustomText text='amodh.pandey@somaiya.edu' textSize={20} textWeight={500} />
+          </View>
+
+          <CustomText text='Shriyans Naik -'  textSize={20} textWeight={500} textColor="black" style={{marginTop:20}}/>
+          <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <CustomText text='Phone-' textSize={20} textWeight={500} />
+            <CustomText text='7777077180' textSize={20} textWeight={500} />
+          </View>
+          <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <CustomText text='Email Id-' textSize={20} textWeight={500} />
+            <CustomText text='shriyans.n@somaiya.edu' textSize={20} textWeight={500} />
+          </View>
       </View>
+
+   
     </View>
   );
 };

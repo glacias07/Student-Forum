@@ -9,7 +9,7 @@ const AboutUs = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 10,
+          // padding: 10,
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
@@ -29,7 +29,7 @@ const AboutUs = ({navigation}) => {
           <CustomText
             text="About Us"
             textColor="#f6bf3e"
-            textSize={25}
+            textSize={22}
             textWeight={700}
             style={{marginLeft: 10}}
           />
@@ -39,13 +39,31 @@ const AboutUs = ({navigation}) => {
         style={{
           backgroundColor: 'white',
           flex: 1,
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-          marginTop: 30,
-          justifyContent: 'center',
-          alignItems: 'center',
+          // borderTopLeftRadius: 25,
+          // borderTopRightRadius: 25,
+          // marginTop: 30,
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          paddingLeft: 20,
+          paddingTop: 10,
+          paddingRight: 20,
         }}>
-       
+        <CustomText text="Purpose" textSize={24} textWeight={500} style={{marginBottom:10}} />
+        <CustomText
+          text="Encourage Students to share their problems with teachers and their peers anonymously without being ashamed or embarrassed."
+          textSize={18}
+          textWeight={400}
+        />
+        <CustomText
+          text="Students and teachers can view and comment on posts and privately chat with the concerned student."
+          textSize={18}
+          textWeight={400}
+        />
+        <CustomText
+          text="Thus a Platform for students to Reach Out and seek help anonymously"
+          textSize={18}
+          textWeight={400}
+        />
       </View>
     </View>
   );
@@ -54,4 +72,3 @@ const AboutUs = ({navigation}) => {
 const styles = StyleSheet.create({});
 
 export default AboutUs;
-
