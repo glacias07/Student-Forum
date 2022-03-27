@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 
 import {
   View,
@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Alert
+  Alert,
 } from 'react-native';
 import {CustomText} from './common';
 
 const Feedback = ({navigation}) => {
-  const[feedback,setFeedback]=useState('')
+  const [feedback, setFeedback] = useState('');
   return (
     <View style={{backgroundColor: '#025ab4', flex: 1}}>
       <View
@@ -26,8 +26,8 @@ const Feedback = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
                 marginRight: 10,
                 tintColor: '#ffffff',
               }}
@@ -38,7 +38,7 @@ const Feedback = ({navigation}) => {
           <CustomText
             text="Feedback"
             textColor="#f6bf3e"
-            textSize={25}
+            textSize={22}
             textWeight={700}
             style={{marginLeft: 10}}
           />
@@ -69,33 +69,36 @@ const Feedback = ({navigation}) => {
         <TextInput
           multiline
           style={{
-            // height: 40,
-            width: '70%',
+            // height: 80,
+            width: '90%',
             backgroundColor: '#f7f5f5',
             borderRadius: 10,
             maxHeight: 260,
             borderWidth: 0.5,
-            marginTop: 10,
-            padding: 15,
+            marginVertical: 10,
+            // padding: 15,
+            paddingLeft: 10,
           }}
-          onChangeText={value=>setFeedback(value)}
+          onChangeText={value => setFeedback(value)}
           placeholder="Ex-What we can do to improve our app?"
         />
         <TouchableOpacity
-        onPress={()=>Alert.alert("Thankyou for your valuable feedback!")}
-         disabled={feedback? false:true}
+          onPress={() => Alert.alert('Thankyou for your valuable feedback!')}
+          disabled={feedback ? false : true}
           style={{
             width: '20%',
-            backgroundColor: !feedback? 'lightgrey': '#025ab4',
+            backgroundColor: !feedback ? 'lightgrey' : '#ffc33a',
             padding: 10,
             marginTop: 10,
             borderRadius: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
           <CustomText
-            text={'submit'}
+            text={'Submit'}
             textSize={15}
             textWeight={600}
-            textColor={!feedback?'black':"#f6bf3e"}
+            textColor={!feedback ? 'black' : '#414b5a'}
           />
         </TouchableOpacity>
       </View>

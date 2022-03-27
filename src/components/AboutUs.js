@@ -17,8 +17,8 @@ const AboutUs = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
-                height: 25,
-                width: 25,
+                height: 22,
+                width: 22,
                 marginRight: 10,
                 tintColor: '#ffffff',
               }}

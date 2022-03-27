@@ -9,7 +9,7 @@ const Notifications = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 10,
+          // padding: 10,
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
@@ -17,8 +17,8 @@ const Notifications = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               style={{
-                height: 25,
-                width: 25,
+                height: 22,
+                width: 22,
                 marginRight: 10,
                 tintColor: '#ffffff',
               }}
@@ -29,7 +29,7 @@ const Notifications = ({navigation}) => {
           <CustomText
             text="Notifications"
             textColor="#f6bf3e"
-            textSize={25}
+            textSize={22}
             textWeight={700}
             style={{marginLeft: 10}}
           />
@@ -39,9 +39,9 @@ const Notifications = ({navigation}) => {
         style={{
           backgroundColor: 'white',
           flex: 1,
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-          marginTop: 30,
+          // borderTopLeftRadius: 25,
+          // borderTopRightRadius: 25,
+          // marginTop: 30,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
