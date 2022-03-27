@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,Image,Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../routes/AuthProvider';
@@ -7,7 +7,7 @@ import {useContext, useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {modalVisibleSet} from '../actions/PostScreenActions';
 
-const SplashScreen = ({navigation, modalVisibleSet}) => {
+const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
   const {main} = styles;
 
   //   const {user, setUser} = useContext(AuthContext);
@@ -18,32 +18,43 @@ const SplashScreen = ({navigation, modalVisibleSet}) => {
   //     if (initializing) setInitializing(false);
   //   };
 
-  //   useEffect(() => {
-  //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //     return subscriber; // unsubscribe on unmount
-  //   }, []);
+  useEffect(() => {
+    showModal();
+  }, []);
 
   //   if (initializing) return null;
+  const showModal = () => {
+    setTimeout(() => {
+      modalVisibleSet(false);
+    }, 2000);
+  };
   return (
     <>
-      <View style={main}>
-        <LottieView
-          source={require('../assets/Splash.json')}
-          autoPlay
-          loop={false}
-          speed={3}
-          onAnimationFinish={() => modalVisibleSet(false)}
-        />
-      </View>
+      <Modal
+        animation="slide"
+        visibile={modal_visible}
+        onAnimationFinish={() => modalVisibleSet(false)}>
+        <View style={main}>
+        <Image   source={require('../assets/images/splash.png')}/>
+        </View>
+      </Modal>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#3490dc',
-    flex: 1,
+    backgroundColor: 'yellow',
+    height: '100%',
+    justifyContent:'center',
+    alignItems:'center'
   },
 });
 
-export default connect(null, {modalVisibleSet})(SplashScreen);
+const mapStateToProps = state => {
+  return {
+    modal_visible: state.postListing.modal_visible,
+  };
+};
+
+export default connect(mapStateToProps, {modalVisibleSet})(SplashScreen);
