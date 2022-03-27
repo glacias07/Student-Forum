@@ -33,6 +33,7 @@ const PostCard = ({
   avatar,
   flair,
   flairColor,
+  usernameOnPress
 }) => {
   const {user, onAddFriend} = useContext(AuthContext);
   const person = 'Shriyans';
@@ -113,14 +114,16 @@ const PostCard = ({
               />
 
               <View>
-                <CustomText
-                  textColor="#000000"
-                  textSize={16}
-                  textWeight={500}
-                  numberOfLines={2}
-                  text={username}
-                  style={{marginBottom: 3}}
-                />
+                <TouchableOpacity onPress={usernameOnPress}>
+                  <CustomText
+                    textColor="#000000"
+                    textSize={16}
+                    textWeight={500}
+                    numberOfLines={2}
+                    text={username}
+                    style={{marginBottom: 3}}
+                  />
+                </TouchableOpacity>
                 <CustomText
                   textColor="#00000080"
                   textSize={12}
@@ -128,6 +131,7 @@ const PostCard = ({
                   numberOfLines={1}
                   text={moment(postDate.toDate()).fromNow()}
                 />
+
                 <View
                   style={{
                     backgroundColor: flairColor,

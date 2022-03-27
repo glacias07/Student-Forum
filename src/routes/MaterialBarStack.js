@@ -1,6 +1,6 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import HelpDesk from '../components/HelpDesk';
-import React from 'react';
+import React,{useContext} from 'react';
 import {
   View,
   Image,
@@ -12,11 +12,14 @@ import PostScreen from '../components/PostScreen';
 import {CustomText} from '../components/common';
 import {connect} from 'react-redux';
 import {filterModalVisibleSet} from '../actions';
+import {AuthContext} from '../routes/AuthProvider';
+import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 
 const MaterialTab = createMaterialTopTabNavigator();
 
 const MaterialBarStack = props => {
-  const {avatar, navigation, filterModalVisibleSet} = props;
+  const {avatar, navigation, filterModalVisibleSet, username} = props;
+  const {user} = useContext(AuthContext);
   return (
     <>
       <View style={{backgroundColor: '#ffffff'}}>
@@ -28,7 +31,7 @@ const MaterialBarStack = props => {
             alignItems: 'center',
             // backgroundColor: '#ffffff',
           }}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Settings')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
             <Image
               style={{width: 25, height: 25}}
               source={require('../assets/icons/setting.png')}
@@ -44,7 +47,10 @@ const MaterialBarStack = props => {
             style={{width: 100, height: 35}}
             source={require('../assets/images/splash.png')}
           /> */}
-          <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Dashboard', {userId: user.uid, username: username, avatar: avatar})
+            }>
             <Image
               style={{
                 height: 35,
@@ -206,6 +212,7 @@ const mapStateToProps = state => {
   return {
     avatar: state.postListing.avatar,
     filter_modal_visible: state.postListing.filter_modal_visible,
+    username: state.postListing.username,
   };
 };
 export default connect(mapStateToProps, {filterModalVisibleSet})(

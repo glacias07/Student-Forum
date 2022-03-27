@@ -16,19 +16,23 @@ import {connect} from 'react-redux';
 
 import PostCard from './common/PostCard';
 
-const Dashboard = ({navigation, username, avatar}) => {
+const Dashboard = ({navigation, username, avatar, route}) => {
   const {user, logout} = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [friendUserId, setFriendUserId] = useState([]);
+  const [friendUsername, setFriendUsername] = useState([]);
+  const [friendAvatar, setFriendAvatar] = useState([]);
+
   const fetchPosts = async () => {
     try {
       const list = [];
 
       await firestore()
         .collection('posts')
-        .where('userId', '==', user.uid)
+        .where('userId', '==', route.params.userId)
         .orderBy('postTime', 'desc')
         .get()
         .then(querySnapshot => {
@@ -132,7 +136,39 @@ const Dashboard = ({navigation, username, avatar}) => {
       });
   };
 
+  // const fetchUserDetails = async () => {
+  //   try {
+  //     const list = [];
+
+  //     await firestore()
+  //       .collection('userDetails')
+  //       .where('userId', '==', route.params.userId)
+  //       .get()
+  //       .then(querySnapshot => {
+  //         querySnapshot.forEach(doc => {
+  //           const {userId, username, avatar} = doc.data();
+  //           list.push({
+  //             userId,
+  //             username,
+  //             avatar,
+  //           });
+  //         });
+  //       });
+  //     // console.log('User details ', list);
+  //     setFriendUserId(list[0].userId);
+  //     setFriendUsername(list[0].username);
+  //     avatarSet(list[0].avatar);
+
+  //     if (loading) {
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.log('Error while fetching User Details', error);
+  //   }
+  // };
+
   useEffect(() => {
+    // fetchUserDetails();
     fetchPosts();
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     navigation.addListener('focus', () => setLoading(!loading));
@@ -140,7 +176,7 @@ const Dashboard = ({navigation, username, avatar}) => {
   }, [navigation, loading, deleted]);
 
   return (
-    <ScrollView >
+    <ScrollView>
       <View style={{backgroundColor: '#025ab4', zIndex: 1}}>
         <View
           style={{
@@ -174,42 +210,44 @@ const Dashboard = ({navigation, username, avatar}) => {
               textWeight={500}
             />
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Edit Profile', {
-                  username: username,
-                  avatar: avatar,
-                  // posts: posts,
-                });
-              }}>
-              <Image
-                style={{
-                  height: 20,
-                  width: 20,
-                  tintColor: '#ffffff',
-                  marginRight: 15,
-                  marginLeft: 15,
-                }}
-                source={require('../assets/icons/edit.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                logout();
-              }}>
-              <Image
-                style={{
-                  height: 20,
-                  width: 20,
-                  tintColor: '#ffffff',
-                  marginRight: 15,
-                  marginLeft: 15,
-                }}
-                source={require('../assets/icons/logout.png')}
-              />
-            </TouchableOpacity>
-          </View>
+          {user.uid == route.params.userId ? (
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Edit Profile', {
+                    username: username,
+                    avatar: avatar,
+                    // posts: posts,
+                  });
+                }}>
+                <Image
+                  style={{
+                    height: 20,
+                    width: 20,
+                    tintColor: '#ffffff',
+                    marginRight: 15,
+                    marginLeft: 15,
+                  }}
+                  source={require('../assets/icons/edit.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  logout();
+                }}>
+                <Image
+                  style={{
+                    height: 20,
+                    width: 20,
+                    tintColor: '#ffffff',
+                    marginRight: 15,
+                    marginLeft: 15,
+                  }}
+                  source={require('../assets/icons/logout.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null}
         </View>
         <View
           style={{
@@ -223,7 +261,7 @@ const Dashboard = ({navigation, username, avatar}) => {
           }}></View>
         <View style={{justifyContent: 'center'}}>
           <Image
-            source={{uri: avatar}}
+            source={{uri: route.params.avatar}}
             style={{
               width: 150,
               height: 150,
@@ -231,7 +269,7 @@ const Dashboard = ({navigation, username, avatar}) => {
             }}
           />
           <CustomText
-            text={username}
+            text={route.params.username}
             textColor="#ffffff"
             textSize={30}
             textWeight={500}
@@ -310,7 +348,7 @@ const Dashboard = ({navigation, username, avatar}) => {
           textSize={20}
           textWeight={500}
           textColor={'#3e3f53'}
-          text={'Your Posts'}
+          text={user.uid == route.params.userId ? 'Your Posts' : 'User Posts'}
         />
         <TouchableOpacity
           style={{alignItems: 'center', flexDirection: 'row'}}
@@ -365,8 +403,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                     download_url: item.downloadUrl,
                     avatar: item.avatar,
                     no_of_comments: item.no_of_comments,
-                    flair:item.flair,
-                    flairColor:item.flairColor
+                    flair: item.flair,
+                    flairColor: item.flairColor,
                   });
                 }}
                 postId={item.id}
@@ -405,8 +443,8 @@ const Dashboard = ({navigation, username, avatar}) => {
                     download_url: item.downloadUrl,
                     avatar: item.avatar,
                     no_of_comments: item.no_of_comments,
-                    flair:item.flair,
-                    flairColor:item.flairColor
+                    flair: item.flair,
+                    flairColor: item.flairColor,
                   });
                 }}
                 postId={item.id}
