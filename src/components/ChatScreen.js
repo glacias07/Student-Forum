@@ -8,6 +8,8 @@ import {
   setFriendList,
   searchBoxValueChanged,
 } from '../actions/PostScreenActions';
+import HomeScreenShimmer from './HomeScreenShimmer';
+
 const data = [
   {
     id: '1',
@@ -128,60 +130,65 @@ const ChatScreen = ({
             />
           </View>
         </View>
-        <FlatList
-          style={{
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
-            flex: 1,
-            backgroundColor: '#ffffff',
-          }}
-          contentContainerStyle={{marginTop: 0}}
-          data={search ==  '' ? friendsList:filtered_friend_list}
-          ListEmptyComponent={
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 120,
-              }}>
-              <Image
-                style={{height: 80, width: 80, marginBottom: 10}}
-                source={require('../assets/images/confused.png')}
+        {friendsList == null ? (
+          <HomeScreenShimmer />
+        ) : (
+          <FlatList
+            style={{
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+              flex: 1,
+              height: '100%',
+              backgroundColor: '#ffffff',
+            }}
+            contentContainerStyle={{marginTop: 0}}
+            data={search == '' ? friendsList : filtered_friend_list}
+            ListEmptyComponent={
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 120,
+                }}>
+                <Image
+                  style={{height: 80, width: 80, marginBottom: 10}}
+                  source={require('../assets/images/confused.png')}
+                />
+                <CustomText
+                  text="No Chats Yet !"
+                  textSize={20}
+                  textWeight={200}
+                />
+                <CustomText
+                  text="Why don't you start one?"
+                  textSize={15}
+                  textWeight={600}
+                />
+              </View>
+            }
+            renderItem={({item}) => (
+              <ChatItem
+                style={{borderRadius: 25}}
+                chatOnPress={() => {
+                  navigation.navigate('Personal Message', {
+                    friendData: item,
+                    myData: myData,
+                    username: item.username,
+                  });
+                  // console.log("Username",item.username)
+                  // console.log("MyData",myData)
+                  // console.log("FirendData",item)
+                  console.log('Friends', friend_list);
+                }}
+                navigation={navigation}
+                userImg={item.avatar}
+                userName={item.username}
+                messageText={item.messageText}
+                messageTime={item.messageTime}
               />
-              <CustomText
-                text="No Chats Yet !"
-                textSize={20}
-                textWeight={200}
-              />
-              <CustomText
-                text="Why don't you start one?"
-                textSize={15}
-                textWeight={600}
-              />
-            </View>
-          }
-          renderItem={({item}) => (
-            <ChatItem
-              style={{borderRadius: 25}}
-              chatOnPress={() => {
-                navigation.navigate('Personal Message', {
-                  friendData: item,
-                  myData: myData,
-                  username: item.username,
-                });
-                // console.log("Username",item.username)
-                // console.log("MyData",myData)
-                // console.log("FirendData",item)
-                console.log('Friends', friend_list);
-              }}
-              navigation={navigation}
-              userImg={item.avatar}
-              userName={item.username}
-              messageText={item.messageText}
-              messageTime={item.messageTime}
-            />
-          )}
-        />
+            )}
+          />
+        )}
       </View>
     </>
   );
@@ -199,5 +206,4 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   setFriendList,
   searchBoxValueChanged,
-
 })(ChatScreen);

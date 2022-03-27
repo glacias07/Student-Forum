@@ -9,15 +9,6 @@ import {modalVisibleSet} from '../actions/PostScreenActions';
 
 const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
   const {main} = styles;
-
-  //   const {user, setUser} = useContext(AuthContext);
-  //   const [initializing, setInitializing] = useState(true);
-
-  //   const onAuthStateChanged = user => {
-  //     setUser(user);
-  //     if (initializing) setInitializing(false);
-  //   };
-
   useEffect(() => {
     showModal();
   }, []);
@@ -31,7 +22,8 @@ const SplashScreen = ({navigation, modalVisibleSet, modal_visible}) => {
   return (
     <>
       <Modal
-        animation="slide"
+      style={{main}}
+        animation="fade"
         visibile={modal_visible}
         onAnimationFinish={() => modalVisibleSet(false)}>
         <View style={main}>
