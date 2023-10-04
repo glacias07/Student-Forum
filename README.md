@@ -5,11 +5,16 @@ Welcome to Student Forum, the inclusive platform for students to share their tho
 
 **Key Features:**
 
-- **Anonymous Posting:** Share your thoughts, problems, and life events without revealing your identity.  
-- **Multimedia Posts:** Enhance your posts with images and visuals to better express yourself.  
-- **Interactive Discussions:** Engage in lively conversations through comments on posts and replies to comments.  
-- **1-to-1 Real-Time Chat:** Connect privately with other users for personalized discussions and support.  
-- **Professional Counselors:** Access professional counselors within the app for confidential help and guidance.  
+- **Anonymous Posting:** Share your thoughts, problems, and life events without revealing your identity.
+
+- **Multimedia Posts:** Enhance your posts with images and visuals to better express yourself.
+
+- **Interactive Discussions:** Engage in lively conversations through comments on posts and replies to comments.
+  
+- **1-to-1 Real-Time Chat:** Connect privately with other users for personalized discussions and support.
+  
+- **Professional Counselors:** Access professional counselors within the app for confidential help and guidance.
+  
   ...and many more.
   
 ![image](https://github.com/shriyansnaik/Student-Forum/assets/66057990/09d17cf5-8d08-4472-8cc3-1baff28d3082)
